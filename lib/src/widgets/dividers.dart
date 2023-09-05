@@ -9,7 +9,6 @@ class PIDividers extends Divider {
         Expanded(
             child: Divider(
           color: Colors.grey.shade500,
-          indent: 20,
           endIndent: 20,
         )),
         Text(
@@ -20,7 +19,6 @@ class PIDividers extends Divider {
             child: Divider(
           color: Colors.grey.shade500,
           indent: 20,
-          endIndent: 20,
         ))
       ],
     );

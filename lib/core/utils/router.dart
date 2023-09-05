@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/src/auth/login/login_view.dart';
+import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_details_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_list_view.dart';
 import 'package:privateinsta/src/settings/settings_controller.dart';
@@ -19,6 +20,8 @@ class AppRouter {
             return SettingsView(controller: settingsController);
           case SampleItemDetailsView.routeName:
             return const SampleItemDetailsView();
+          case SignUpScreen.routeName:
+            return const SignUpScreen();
           case SampleItemListView.routeName:
           default:
             return const LoginScreen();

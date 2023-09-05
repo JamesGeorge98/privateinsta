@@ -51,7 +51,7 @@ class PIElevatedButton extends ElevatedButton {
       onPressed: onPressed,
       style: ButtonStyle(
           minimumSize: MaterialStatePropertyAll(Size(
-              MediaQuery.of(context).size.width * .9,
+              MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.width * .1))),
       child: child!,
     );

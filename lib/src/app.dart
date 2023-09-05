@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/router.dart';
 import 'settings/settings_controller.dart';
 
@@ -55,11 +56,24 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.black)),
+            inputDecorationTheme: const InputDecorationTheme(
+                filled: true, fillColor: AppColors.textFieldColor),
+            useMaterial3: false,
             textTheme: GoogleFonts.nunitoSansTextTheme(
               Theme.of(context).textTheme,
             ),
           ),
-          darkTheme: ThemeData.dark(),
+          darkTheme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.white)),
+            scaffoldBackgroundColor: AppColors.black,
+            inputDecorationTheme: const InputDecorationTheme(
+                filled: true, fillColor: AppColors.textFieldColorDark),
+            brightness: Brightness.dark,
+            useMaterial3: false,
+          ),
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
