@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
+import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/dividers.dart';
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
               PIElevatedButton(
                       onPressed: () {
                         Navigator.restorablePushNamed(
-                            context, SettingsView.routeName);
+                            context, HomeScreen.routeName);
                       },
                       child: const Text("Log In"))
                   .expanded(context),

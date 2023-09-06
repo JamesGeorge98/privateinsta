@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
           // returns to the app after it has been killed while running in the
@@ -56,7 +57,10 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            iconButtonTheme: const IconButtonThemeData(),
+            listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
+                titleTextStyle: TextStyle(color: Colors.black),
                 iconTheme: IconThemeData(color: AppColors.black)),
             inputDecorationTheme: const InputDecorationTheme(
                 filled: true, fillColor: AppColors.textFieldColor),
@@ -66,7 +70,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
           darkTheme: ThemeData(
+            listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
+                titleTextStyle: TextStyle(color: Colors.white),
                 iconTheme: IconThemeData(color: AppColors.white)),
             scaffoldBackgroundColor: AppColors.black,
             inputDecorationTheme: const InputDecorationTheme(
