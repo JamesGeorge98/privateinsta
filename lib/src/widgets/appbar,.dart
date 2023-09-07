@@ -2,13 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/settings/settings_view.dart';
+import 'package:privateinsta/src/widgets/buttons.dart';
+import 'package:privateinsta/src/widgets/sizedbox.dart';
 
-class PIAppBar extends StatelessWidget implements PreferredSizeWidget {
+class PIAppBar extends StatefulWidget implements PreferredSizeWidget {
   final AppBar appBar;
 
   /// you can add more fields that meet your needs
 
   const PIAppBar({super.key, required this.appBar});
+
+  @override
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
+
+  @override
+  State<PIAppBar> createState() => _PIAppBarState();
+}
+
+class _PIAppBarState extends State<PIAppBar> {
+  bool iconColor = false;
+
+  Color getTextColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return Colors.red;
+    }
+    return Colors.yellow;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,37 +48,23 @@ class PIAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.transparent,
       elevation: 0,
       actions: [
-        IconButton(
-          onPressed: () {},
-          // hoverColor: Colors.transparent,
-          // highlightColor: Colors.transparent,
-          // splashColor: Colors.transparent,
-
-          style: ButtonStyle(
-            overlayColor: const MaterialStatePropertyAll(Colors.amber),
-            iconColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return const Color(0xff013972);
-                }
-                return Colors.blue.shade800;
-              },
-            ),
-          ),
-          icon: const Icon(
-            Icons.favorite_border_rounded,
-            color: Colors.red,
-            size: 40,
-          ),
-        ),
-        const Icon(
-          AppIcons.facbookMessanger,
-          size: 40,
-        )
+        PITextButton(
+            onPressed: () {
+              Navigator.restorablePushNamed(context, SettingsView.routeName);
+            },
+            child: const Icon(
+              Icons.favorite_border_rounded,
+              size: 35,
+            )).iconButton(context),
+        PITextButton(
+            onPressed: () {
+              //Navigator.restorablePushNamed(context, SettingsView.routeName);
+            },
+            child: const Icon(
+              AppIcons.facbookMessanger,
+              size: 30,
+            )).iconButton(context),
       ],
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
 }

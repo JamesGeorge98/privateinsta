@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
-            iconButtonTheme: const IconButtonThemeData(),
             listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.black),

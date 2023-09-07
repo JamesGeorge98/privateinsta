@@ -26,6 +26,26 @@ class PITextButton extends TextButton {
       child: child!,
     );
   }
+
+  Widget iconButton(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return Theme.of(context).iconTheme.color?.withOpacity(0.5) ??
+                  AppColors.black.withOpacity(0.5);
+            }
+            return Theme.of(context).iconTheme.color ?? AppColors.grey;
+          },
+        ),
+        overlayColor:
+            MaterialStateColor.resolveWith((states) => AppColors.transparent),
+      ),
+      child: child!,
+    );
+  }
 }
 
 class PIElevatedButton extends ElevatedButton {
