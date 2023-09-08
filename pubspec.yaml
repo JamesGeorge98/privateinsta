@@ -38,4 +38,6 @@ flutter:
   fonts:
     - family: MyIcons
       fonts:
-        - asset: assets/icons/fbmessanger.ttf
+        - asset: assets/icons/piicons.ttf
+        - asset: assets/icons/homeicon.ttf
+        - asset: assets/icons/homebordericon.ttf

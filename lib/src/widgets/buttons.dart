@@ -31,6 +31,7 @@ class PITextButton extends TextButton {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
+        padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.pressed)) {

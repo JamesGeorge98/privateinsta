@@ -27,8 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: LimitedBox(
-                  maxHeight: MediaQuery.of(context).size.height * .1,
-                  maxWidth: MediaQuery.of(context).size.height * .1,
+                  maxHeight: MediaQuery.of(context).size.height * .12,
                   child: ListView.separated(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,

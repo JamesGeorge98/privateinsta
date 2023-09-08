@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:privateinsta/src/auth/login/login_view.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
+import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_details_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_list_view.dart';
 import 'package:privateinsta/src/settings/settings_controller.dart';
@@ -30,6 +32,16 @@ class AppRouter {
       case HomeScreen.routeName:
         return PIPageRoute(
             child: const HomeScreen(),
+            settings: routeSettings,
+            direction: AxisDirection.right);
+      case MainScreen.routeName:
+        return PIPageRoute(
+            child: const MainScreen(),
+            settings: routeSettings,
+            direction: AxisDirection.right);
+       case ProfilePage.routeName:
+        return PIPageRoute(
+            child: const ProfilePage(),
             settings: routeSettings,
             direction: AxisDirection.right);
       case SampleItemListView.routeName:

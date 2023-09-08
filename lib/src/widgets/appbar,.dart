@@ -56,14 +56,14 @@ class _PIAppBarState extends State<PIAppBar> {
               Icons.favorite_border_rounded,
               size: 35,
             )).iconButton(context),
-        PITextButton(
-            onPressed: () {
-              //Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
-            child: const Icon(
-              AppIcons.facbookMessanger,
-              size: 30,
-            )).iconButton(context),
+        // PITextButton(
+        //     onPressed: () {
+        //       //Navigator.restorablePushNamed(context, SettingsView.routeName);
+        //     },
+        //     child: const Icon(
+        //       AppIcons.messenger,
+        //       size: 30,
+        //     )).iconButton(context),
       ],
     );
   }

@@ -57,6 +57,10 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                elevation: 0,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white),
             listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.black),
@@ -67,8 +71,13 @@ class MyApp extends StatelessWidget {
             textTheme: GoogleFonts.nunitoSansTextTheme(
               Theme.of(context).textTheme,
             ),
+            bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                elevation: 0,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.black),
             listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.white),
