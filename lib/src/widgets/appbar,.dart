@@ -54,16 +54,16 @@ class _PIAppBarState extends State<PIAppBar> {
             },
             child: const Icon(
               Icons.favorite_border_rounded,
-              size: 35,
+              size: 30,
             )).iconButton(context),
-        // PITextButton(
-        //     onPressed: () {
-        //       //Navigator.restorablePushNamed(context, SettingsView.routeName);
-        //     },
-        //     child: const Icon(
-        //       AppIcons.messenger,
-        //       size: 30,
-        //     )).iconButton(context),
+        PITextButton(
+            onPressed: () {
+              //Navigator.restorablePushNamed(context, SettingsView.routeName);
+            },
+            child: const Icon(
+              AppIcons.messenger,
+              size: 25,
+            )).iconButton(context),
       ],
     );
   }

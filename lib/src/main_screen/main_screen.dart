@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/main_screen/discover/discover_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
+import 'package:privateinsta/src/main_screen/post/post_view.dart';
 import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
+import 'package:privateinsta/src/main_screen/reels/reels_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
@@ -16,11 +19,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 4;
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
-    const HomeScreen(),
+    const DiscoverScreen(),
+    const PostScreen(),
+    const ReelsScreen(),
     const ProfilePage(),
   ];
 
@@ -31,52 +36,53 @@ class _MainScreenState extends State<MainScreen> {
         elevation: 0,
         currentIndex: _selectedIndex,
         items: [
-          BottomNavigationBarItem(
-            icon: PITextButton(
-              onPressed: () {},
-              child: const Icon(
-                AppIcons.homeIcon,
-              ),
-            ).iconButton(context),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              AppIcons.home,
+            ),
             label: "",
+            activeIcon: Icon(
+              AppIcons.homeFilled,
+              color: Colors.white,
+            ),
           ),
           BottomNavigationBarItem(
             icon: PITextButton(
               onPressed: () {},
               child: const Icon(
-                AppIcons.searchIcon,
+                AppIcons.search,
               ),
             ).iconButton(context),
             label: "",
             activeIcon: const Icon(
-              Icons.home,
+              AppIcons.search,
             ),
           ),
           const BottomNavigationBarItem(
             icon: Icon(
-              AppIcons.postIcon,
+              AppIcons.post,
             ),
             label: "",
             activeIcon: Icon(
-              Icons.home,
+              AppIcons.post,
             ),
           ),
           const BottomNavigationBarItem(
             icon: Icon(
-              AppIcons.reelsIcon,
+              AppIcons.reels,
             ),
             label: "",
             activeIcon: Icon(
-              Icons.home,
+              AppIcons.reels,
             ),
           ),
           const BottomNavigationBarItem(
             icon: Icon(
-              AppIcons.profileIcon,
+              AppIcons.profile,
             ),
             label: "",
             activeIcon: Icon(
-              Icons.home,
+              AppIcons.profile,
             ),
           ),
         ],

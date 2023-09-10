@@ -61,7 +61,6 @@ class MyApp extends StatelessWidget {
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.white),
-            listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.black),
                 iconTheme: IconThemeData(color: AppColors.black)),
@@ -77,10 +76,12 @@ class MyApp extends StatelessWidget {
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
+                selectedIconTheme: IconThemeData(color: AppColors.white),
                 backgroundColor: Colors.black),
-            listTileTheme: const ListTileThemeData(horizontalTitleGap: 0),
             appBarTheme: const AppBarTheme(
-                titleTextStyle: TextStyle(color: Colors.white),
+                elevation: 0,
+                backgroundColor: AppColors.transparent,
+                titleTextStyle: TextStyle(color: AppColors.white),
                 iconTheme: IconThemeData(color: AppColors.white)),
             scaffoldBackgroundColor: AppColors.black,
             inputDecorationTheme: const InputDecorationTheme(

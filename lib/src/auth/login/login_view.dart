@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
+import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
@@ -76,7 +77,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         isVisiable = !isVisiable;
                         setState(() {});
                       },
-                      child: CustomWidgets().visibleIcons(visiable: isVisiable),
+                      child: Icon(isVisiable
+                          ? AppIcons.visiblityicon
+                          : AppIcons.invisiblityicon),
                     )).basicInput();
               }),
               Align(

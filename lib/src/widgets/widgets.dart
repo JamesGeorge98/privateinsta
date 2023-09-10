@@ -4,21 +4,29 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
+import 'package:privateinsta/src/widgets/custom_painter.dart';
 
 class CustomWidgets {
   CustomWidgets();
-  Widget visibleIcons({bool visiable = false}) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: (ImageIcon(
-        AssetImage(
-          "assets/icons/${visiable ? "visiblityicon" : "invisiblityicon"}.webp",
+
+  Widget headingSubHeading(
+      {String heading = "Heading",
+      String subheading = "Subheading",
+      TextStyle? headingTextStyle,
+      TextStyle? subHeadingTextStyle}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          heading,
+          style: headingTextStyle ?? const TextStyle(),
         ),
-        color: visiable ? AppColors.blue : null, 
-        
-      
-      )),
+        Text(
+          subheading,
+          style: subHeadingTextStyle ?? const TextStyle(),
+        )
+      ],
     );
   }
 
@@ -31,22 +39,34 @@ class CustomWidgets {
       required BuildContext context}) {
     return AspectRatio(
       aspectRatio: 1 / 1,
-      child: Container(
-          padding: const EdgeInsets.all(2),
-          decoration: (isStroy)
-              ? BoxDecoration(
-                  border: Border.all(
-                      color: isStoryViwed ? AppColors.grey : AppColors.green,
-                      width: 5),
-                  borderRadius: BorderRadius.circular(1000))
-              : const BoxDecoration(),
+      child: CustomPaint(
+        painter: GradientBorder(
+            bRadius: 100,
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: isStroy
+                  ? [
+                      AppColors.instaSandle,
+                      AppColors.instaOrange,
+                      AppColors.instaPink,
+                      AppColors.instaPurple,
+                      // AppColors.instaBlue,
+                    ]
+                  : [Colors.grey, Colors.grey],
+            ),
+            sWidth: isStroy ? 10 : 0),
+        child: Center(
+            child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(1000),
+              color: Theme.of(context).colorScheme.background),
+          padding: const EdgeInsets.all(2.0),
           child: Stack(
             clipBehavior: Clip.none,
             children: [
               GestureDetector(
-                onTap: () {
-                  print("object");
-                },
+                onTap: () {},
                 child: dp != null
                     ? CircleAvatar(
                         radius: size, backgroundImage: NetworkImage(dp))
@@ -78,7 +98,9 @@ class CustomWidgets {
                         ),
                       )),
             ],
-          )),
+          ),
+        )),
+      ),
     );
   }
 
@@ -87,10 +109,14 @@ class CustomWidgets {
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
-          titleAlignment: ListTileTitleAlignment.center,
-          leading: displayPictureView(context: context, size: 18),
+          titleAlignment: ListTileTitleAlignment.titleHeight,
+          leading:
+              displayPictureView(context: context, size: 18, isStroy: false),
           horizontalTitleGap: 0,
-          title: const Text("username"),
+          title: const Padding(
+            padding: EdgeInsets.only(bottom: 8.0, left: 8),
+            child: Text("username"),
+          ),
           minLeadingWidth: 5,
           trailing: const Icon(Icons.more_horiz),
         ),
@@ -104,21 +130,21 @@ class CustomWidgets {
                 onPressed: () {},
                 child: const Icon(
                   Icons.favorite_border_rounded,
-                  size: 40,
+                  size: 35,
                 ),
               ).iconButton(context),
               PITextButton(
                 onPressed: () {},
                 child: const Icon(
-                  AppIcons.commentIcon,
-                  size: 30,
+                  AppIcons.comment,
+                  size: 25,
                 ),
               ).iconButton(context),
               PITextButton(
                 onPressed: () {},
                 child: const Icon(
-                  AppIcons.sharIcon,
-                  size: 30,
+                  AppIcons.share,
+                  size: 25,
                 ),
               ).iconButton(context),
             ],
@@ -126,8 +152,8 @@ class CustomWidgets {
           trailing: PITextButton(
             onPressed: () {},
             child: const Icon(
-              AppIcons.savedIcon,
-              size: 25,
+              AppIcons.save,
+              size: 35,
             ),
           ).iconButton(context),
         ),
