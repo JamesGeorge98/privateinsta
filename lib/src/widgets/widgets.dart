@@ -7,7 +7,9 @@ import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/custom_painter.dart';
 
 class CustomWidgets {
-  CustomWidgets();
+  CustomWidgets({required this.context});
+
+  final BuildContext context;
 
   Widget headingSubHeading(
       {String heading = "Heading",
@@ -36,7 +38,7 @@ class CustomWidgets {
       double size = 50,
       bool isStroy = false,
       bool isStoryViwed = true,
-      required BuildContext context}) {
+      bool isHighlights = false}) {
     return AspectRatio(
       aspectRatio: 1 / 1,
       child: CustomPaint(
@@ -69,10 +71,13 @@ class CustomWidgets {
                 onTap: () {},
                 child: dp != null
                     ? CircleAvatar(
-                        radius: size, backgroundImage: NetworkImage(dp))
+                        radius: size,
+                        backgroundImage: isHighlights ? null : NetworkImage(dp))
                     : CircleAvatar(
                         radius: size,
-                        backgroundImage: const AssetImage(AppAssets.defultDp)),
+                        backgroundImage: isHighlights
+                            ? null
+                            : const AssetImage(AppAssets.defultDp)),
               ),
               index != 0
                   ? const SizedBox()
@@ -81,7 +86,6 @@ class CustomWidgets {
                       right: 0,
                       child: GestureDetector(
                         onTap: () {
-                          print("object");
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -97,6 +101,16 @@ class CustomWidgets {
                           ),
                         ),
                       )),
+              isHighlights
+                  ? const Positioned.fill(
+                      child: Icon(
+                        Icons.add_rounded,
+                        weight: 0.1,
+
+                        size: 35,
+                      ),
+                    )
+                  : const SizedBox()
             ],
           ),
         )),
@@ -104,14 +118,24 @@ class CustomWidgets {
     );
   }
 
-  Widget instaPostFeedView({required BuildContext context}) {
+  Widget storyHighligths({bool isHighlight = false}) {
+    return Column(
+      children: [
+        Expanded(
+            child: displayPictureView(
+                size: 35, isStroy: false, isHighlights: isHighlight)),
+        const Text("name")
+      ],
+    );
+  }
+
+  Widget instaPostFeedView() {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
           titleAlignment: ListTileTitleAlignment.titleHeight,
-          leading:
-              displayPictureView(context: context, size: 18, isStroy: false),
+          leading: displayPictureView(size: 18, isStroy: false),
           horizontalTitleGap: 0,
           title: const Padding(
             padding: EdgeInsets.only(bottom: 8.0, left: 8),

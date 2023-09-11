@@ -57,6 +57,8 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
@@ -73,6 +75,8 @@ class MyApp extends StatelessWidget {
             bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,

@@ -50,11 +50,8 @@ class PITextButton extends TextButton {
 }
 
 class PIElevatedButton extends ElevatedButton {
-  const PIElevatedButton({
-    super.key,
-    required super.onPressed,
-    required super.child,
-  });
+  const PIElevatedButton(
+      {super.key, required super.onPressed, required super.child, super.style});
 
   Widget basic(BuildContext context) {
     return ElevatedButton(
@@ -63,6 +60,22 @@ class PIElevatedButton extends ElevatedButton {
           maximumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width * .9,
               MediaQuery.of(context).size.width * .1))),
+      child: child!,
+    );
+  }
+
+  Widget sameThemeButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+          maximumSize: MaterialStatePropertyAll(Size(
+              MediaQuery.of(context).size.width * 0.9,
+              MediaQuery.of(context).size.height * 0.1)),
+          backgroundColor:
+              const MaterialStatePropertyAll(AppColors.textFieldColorDark),
+          foregroundColor: const MaterialStatePropertyAll(AppColors.white),
+          shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
       child: child!,
     );
   }

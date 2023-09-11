@@ -54,9 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .25,
-              ),
+              Spacer(),
               Text(
                 "Instagram",
                 style: GoogleFonts.cookie(fontSize: 50),

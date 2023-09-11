@@ -18,6 +18,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  late CustomWidgets customWidget;
+
+  @override
+  void initState() {
+    customWidget = CustomWidgets(context: context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) =>
-                            CustomWidgets().displayPictureView(
+                           customWidget.displayPictureView(
                                 index: index,
-                                context: context,
+                               
                                 isStroy: index == 0 ? false : true,
                                 isStoryViwed: true),
                         itemCount: 10,
@@ -85,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       PISizedBox().sizedHeight(height: 10),
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return CustomWidgets().instaPostFeedView(context: context);
+                    return customWidget.instaPostFeedView();
                   }),
             ],
           ),
