@@ -4,7 +4,6 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
 
 class PIAppBar extends StatefulWidget implements PreferredSizeWidget {
   final AppBar appBar;

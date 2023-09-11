@@ -85,8 +85,7 @@ class CustomWidgets {
                       bottom: 0,
                       right: 0,
                       child: GestureDetector(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100),
@@ -106,7 +105,6 @@ class CustomWidgets {
                       child: Icon(
                         Icons.add_rounded,
                         weight: 0.1,
-
                         size: 35,
                       ),
                     )
@@ -138,50 +136,88 @@ class CustomWidgets {
           leading: displayPictureView(size: 18, isStroy: false),
           horizontalTitleGap: 0,
           title: const Padding(
-            padding: EdgeInsets.only(bottom: 8.0, left: 8),
+            padding: EdgeInsets.only(bottom: 0.0, left: 12),
             child: Text("username"),
           ),
           minLeadingWidth: 5,
           trailing: const Icon(Icons.more_horiz),
         ),
         const AspectRatio(aspectRatio: Dimensions.post, child: Placeholder()),
-        ListTile(
-          contentPadding: const EdgeInsets.all(0),
-          minLeadingWidth: 0,
-          title: Row(
-            children: [
-              PITextButton(
-                onPressed: () {},
-                child: const Icon(
-                  Icons.favorite_border_rounded,
-                  size: 35,
+        likesharecommet()
+      ],
+    );
+  }
+
+  Widget instaReelsFeedView() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AspectRatio(
+            aspectRatio: Dimensions.igtv,
+            child: Stack(
+              children: [
+                ListTile(
+                  titleAlignment: ListTileTitleAlignment.titleHeight,
+                  leading: displayPictureView(size: 18, isStroy: false),
+                  horizontalTitleGap: 0,
+                  title: const Padding(
+                    padding: EdgeInsets.only(bottom: 0, left: 20),
+                    child: Text("username"),
+                  ),
+                  minLeadingWidth: 5,
+                  trailing: const Icon(Icons.more_horiz),
                 ),
-              ).iconButton(context),
-              PITextButton(
-                onPressed: () {},
-                child: const Icon(
-                  AppIcons.comment,
-                  size: 25,
-                ),
-              ).iconButton(context),
-              PITextButton(
-                onPressed: () {},
-                child: const Icon(
-                  AppIcons.share,
-                  size: 25,
-                ),
-              ).iconButton(context),
-            ],
-          ),
-          trailing: PITextButton(
+                const Placeholder(),
+              ],
+            )),
+        likesharecommet()
+      ],
+    );
+  }
+
+  Widget likesharecommet() {
+    return ListTile(
+      contentPadding: const EdgeInsets.all(0),
+      minLeadingWidth: 0,
+      title: Row(
+        children: [
+          PITextButton(
             onPressed: () {},
             child: const Icon(
-              AppIcons.save,
+              Icons.favorite_border_rounded,
               size: 35,
             ),
           ).iconButton(context),
+          PITextButton(
+            onPressed: () {},
+            child: const Icon(
+              AppIcons.comment,
+              size: 25,
+            ),
+          ).iconButton(context),
+          PITextButton(
+            onPressed: () {},
+            child: const Icon(
+              AppIcons.share,
+              size: 25,
+            ),
+          ).iconButton(context),
+        ],
+      ),
+      trailing: PITextButton(
+        onPressed: () {},
+        child: const Icon(
+          AppIcons.save,
+          size: 35,
         ),
-      ],
+      ).iconButton(context),
+      subtitle: const Padding(
+        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text("3197 Likes"),
+          Text("Username bad grammer"),
+        ]),
+      ),
     );
   }
 }

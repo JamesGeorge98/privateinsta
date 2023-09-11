@@ -1,15 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
-import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/dividers.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
 import 'package:privateinsta/src/widgets/sizedbox.dart';
 import 'package:privateinsta/src/widgets/textformfields.dart';
 import 'package:privateinsta/src/widgets/texts.dart';
-import 'package:privateinsta/src/widgets/widgets.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

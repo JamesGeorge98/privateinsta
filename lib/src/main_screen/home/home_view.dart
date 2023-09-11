@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
-import 'package:privateinsta/src/widgets/appbar,.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/sizedbox.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
@@ -18,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   late CustomWidgets customWidget;
 
   @override
@@ -26,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     customWidget = CustomWidgets(context: context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,9 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) =>
-                           customWidget.displayPictureView(
+                            customWidget.displayPictureView(
                                 index: index,
-                               
                                 isStroy: index == 0 ? false : true,
                                 isStoryViwed: true),
                         itemCount: 10,
@@ -93,7 +91,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       PISizedBox().sizedHeight(height: 10),
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return customWidget.instaPostFeedView();
+                    return index % 2 == 0
+                        ? customWidget.instaPostFeedView()
+                        : customWidget.instaReelsFeedView();
                   }),
             ],
           ),

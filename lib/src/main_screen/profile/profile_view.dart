@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
 import 'package:privateinsta/core/constants/icons.dart';
@@ -31,50 +30,53 @@ class _ProfilePageState extends State<ProfilePage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          title: PITextButton(
-              onPressed: () {
-                //Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-              child: const Row(
-                children: [
-                  Text(
-                    "_james_george_",
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    size: 25,
-                  ),
-                ],
-              )).iconButton(context),
-          automaticallyImplyLeading: false,
-          backgroundColor: AppColors.transparent,
-          elevation: 0,
-          actions: [
-            PITextButton(
-                onPressed: () {
-                  //Navigator.restorablePushNamed(context, SettingsView.routeName);
-                },
-                child: const Icon(
-                  AppIcons.post,
-                  size: 25,
-                )).iconButton(context),
-            PITextButton(
-                onPressed: () {
-                  Navigator.restorablePushNamed(
-                      context, SettingsView.routeName);
-                },
-                child: const Icon(
-                  Icons.menu,
-                  size: 30,
-                )).iconButton(context),
+        body: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrollable) => [
+            SliverAppBar(
+              title: PITextButton(
+                  onPressed: () {
+                    //Navigator.restorablePushNamed(context, SettingsView.routeName);
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                        "_james_george_",
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 25,
+                      ),
+                    ],
+                  )).iconButton(context),
+              automaticallyImplyLeading: false,
+              backgroundColor: AppColors.transparent,
+              elevation: 0,
+              actions: [
+                PITextButton(
+                    onPressed: () {
+                      //Navigator.restorablePushNamed(context, SettingsView.routeName);
+                    },
+                    child: const Icon(
+                      AppIcons.post,
+                      size: 25,
+                    )).iconButton(context),
+                PITextButton(
+                    onPressed: () {
+                      Navigator.restorablePushNamed(
+                          context, SettingsView.routeName);
+                    },
+                    child: const Icon(
+                      Icons.menu,
+                      size: 30,
+                    )).iconButton(context),
+              ],
+            ),
           ],
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
+          body: Padding(
             padding: const EdgeInsets.all(15.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:privateinsta/core/constants/colors.dart';
 
 class PITextStyle {
   PITextStyle();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/discover/discover_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
@@ -7,7 +6,6 @@ import 'package:privateinsta/src/main_screen/post/post_view.dart';
 import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
 import 'package:privateinsta/src/main_screen/reels/reels_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/widgets.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -19,7 +17,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),

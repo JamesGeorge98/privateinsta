@@ -1,18 +1,13 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
-import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
-import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/dividers.dart';
 import 'package:privateinsta/src/widgets/sizedbox.dart';
 import 'package:privateinsta/src/widgets/textformfields.dart';
-import 'package:privateinsta/src/widgets/texts.dart';
-import 'package:privateinsta/src/widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -54,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               Text(
                 "Instagram",
                 style: GoogleFonts.cookie(fontSize: 50),
