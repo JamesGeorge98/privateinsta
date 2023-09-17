@@ -27,76 +27,74 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context, innerBoxIsScrollable) => [
-          SliverAppBar(
-            floating: true,
-            title: Text(
-              "Instagram",
-              style: GoogleFonts.cookie(
-                fontSize: 50,
-              ),
+    return NestedScrollView(
+      floatHeaderSlivers: true,
+      headerSliverBuilder: (context, innerBoxIsScrollable) => [
+        SliverAppBar(
+          floating: true,
+          title: Text(
+            "Instagram",
+            style: GoogleFonts.cookie(
+              fontSize: 50,
             ),
-            automaticallyImplyLeading: false,
-            backgroundColor: AppColors.transparent,
-            elevation: 0,
-            actions: [
-              PITextButton(
-                  onPressed: () {
-                    Navigator.restorablePushNamed(
-                        context, SettingsView.routeName);
-                  },
-                  child: const Icon(
-                    Icons.favorite_border_rounded,
-                    size: 30,
-                  )).iconButton(context),
-              PITextButton(
-                  onPressed: () {
-                    //Navigator.restorablePushNamed(context, SettingsView.routeName);
-                  },
-                  child: const Icon(
-                    AppIcons.messenger,
-                    size: 25,
-                  )).iconButton(context),
-            ],
-          )
-        ],
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: LimitedBox(
-                    maxHeight: MediaQuery.of(context).size.height * .12,
-                    child: ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) =>
-                            customWidget.displayPictureView(
-                                index: index,
-                                isStroy: index == 0 ? false : true,
-                                isStoryViwed: true),
-                        itemCount: 10,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            PISizedBox().sizedWidth(width: 5)),
-                  )),
-              PISizedBox().sizedHeight(height: 10),
-              ListView.separated(
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) =>
-                      PISizedBox().sizedHeight(height: 10),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return index % 2 == 0
-                        ? customWidget.instaPostFeedView()
-                        : customWidget.instaReelsFeedView();
-                  }),
-            ],
           ),
+          automaticallyImplyLeading: false,
+          backgroundColor: AppColors.transparent,
+          elevation: 0,
+          actions: [
+            PITextButton(
+                onPressed: () {
+                  Navigator.restorablePushNamed(
+                      context, SettingsView.routeName);
+                },
+                child: const Icon(
+                  Icons.favorite_border_rounded,
+                  size: 30,
+                )).iconButton(context),
+            PITextButton(
+                onPressed: () {
+                  //Navigator.restorablePushNamed(context, SettingsView.routeName);
+                },
+                child: const Icon(
+                  AppIcons.messenger,
+                  size: 25,
+                )).iconButton(context),
+          ],
+        )
+      ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: LimitedBox(
+                  maxHeight: MediaQuery.of(context).size.height * .12,
+                  child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) =>
+                          customWidget.displayPictureView(
+                              index: index,
+                              isStroy: index == 0 ? false : true,
+                              isStoryViwed: true),
+                      itemCount: 10,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          PISizedBox().sizedWidth(width: 5)),
+                )),
+            PISizedBox().sizedHeight(height: 10),
+            ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, index) =>
+                    PISizedBox().sizedHeight(height: 10),
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return index % 2 == 0
+                      ? customWidget.instaPostFeedView()
+                      : customWidget.instaReelsFeedView();
+                }),
+          ],
         ),
       ),
     );

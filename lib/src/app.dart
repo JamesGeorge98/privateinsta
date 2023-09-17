@@ -59,6 +59,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
+            textSelectionTheme:
+                const TextSelectionThemeData(cursorColor: AppColors.black),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
@@ -66,8 +68,10 @@ class MyApp extends StatelessWidget {
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.black),
                 iconTheme: IconThemeData(color: AppColors.black)),
-            inputDecorationTheme: const InputDecorationTheme(
-                filled: true, fillColor: AppColors.textFieldColor),
+            inputDecorationTheme: InputDecorationTheme(
+                iconColor: AppColors.black.withOpacity(0.5),
+                filled: true,
+                fillColor: AppColors.textFieldColor),
             useMaterial3: false,
             textTheme: GoogleFonts.nunitoSansTextTheme(
               Theme.of(context).textTheme,
@@ -77,6 +81,8 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData(
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
+            textSelectionTheme: TextSelectionThemeData(
+                cursorColor: AppColors.white.withOpacity(0.4)),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
@@ -88,8 +94,11 @@ class MyApp extends StatelessWidget {
                 titleTextStyle: TextStyle(color: AppColors.white),
                 iconTheme: IconThemeData(color: AppColors.white)),
             scaffoldBackgroundColor: AppColors.black,
-            inputDecorationTheme: const InputDecorationTheme(
-                filled: true, fillColor: AppColors.textFieldColorDark),
+            inputDecorationTheme: InputDecorationTheme(
+                focusColor: AppColors.white.withOpacity(0.5),
+                iconColor: AppColors.white.withOpacity(0.5),
+                filled: true,
+                fillColor: AppColors.textFieldColorDark),
             brightness: Brightness.dark,
             useMaterial3: false,
           ),

@@ -10,4 +10,6 @@ class Dimensions {
   static const double portrait = 4 / 5;
 
   static const double story = 9 / 16;
+
+    static const double half = 1 / 2;
 }

@@ -5,19 +5,29 @@ import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/post/post_view.dart';
 import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
 import 'package:privateinsta/src/main_screen/reels/reels_view.dart';
-import 'package:privateinsta/src/widgets/buttons.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   static const routeName = '/mainscreen';
 
+  static void selectedIndex({required BuildContext context, int index = 0}) {
+    context
+        .findAncestorStateOfType<_MainScreenState>()!
+        .changeIndexFromOutSide(index);
+  }
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
+
+  changeIndexFromOutSide(int index) {
+    _selectedIndex = index;
+    setState(() {});
+  }
 
   final List<Widget> _widgetOptions = <Widget>[
     const HomeScreen(),
@@ -33,8 +43,8 @@ class _MainScreenState extends State<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(
               AppIcons.home,
             ),
@@ -45,18 +55,15 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: PITextButton(
-              onPressed: () {},
-              child: const Icon(
-                AppIcons.search,
-              ),
-            ).iconButton(context),
+            icon: Icon(
+              AppIcons.search,
+            ),
             label: "",
-            activeIcon: const Icon(
+            activeIcon: Icon(
               AppIcons.search,
             ),
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               AppIcons.post,
             ),
@@ -65,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
               AppIcons.post,
             ),
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               AppIcons.reels,
             ),
@@ -74,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
               AppIcons.reels,
             ),
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               AppIcons.profile,
             ),
