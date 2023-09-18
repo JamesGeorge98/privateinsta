@@ -62,29 +62,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         )
       ],
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: LimitedBox(
-                  maxHeight: MediaQuery.of(context).size.height * .12,
-                  child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) =>
-                          customWidget.displayPictureView(
-                              index: index,
-                              isStroy: index == 0 ? false : true,
-                              isStoryViwed: true),
-                      itemCount: 10,
-                      separatorBuilder: (BuildContext context, int index) =>
-                          PISizedBox().sizedWidth(width: 5)),
-                )),
-            PISizedBox().sizedHeight(height: 10),
-            ListView.separated(
+      body: Column(
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LimitedBox(
+                maxHeight: MediaQuery.of(context).size.height * .12,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) =>
+                        customWidget.displayPictureView(
+                            index: index,
+                            isStroy: index == 0 ? false : true,
+                            isStoryViwed: true),
+                    itemCount: 10,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        PISizedBox().sizedWidth(width: 5)),
+              )),
+          PISizedBox().sizedHeight(height: 10),
+          Expanded(
+            child: ListView.separated(
                 shrinkWrap: true,
                 separatorBuilder: (context, index) =>
                     PISizedBox().sizedHeight(height: 10),
@@ -94,8 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? customWidget.instaPostFeedView()
                       : customWidget.instaReelsFeedView();
                 }),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

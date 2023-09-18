@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
+import 'package:privateinsta/src/widgets/page_transition.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -18,16 +20,48 @@ class _ReelsScreenState extends State<ReelsScreen> {
   @override
   void initState() {
     _controller = PageController();
+    reels = List.generate(10, (index) => const SingleReelsView());
     super.initState();
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    reels = List.generate(10, (index) => const SingleReelsView());
-    return PageView(
-      scrollDirection: Axis.vertical,
-      controller: _controller,
-      children: reels,
+    return Stack(
+      children: [
+        PageView(
+          scrollDirection: Axis.vertical,
+          controller: _controller,
+          children: reels,
+        ),
+        SizedBox(
+            height: Theme.of(context).appBarTheme.toolbarHeight ?? 80,
+            child: appbar()),
+      ],
+    );
+  }
+
+  Widget appbar() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: Colors.transparent,
+      title: FadeOnScroll(
+        controller: _controller,
+        fullOpacityOffset: 180,
+        child: const Text(
+          "Reels",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+      actions: [
+        PITextButton(onPressed: () {}, child: const Icon(AppIcons.camera))
+            .iconButton(context)
+      ],
     );
   }
 }
@@ -42,16 +76,11 @@ class SingleReelsView extends StatefulWidget {
 class _SingleReelsViewState extends State<SingleReelsView> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: [
-          const Positioned.fill(child: Card(child: Center(child: Text("11")))),
-          Positioned(child: appbar()),
-          Positioned(right: 0, bottom: 0, child: likeShareComment())
-        ],
-      ),
+    return Stack(
+      children: [
+        const Positioned.fill(child: Card(child: Center(child: Text("11")))),
+        Positioned(right: 0, bottom: 0, child: likeShareComment())
+      ],
     );
   }
 
@@ -87,19 +116,6 @@ class _SingleReelsViewState extends State<SingleReelsView> {
             size: 35,
           ),
         ).iconButton(context),
-      ],
-    );
-  }
-
-  Widget appbar() {
-    return AppBar(
-      title: const Text(
-        "Reels",
-        style: TextStyle(fontSize: 24),
-      ),
-      actions: [
-        PITextButton(onPressed: () {}, child: const Icon(AppIcons.camera))
-            .iconButton(context)
       ],
     );
   }

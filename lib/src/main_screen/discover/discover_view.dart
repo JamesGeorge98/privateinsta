@@ -31,6 +31,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
           title: customWidget.instaSearchBar(
               cancelOnPressed: () {
                 isSerachFocused = !isSerachFocused;
+                FocusScope.of(context).unfocus();
                 setState(() {});
               },
               isSerachFocused: isSerachFocused,
