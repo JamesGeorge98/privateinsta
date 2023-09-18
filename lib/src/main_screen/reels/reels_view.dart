@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
+import 'package:privateinsta/src/widgets/widgets.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -20,7 +21,11 @@ class _ReelsScreenState extends State<ReelsScreen> {
   @override
   void initState() {
     _controller = PageController();
-    reels = List.generate(10, (index) => const SingleReelsView());
+    reels = List.generate(
+        10,
+        (index) => SingleReelsView(
+              index: index,
+            ));
     super.initState();
   }
 
@@ -67,7 +72,9 @@ class _ReelsScreenState extends State<ReelsScreen> {
 }
 
 class SingleReelsView extends StatefulWidget {
-  const SingleReelsView({super.key});
+  const SingleReelsView({super.key, required this.index});
+
+  final int index;
 
   @override
   State<SingleReelsView> createState() => _SingleReelsViewState();
@@ -78,8 +85,40 @@ class _SingleReelsViewState extends State<SingleReelsView> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const Positioned.fill(child: Card(child: Center(child: Text("11")))),
-        Positioned(right: 0, bottom: 0, child: likeShareComment())
+        Positioned.fill(
+            child: Card(child: Center(child: Text("${widget.index}")))),
+        Positioned(right: 0, bottom: 0, child: likeShareComment()),
+        Positioned(left: 20, bottom: 40, child: profileInfo())
+      ],
+    );
+  }
+
+  Widget profileInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: LimitedBox(
+                  maxHeight: MediaQuery.of(context).size.height * .05,
+                  child: CustomWidgets(context: context).displayPictureView(),
+                )),
+            const SizedBox().sizedWidth(width: 7),
+            const Text("Username"),
+            const SizedBox().sizedWidth(width: 7),
+            PIOutlinedButton(
+                onPressed: () {},
+                child: Text(
+                  "Follow",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).textTheme.bodyLarge?.color),
+                )).basic(context)
+          ],
+        ),
+        const Text("Tag your friend"),
       ],
     );
   }
@@ -112,8 +151,8 @@ class _SingleReelsViewState extends State<SingleReelsView> {
         PITextButton(
           onPressed: () {},
           child: const Icon(
-            Icons.more_vert_rounded,
-            size: 35,
+            Icons.more_horiz_rounded,
+            size: 25,
           ),
         ).iconButton(context),
       ],

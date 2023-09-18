@@ -31,7 +31,9 @@ class PITextButton extends TextButton {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
+        padding: const MaterialStatePropertyAll(EdgeInsets.all(10)),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        minimumSize: const MaterialStatePropertyAll(Size.zero),
         foregroundColor: MaterialStateProperty.resolveWith<Color>(
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.pressed)) {
@@ -87,6 +89,28 @@ class PIElevatedButton extends ElevatedButton {
           minimumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width,
               MediaQuery.of(context).size.width * .1))),
+      child: child!,
+    );
+  }
+}
+
+class PIOutlinedButton extends OutlinedButton {
+  const PIOutlinedButton(
+      {super.key, required super.onPressed, required super.child});
+
+  Widget basic(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+          minimumSize: const MaterialStatePropertyAll(Size.zero),
+          maximumSize: MaterialStatePropertyAll(Size(
+              MediaQuery.of(context).size.width * .9,
+              MediaQuery.of(context).size.width * .1)),
+          padding:
+              const MaterialStatePropertyAll(EdgeInsets.fromLTRB(10, 8, 10, 8)),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: MaterialStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
       child: child!,
     );
   }

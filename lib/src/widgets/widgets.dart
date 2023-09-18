@@ -176,48 +176,57 @@ class CustomWidgets {
   }
 
   Widget likesharecommet() {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(0),
-      minLeadingWidth: 0,
-      title: Row(
-        children: [
-          PITextButton(
-            onPressed: () {},
-            child: const Icon(
-              Icons.favorite_border_rounded,
-              size: 35,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                PITextButton(
+                  onPressed: () {},
+                  child: const Icon(
+                    Icons.favorite_border_rounded,
+                    size: 35,
+                  ),
+                ).iconButton(context),
+                PITextButton(
+                  onPressed: () {},
+                  child: const Icon(
+                    AppIcons.comment,
+                    size: 25,
+                  ),
+                ).iconButton(context),
+                PITextButton(
+                  onPressed: () {},
+                  child: const Icon(
+                    AppIcons.share,
+                    size: 25,
+                  ),
+                ).iconButton(context),
+              ],
             ),
-          ).iconButton(context),
-          PITextButton(
-            onPressed: () {},
-            child: const Icon(
-              AppIcons.comment,
-              size: 25,
-            ),
-          ).iconButton(context),
-          PITextButton(
-            onPressed: () {},
-            child: const Icon(
-              AppIcons.share,
-              size: 25,
-            ),
-          ).iconButton(context),
-        ],
-      ),
-      trailing: PITextButton(
-        onPressed: () {},
-        child: const Icon(
-          AppIcons.save,
-          size: 35,
+            PITextButton(
+              onPressed: () {},
+              child: const Icon(
+                AppIcons.save,
+                size: 35,
+              ),
+            ).iconButton(context),
+          ],
         ),
-      ).iconButton(context),
-      subtitle: const Padding(
-        padding: EdgeInsets.fromLTRB(15, 15, 15, 15),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("3197 Likes"),
-          Text("Username bad grammer"),
-        ]),
-      ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text("3197 Likes"),
+            Text("Username bad grammer"),
+          ]),
+        ),
+      ],
     );
   }
 
@@ -225,6 +234,7 @@ class CustomWidgets {
       {void Function()? onTap,
       void Function()? cancelOnPressed,
       void Function(PointerDownEvent)? onTapOutside,
+      String? hintText,
       bool isSerachFocused = false}) {
     var initialWidth =
         MediaQuery.of(context).size.width - 35; // without cancel button
@@ -262,13 +272,13 @@ class CustomWidgets {
             visible: isSerachFocused,
             child: PITextButton(
                 onPressed: cancelOnPressed,
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 8.0),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(
-                      "cancel",
-                      style: TextStyle(fontSize: 18),
+                      hintText ?? "cancel",
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
                 )).iconButton(context),

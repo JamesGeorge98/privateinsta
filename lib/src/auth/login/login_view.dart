@@ -6,7 +6,7 @@ import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/dividers.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/textformfields.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  PISizedBox space = PISizedBox();
+  SizedBox space = const SizedBox();
   bool isVisiable = false;
 
   late final TextEditingController emailController;

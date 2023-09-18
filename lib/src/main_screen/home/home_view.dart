@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text(
             "Instagram",
             style: GoogleFonts.cookie(
-              fontSize: 50,
+              fontSize: 35,
             ),
           ),
           automaticallyImplyLeading: false,
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )).iconButton(context),
             PITextButton(
                 onPressed: () {
-                  //Navigator.restorablePushNamed(context, SettingsView.routeName);
+                  MainScreen.selectedIndex(context: context);
                 },
                 child: const Icon(
                   AppIcons.messenger,
@@ -62,12 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         )
       ],
-      body: Column(
+      body: ListView(
         children: [
           Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
               child: LimitedBox(
-                maxHeight: MediaQuery.of(context).size.height * .12,
+                maxHeight: MediaQuery.of(context).size.height * .10,
                 child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -78,21 +79,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             isStoryViwed: true),
                     itemCount: 10,
                     separatorBuilder: (BuildContext context, int index) =>
-                        PISizedBox().sizedWidth(width: 5)),
+                        const SizedBox().sizedWidth(width: 5)),
               )),
-          PISizedBox().sizedHeight(height: 10),
-          Expanded(
-            child: ListView.separated(
-                shrinkWrap: true,
-                separatorBuilder: (context, index) =>
-                    PISizedBox().sizedHeight(height: 10),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return index % 2 == 0
-                      ? customWidget.instaPostFeedView()
-                      : customWidget.instaReelsFeedView();
-                }),
-          ),
+          const SizedBox().sizedHeight(),
+          ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) =>
+                  const SizedBox().sizedHeight(height: 20),
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return index % 2 == 0
+                    ? customWidget.instaPostFeedView()
+                    : customWidget.instaReelsFeedView();
+              }),
         ],
       ),
     );

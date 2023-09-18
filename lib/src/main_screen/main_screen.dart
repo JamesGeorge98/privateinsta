@@ -5,6 +5,7 @@ import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/post/post_view.dart';
 import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
 import 'package:privateinsta/src/main_screen/reels/reels_view.dart';
+import 'package:privateinsta/src/messages/messages_view.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,7 +15,7 @@ class MainScreen extends StatefulWidget {
   static void selectedIndex({required BuildContext context, int index = 0}) {
     context
         .findAncestorStateOfType<_MainScreenState>()!
-        .changeIndexFromOutSide(index);
+        .changeIndexFromOutSide();
   }
 
   @override
@@ -22,7 +23,55 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 3;
+  late final PageController _controller;
+  late final List<Widget> reels;
+
+  changeIndexFromOutSide() {
+    _controller.nextPage(
+        duration: const Duration(milliseconds: 100), curve: Easing.linear);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _controller = PageController();
+    reels = [const BottomTabScreens(), const MessagesScreen()];
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      scrollDirection: Axis.horizontal,
+      controller: _controller,
+      children: reels,
+    );
+  }
+}
+
+class BottomTabScreens extends StatefulWidget {
+  const BottomTabScreens({super.key});
+
+  static const routeName = '/bottomtabscreen';
+
+  static void selectedIndex({required BuildContext context, int index = 0}) {
+    context
+        .findAncestorStateOfType<_BottomTabScreensState>()!
+        .changeIndexFromOutSide(index);
+  }
+
+  @override
+  State<BottomTabScreens> createState() => _BottomTabScreensState();
+}
+
+class _BottomTabScreensState extends State<BottomTabScreens> {
+  int _selectedIndex = 0;
 
   changeIndexFromOutSide(int index) {
     _selectedIndex = index;

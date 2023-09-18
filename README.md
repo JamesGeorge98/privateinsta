@@ -1,6 +1,6 @@
 # privateinsta
 
-A new Flutter project.
+My private insta clone  
 
 ## Getting Started
 

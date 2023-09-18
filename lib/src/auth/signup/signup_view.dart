@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/textformfields.dart';
 import 'package:privateinsta/src/widgets/texts.dart';
 
@@ -16,7 +16,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  PISizedBox space = PISizedBox();
+  SizedBox space = const SizedBox();
   bool isVisiable = false;
 
   late final TextEditingController usernameController;
@@ -127,7 +127,7 @@ class CreatePassword extends StatefulWidget {
 }
 
 class _CreatePasswordState extends State<CreatePassword> {
-  PISizedBox space = PISizedBox();
+  SizedBox space = const SizedBox();
   bool isSaved = false;
 
   late final TextEditingController passwordController;

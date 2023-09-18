@@ -5,7 +5,7 @@ import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/sizedbox.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: PITextButton(
             onPressed: () {
-              MainScreen.selectedIndex(context: context, index: 1);
+              BottomTabScreens.selectedIndex(context: context, index: 1);
               //Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
             child: const Row(
@@ -82,14 +82,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             LimitedBox(
                               maxHeight:
-                                  MediaQuery.of(context).size.height * .12,
+                                  MediaQuery.of(context).size.height * .11,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   customWidget.displayPictureView(
                                       isStroy: true, isStoryViwed: false),
-                                  PISizedBox().sizedWidth(),
+                                  const SizedBox().sizedWidth(),
                                   Expanded(
                                     child: Row(
                                       mainAxisAlignment:
@@ -109,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                            PISizedBox().sizedHeight(height: 20),
+                            const SizedBox().sizedHeight(height: 20),
                             const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -118,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Text("Lost In Japan")
                               ],
                             ),
-                            PISizedBox().sizedHeight(height: 20),
+                            const SizedBox().sizedHeight(height: 20),
                             Row(
                               children: [
                                 Expanded(
@@ -129,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: Text("Edit Profile"),
                                       )).sameThemeButton(context),
                                 ),
-                                PISizedBox().sizedWidth(width: 10),
+                                const SizedBox().sizedWidth(width: 10),
                                 Expanded(
                                   child: PIElevatedButton(
                                       onPressed: () {},
@@ -156,12 +156,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                               isHighlight:
                                                   index == 2 ? true : false),
                                       itemCount: 3,
-                                      separatorBuilder: (BuildContext context,
-                                              int index) =>
-                                          PISizedBox().sizedWidth(width: 5)),
+                                      separatorBuilder:
+                                          (BuildContext context, int index) =>
+                                              const SizedBox()
+                                                  .sizedWidth(width: 5)),
                                 )),
-
-                            PISizedBox().sizedHeight(height: 30),
                           ]),
                     ),
                   ),
