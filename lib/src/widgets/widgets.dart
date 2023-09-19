@@ -230,61 +230,33 @@ class CustomWidgets {
     );
   }
 
-  Widget instaSearchBar(
-      {void Function()? onTap,
-      void Function()? cancelOnPressed,
-      void Function(PointerDownEvent)? onTapOutside,
-      String? hintText,
-      bool isSerachFocused = false}) {
-    var initialWidth =
-        MediaQuery.of(context).size.width - 35; // without cancel button
-    return Row(
-      children: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 350),
-          width: !isSerachFocused ? initialWidth : initialWidth - 60,
-          child: TextFormField(
-            enableSuggestions: true,
-            onTap: onTap,
-            onTapOutside: onTapOutside,
-            decoration: InputDecoration(
-              focusedBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              contentPadding: const EdgeInsets.all(0),
-              border: InputBorder.none,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(right: 8, left: 2),
-                child: Icon(
-                  AppIcons.search,
-                  color: AppColors.white.withOpacity(0.5),
-                  size: 18,
-                ),
-              ),
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              hintText: "Search",
+  Widget instaSearchBar({
+    void Function()? onTap,
+    void Function(PointerDownEvent)? onTapOutside,
+  }) {
+    return TextFormField(
+      enableSuggestions: true,
+      onTap: onTap,
+      onTapOutside: onTapOutside,
+      decoration: InputDecoration(
+          focusedBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+          contentPadding: const EdgeInsets.all(0),
+          constraints: const BoxConstraints(maxHeight: 40),
+          border: InputBorder.none,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.only(right: 8, left: 2),
+            child: Icon(
+              AppIcons.search,
+              color: AppColors.white.withOpacity(0.5),
+              size: 16,
             ),
           ),
-        ),
-        Expanded(
-          child: Visibility(
-            visible: isSerachFocused,
-            child: PITextButton(
-                onPressed: cancelOnPressed,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      hintText ?? "cancel",
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  ),
-                )).iconButton(context),
-          ),
-        )
-      ],
+          floatingLabelBehavior: FloatingLabelBehavior.never,
+          hintText: "Search",
+          hintStyle: const TextStyle(fontSize: 13)),
     );
   }
 

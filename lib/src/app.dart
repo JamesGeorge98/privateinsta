@@ -79,26 +79,6 @@ class MyApp extends StatelessWidget {
             bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
-            textButtonTheme: TextButtonThemeData(
-              style: ButtonStyle(
-                padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
-                
-                foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
-                      return Theme.of(context)
-                              .iconTheme
-                              .color
-                              ?.withOpacity(0.5) ??
-                          AppColors.black.withOpacity(0.5);
-                    }
-                    return Theme.of(context).iconTheme.color ?? AppColors.grey;
-                  },
-                ),
-                overlayColor: MaterialStateColor.resolveWith(
-                    (states) => AppColors.transparent),
-              ),
-            ),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme: TextSelectionThemeData(

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
+import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
+import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -17,6 +20,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     customWidget = CustomWidgets(context: context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MainScreen.setIshome(context: context, swipable: false);
+    });
     super.initState();
   }
 
@@ -28,7 +34,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         SliverAppBar(
           floating: true,
           automaticallyImplyLeading: false,
-          title: customWidget.instaSearchBar(
+          title: discoverSearchbar(
               cancelOnPressed: () {
                 isSerachFocused = !isSerachFocused;
                 FocusScope.of(context).unfocus();
@@ -83,5 +89,41 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           ],
         ));
+  }
+
+  Widget discoverSearchbar(
+      {void Function()? onTap,
+      void Function()? cancelOnPressed,
+      void Function(PointerDownEvent)? onTapOutside,
+      String? hintText,
+      bool isSerachFocused = false}) {
+    var initialWidth =
+        MediaQuery.of(context).size.width - 35; // without cancel button
+    return Row(
+      children: [
+        AnimatedContainer(
+            duration: const Duration(milliseconds: 350),
+            width: !isSerachFocused ? initialWidth : initialWidth - 60,
+            child: customWidget.instaSearchBar(
+                onTap: onTap, onTapOutside: onTapOutside)),
+        Expanded(
+          child: Visibility(
+            visible: isSerachFocused,
+            child: PITextButton(
+                onPressed: cancelOnPressed,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      "cancel",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                )).iconButton(context),
+          ),
+        )
+      ],
+    );
   }
 }

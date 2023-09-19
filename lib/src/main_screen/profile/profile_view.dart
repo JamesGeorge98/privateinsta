@@ -5,6 +5,7 @@ import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
+import 'package:privateinsta/src/widgets/display_picture.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
@@ -24,6 +25,9 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     customWidget = CustomWidgets(context: context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MainScreen.setIshome(context: context, swipable: false);
+    });
   }
 
   @override
@@ -87,8 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  customWidget.displayPictureView(
-                                      isStroy: true, isStoryViwed: false),
+                                  const DisplayPicture(avatarSize: 50),
                                   const SizedBox().sizedWidth(),
                                   Expanded(
                                     child: Row(

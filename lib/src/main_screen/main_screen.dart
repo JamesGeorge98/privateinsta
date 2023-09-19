@@ -12,10 +12,15 @@ class MainScreen extends StatefulWidget {
 
   static const routeName = '/mainscreen';
 
-  static void selectedIndex({required BuildContext context, int index = 0}) {
+  static void changePage({required BuildContext context, bool index = true}) {
     context
         .findAncestorStateOfType<_MainScreenState>()!
-        .changeIndexFromOutSide();
+        .changePageFromOutSide(index);
+  }
+
+  static void setIshome(
+      {required BuildContext context, bool swipable = false}) {
+    context.findAncestorStateOfType<_MainScreenState>()!.setHomePage(swipable);
   }
 
   @override
@@ -25,17 +30,30 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late final PageController _controller;
   late final List<Widget> reels;
+  bool swipable = true;
 
-  changeIndexFromOutSide() {
-    _controller.nextPage(
-        duration: const Duration(milliseconds: 100), curve: Easing.linear);
+  changePageFromOutSide(bool nextPage) {
+    nextPage
+        ? _controller.nextPage(
+            duration: const Duration(milliseconds: 100), curve: Easing.linear)
+        : _controller.previousPage(
+            duration: const Duration(milliseconds: 100), curve: Easing.linear);
+    setState(() {});
+  }
+
+  setHomePage(bool value) {
+    swipable = value;
     setState(() {});
   }
 
   @override
   void initState() {
-    _controller = PageController();
-    reels = [const BottomTabScreens(), const MessagesScreen()];
+    _controller = PageController(initialPage: 1);
+    reels = [
+      const PostScreen(),
+      const BottomTabScreens(),
+      const MessagesScreen()
+    ];
     super.initState();
   }
 
@@ -48,6 +66,9 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return PageView(
+      physics: swipable
+          ? const AlwaysScrollableScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       scrollDirection: Axis.horizontal,
       controller: _controller,
       children: reels,
@@ -141,9 +162,13 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
           ),
         ],
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          if (index == 2) {
+            MainScreen.changePage(context: context, index: false);
+          } else {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
         },
       ),
       body: _widgetOptions.elementAt(_selectedIndex),

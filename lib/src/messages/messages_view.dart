@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
+import 'package:privateinsta/src/widgets/display_picture.dart';
+import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/widgets.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -13,11 +17,12 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
-  late final CustomWidgets customWidgets;
+  late final CustomWidgets customWidget;
+  List<String> tabs = ["Primary", "General", "Requested", "Channel"];
 
   @override
   void initState() {
-    customWidgets = CustomWidgets(context: context);
+    customWidget = CustomWidgets(context: context);
     super.initState();
   }
 
@@ -42,11 +47,16 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 ),
               ],
             )).iconButton(context),
-        leading: const Padding(
-          padding: EdgeInsets.only(left: 10.0),
-          child: Icon(Icons.arrow_back_ios_new_rounded),
+        leading: InkWell(
+          onTap: () {
+            MainScreen.changePage(context: context, index: false);
+          },
+          child: const Padding(
+            padding: EdgeInsets.only(left: 20.0, right: 20),
+            child: Icon(Icons.arrow_back_ios_new_rounded),
+          ),
         ),
-        leadingWidth: 20,
+        leadingWidth: 30,
         actions: [
           PITextButton(
               onPressed: () {
@@ -66,14 +76,91 @@ class _MessagesScreenState extends State<MessagesScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [customWidgets.instaSearchBar(), messageListTile()],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              messageSearchBar(),
+              const SizedBox().sizedHeight(),
+              LimitedBox(
+                maxHeight: MediaQuery.of(context).size.height * .09,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) =>
+                        const DisplayPicture.online(),
+                    itemCount: 10,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox().sizedWidth(width: 5)),
+              ),
+              const SizedBox().sizedHeight(),
+              LimitedBox(
+                maxHeight: MediaQuery.of(context).size.height * .04,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) =>
+                        PIElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              tabs[index],
+                              style: const TextStyle(fontSize: 12),
+                            )).sameThemeButton(context),
+                    itemCount: 4,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const SizedBox().sizedWidth(width: 5)),
+              ),
+              const SizedBox().sizedHeight(),
+              ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) =>
+                      messageListTile(index),
+                  itemCount: 30,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox().sizedHeight(height: 15))
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget messageListTile() {
-    return const ListTile();
+  Widget messageListTile(int index) {
+    return ListTile(
+      contentPadding: const EdgeInsets.all(0),
+      leading: const DisplayPicture(avatarSize: 50),
+      title: Text("Username$index"),
+      trailing: const Icon(AppIcons.camera),
+    );
+  }
+
+  Widget messageSearchBar(
+      {void Function()? onTap,
+      void Function()? cancelOnPressed,
+      void Function(PointerDownEvent)? onTapOutside,
+      String? hintText,
+      bool isSerachFocused = false}) {
+    return Row(
+      children: [
+        Expanded(
+            child: customWidget.instaSearchBar(
+                onTap: onTap, onTapOutside: onTapOutside)),
+        TextButton(
+            onPressed: cancelOnPressed,
+            style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
+            child: const Padding(
+              padding: EdgeInsets.only(left: 0.0),
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Text(
+                  "Filter",
+                  style: TextStyle(fontSize: 12, color: AppColors.blue),
+                ),
+              ),
+            ))
+      ],
+    );
   }
 }

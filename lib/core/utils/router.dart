@@ -8,6 +8,7 @@ import 'package:privateinsta/src/main_screen/post/post_view.dart';
 import 'package:privateinsta/src/main_screen/profile/profile_view.dart';
 import 'package:privateinsta/src/main_screen/reels/reels_view.dart';
 import 'package:privateinsta/src/messages/messages_view.dart';
+import 'package:privateinsta/src/notification/notification_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_details_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_list_view.dart';
 import 'package:privateinsta/src/settings/settings_controller.dart';
@@ -45,8 +46,8 @@ class AppRouter {
             direction: AxisDirection.up);
 
       /// Home Screen Routes =================================================
-      /// 
-       case BottomTabScreens.routeName:
+      ///
+      case BottomTabScreens.routeName:
         return PIPageRoute(
             child: const BottomTabScreens(),
             settings: routeSettings,
@@ -93,6 +94,12 @@ class AppRouter {
       case MessagesScreen.routeName:
         return PIPageRoute(
             child: const MessagesScreen(),
+            settings: routeSettings,
+            direction: AxisDirection.left);
+
+      case NotificationScreen.routeName:
+        return PIPageRoute(
+            child: const NotificationScreen(),
             settings: routeSettings,
             direction: AxisDirection.left);
 

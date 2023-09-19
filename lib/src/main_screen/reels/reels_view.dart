@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/icons.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
@@ -26,6 +27,9 @@ class _ReelsScreenState extends State<ReelsScreen> {
         (index) => SingleReelsView(
               index: index,
             ));
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MainScreen.setIshome(context: context, swipable: false);
+    });
     super.initState();
   }
 

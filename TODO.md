@@ -5,7 +5,7 @@
 4. complete signup screen
 5. init a node setup 
 6. make login apis
-
+5. make message only scroll form home page
 
 
 ### Improvements

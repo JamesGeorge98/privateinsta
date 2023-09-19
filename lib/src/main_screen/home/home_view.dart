@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
+import 'package:privateinsta/src/notification/notification_view.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
@@ -23,6 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     customWidget = CustomWidgets(context: context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      MainScreen.setIshome(context: context, swipable: true);
+    });
     super.initState();
   }
 
@@ -46,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             PITextButton(
                 onPressed: () {
                   Navigator.restorablePushNamed(
-                      context, SettingsView.routeName);
+                      context, NotificationScreen.routeName);
                 },
                 child: const Icon(
                   Icons.favorite_border_rounded,
@@ -54,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )).iconButton(context),
             PITextButton(
                 onPressed: () {
-                  MainScreen.selectedIndex(context: context);
+                  MainScreen.changePage(context: context);
                 },
                 child: const Icon(
                   AppIcons.messenger,
