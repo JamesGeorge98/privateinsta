@@ -62,9 +62,17 @@ class _ReelsScreenState extends State<ReelsScreen> {
       title: FadeOnScroll(
         controller: _controller,
         fullOpacityOffset: 180,
-        child: const Text(
-          "Reels",
-          style: TextStyle(fontSize: 24),
+        child: const Row(
+          children: [
+            Text(
+              "Reels",
+              style: TextStyle(fontSize: 24),
+            ),
+            Icon(
+              Icons.keyboard_arrow_down_rounded,
+              size: 25,
+            ),
+          ],
         ),
       ),
       actions: [

@@ -4,6 +4,7 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
+import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/dividers.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
@@ -105,7 +106,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               (states) => AppColors.transparent),
                           foregroundColor:
                               MaterialStatePropertyAll(Colors.blue.shade800)),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.restorablePushNamed(
+                            context, SettingsView.routeName);
+                      },
                       icon: const Icon(Icons.facebook),
                       label: const Text("Log in with Facebook")),
                   const Spacer(),

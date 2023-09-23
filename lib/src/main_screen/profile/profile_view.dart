@@ -3,7 +3,7 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
-import 'package:privateinsta/src/settings/settings_view.dart';
+import 'package:privateinsta/src/widgets/bottom_sheets.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/display_picture.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
@@ -34,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: PITextButton(
             onPressed: () {
@@ -58,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           PITextButton(
               onPressed: () {
+                MainScreen.changePage(context: context, index: false);
                 //Navigator.restorablePushNamed(context, SettingsView.routeName);
               },
               child: const Icon(
@@ -66,7 +68,8 @@ class _ProfilePageState extends State<ProfilePage> {
               )).iconButton(context),
           PITextButton(
               onPressed: () {
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
+                //Navigator.restorablePushNamed(context, SettingsView.routeName);
+                _handleFABPressed();
               },
               child: const Icon(
                 Icons.menu,
@@ -228,6 +231,16 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             )),
       ),
+    );
+  }
+
+  void _handleFABPressed() {
+    showModalBottomSheet<int>(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return const Text("Dasda");
+      },
     );
   }
 }

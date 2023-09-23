@@ -35,9 +35,10 @@ class _MainScreenState extends State<MainScreen> {
   changePageFromOutSide(bool nextPage) {
     nextPage
         ? _controller.nextPage(
-            duration: const Duration(milliseconds: 100), curve: Easing.linear)
+            duration: const Duration(milliseconds: 100), curve: Curves.bounceIn)
         : _controller.previousPage(
-            duration: const Duration(milliseconds: 100), curve: Easing.linear);
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.bounceIn);
     setState(() {});
   }
 
@@ -113,18 +114,19 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(
+            icon: const Icon(
               AppIcons.home,
             ),
             label: "",
             activeIcon: Icon(
               AppIcons.homeFilled,
-              color: Colors.white,
+              color:
+                  Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white,
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(
               AppIcons.search,
             ),
@@ -133,7 +135,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
               AppIcons.search,
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(
               AppIcons.post,
             ),
@@ -142,7 +144,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
               AppIcons.post,
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(
               AppIcons.reels,
             ),
@@ -151,7 +153,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
               AppIcons.reels,
             ),
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(
               AppIcons.profile,
             ),

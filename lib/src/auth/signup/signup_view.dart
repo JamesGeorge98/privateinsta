@@ -24,7 +24,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   void initState() {
     usernameController = TextEditingController();
-
     super.initState();
   }
 

@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ],
       body: ListView(
+        padding: const EdgeInsets.only(top: 0),
         children: [
           Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
@@ -85,7 +86,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     separatorBuilder: (BuildContext context, int index) =>
                         const SizedBox().sizedWidth(width: 5)),
               )),
-          const SizedBox().sizedHeight(),
           ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

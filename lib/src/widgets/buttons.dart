@@ -73,9 +73,13 @@ class PIElevatedButton extends ElevatedButton {
           maximumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width * 0.9,
               MediaQuery.of(context).size.height * 0.1)),
-          backgroundColor:
-              const MaterialStatePropertyAll(AppColors.textFieldColorDark),
-          foregroundColor: const MaterialStatePropertyAll(AppColors.white),
+          backgroundColor: MaterialStatePropertyAll(
+              Theme.of(context).textTheme.bodyLarge!.color !=
+                      const Color(0xdd000000)
+                  ? AppColors.textFieldColorDark
+                  : AppColors.textFieldColor),
+          foregroundColor: MaterialStatePropertyAll(
+              Theme.of(context).textTheme.bodyLarge!.color),
           shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
       child: child!,

@@ -53,16 +53,21 @@ class MyApp extends StatelessWidget {
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
 
+              
+
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            bottomSheetTheme:
+                const BottomSheetThemeData(backgroundColor: Colors.black54),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme:
                 const TextSelectionThemeData(cursorColor: AppColors.black),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
+                selectedIconTheme: IconThemeData(color: Colors.black),
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.white),
             appBarTheme: const AppBarTheme(
@@ -79,6 +84,8 @@ class MyApp extends StatelessWidget {
             bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
+            bottomSheetTheme:
+                const BottomSheetThemeData(backgroundColor: Colors.white),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme: TextSelectionThemeData(

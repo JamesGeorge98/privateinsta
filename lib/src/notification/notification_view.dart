@@ -41,7 +41,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Icon(Icons.arrow_back_ios_new_rounded),
           ),
         ),
-        leadingWidth: 30,
       ),
       body: Padding(
         padding: const EdgeInsets.all(25),

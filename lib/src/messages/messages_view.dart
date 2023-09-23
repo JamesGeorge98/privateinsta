@@ -30,33 +30,35 @@ class _MessagesScreenState extends State<MessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: PITextButton(
-            onPressed: () {},
-            child: const Row(
-              children: [
-                Text(
-                  "_james_george_",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  size: 25,
-                ),
-              ],
-            )).iconButton(context),
-        leading: InkWell(
-          onTap: () {
-            MainScreen.changePage(context: context, index: false);
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 20),
-            child: Icon(Icons.arrow_back_ios_new_rounded),
-          ),
+        title: Row(
+          children: [
+            InkWell(
+              onTap: () {
+                MainScreen.changePage(context: context, index: false);
+              },
+              child: const Icon(Icons.arrow_back_ios_new_rounded),
+            ),
+            PITextButton(
+                onPressed: () {},
+                child: const Row(
+                  children: [
+                    Text(
+                      "_james_george_",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      size: 25,
+                    ),
+                  ],
+                )).iconButton(context),
+          ],
         ),
-        leadingWidth: 30,
         actions: [
           PITextButton(
               onPressed: () {
