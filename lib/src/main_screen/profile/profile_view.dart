@@ -3,7 +3,6 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
-import 'package:privateinsta/src/widgets/bottom_sheets.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/display_picture.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
