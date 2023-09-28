@@ -53,8 +53,6 @@ class MyApp extends StatelessWidget {
           onGenerateTitle: (BuildContext context) =>
               AppLocalizations.of(context)!.appTitle,
 
-              
-
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
@@ -84,8 +82,8 @@ class MyApp extends StatelessWidget {
             bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
-            bottomSheetTheme:
-                const BottomSheetThemeData(backgroundColor: Colors.white),
+            bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: AppColors.darkFieldColor),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme: TextSelectionThemeData(
@@ -105,7 +103,7 @@ class MyApp extends StatelessWidget {
                 focusColor: AppColors.white.withOpacity(0.5),
                 iconColor: AppColors.white.withOpacity(0.5),
                 filled: true,
-                fillColor: AppColors.textFieldColorDark),
+                fillColor: AppColors.darkFieldColor),
             brightness: Brightness.dark,
             useMaterial3: false,
           ),

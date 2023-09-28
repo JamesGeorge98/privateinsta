@@ -3,6 +3,7 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/dimensions.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
+import 'package:privateinsta/src/widgets/bottom_sheets.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/display_picture.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
@@ -68,7 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
           PITextButton(
               onPressed: () {
                 //Navigator.restorablePushNamed(context, SettingsView.routeName);
-                _handleFABPressed();
+                BottomSheets(context: context, child: null)
+                    .menuBottomSheets();
               },
               child: const Icon(
                 Icons.menu,
@@ -196,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: 8,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
-                              color: AppColors.textFieldColorDark,
+                              color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
                           }),
@@ -208,7 +210,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: 10,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
-                              color: AppColors.textFieldColorDark,
+                              color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
                           }),
@@ -220,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           itemCount: 30,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
-                              color: AppColors.textFieldColorDark,
+                              color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
                           }),
@@ -230,16 +232,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             )),
       ),
-    );
-  }
-
-  void _handleFABPressed() {
-    showModalBottomSheet<int>(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (context) {
-        return const Text("Dasda");
-      },
     );
   }
 }

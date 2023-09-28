@@ -72,7 +72,7 @@ class _PostScreenState extends State<PostScreen> {
                                 topLeft: Radius.circular(50),
                                 bottomLeft: Radius.circular(50)),
                             color: isPost
-                                ? AppColors.textFieldColorDark
+                                ? AppColors.darkFieldColor
                                 : AppColors.transparent),
                         child: const Tab(
                           child: Text(
@@ -85,7 +85,7 @@ class _PostScreenState extends State<PostScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           color: isPost
-                              ? AppColors.textFieldColorDark
+                              ? AppColors.darkFieldColor
                               : AppColors.transparent),
                       child: const Tab(
                         child: Text(
@@ -97,7 +97,7 @@ class _PostScreenState extends State<PostScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           color: isPost
-                              ? AppColors.textFieldColorDark
+                              ? AppColors.darkFieldColor
                               : AppColors.transparent),
                       child: const Tab(
                         child: Text(
@@ -114,7 +114,7 @@ class _PostScreenState extends State<PostScreen> {
                                 topRight: Radius.circular(50),
                                 bottomRight: Radius.circular(50)),
                             color: isPost
-                                ? AppColors.textFieldColorDark
+                                ? AppColors.darkFieldColor
                                 : AppColors.transparent),
                         child: const Tab(
                           child: Text(

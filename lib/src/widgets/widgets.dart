@@ -268,7 +268,7 @@ class CustomWidgets {
             borderRadius: BorderRadius.circular(0),
             side: const BorderSide(width: 1)),
         margin: const EdgeInsets.all(0),
-        color: AppColors.textFieldColorDark,
+        color: AppColors.darkFieldColor,
         child: const Center(child: Text('1')),
       ),
     );

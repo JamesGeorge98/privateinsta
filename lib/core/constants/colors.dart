@@ -21,7 +21,9 @@ class AppColors {
 
   static const textFieldColor = Color.fromARGB(255, 235, 235, 235);
 
-  static const textFieldColorDark = Color.fromARGB(255, 53, 53, 53);
+  // static const textFieldColorDark = Color.fromARGB(255, 53, 53, 53);
+
+  static const darkFieldColor = Color.fromARGB(255, 48, 47, 47);
 
   /// Insta Colors =========================================================
 

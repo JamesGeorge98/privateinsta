@@ -4,10 +4,10 @@ class PITextStyle {
   PITextStyle();
 
   TextStyle headerTextStyle() {
-    return const TextStyle(fontSize: 30);
+    return const TextStyle(fontSize: 23, fontWeight: FontWeight.bold);
   }
 
-  TextStyle bodyTextStyle() {
-    return const TextStyle(fontSize: 15);
+  TextStyle bodyTextStyle({double size = 14}) {
+    return TextStyle(fontSize: size, color: Colors.white.withOpacity(0.5));
   }
 }

@@ -49,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(50.0),
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -61,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   "Choose a username for your new account. You can always chnage it later.",
-                  style: PITextStyle().bodyTextStyle(),
+                  style: PITextStyle().bodyTextStyle(size: 12),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -159,7 +159,7 @@ class _CreatePasswordState extends State<CreatePassword> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(50.0),
+          padding: const EdgeInsets.fromLTRB(30.0, 0, 30, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
