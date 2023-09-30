@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:privateinsta/src/auth/login/login_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:privateinsta/src/auth/auth_repo.dart';
+import 'package:privateinsta/src/auth/sigin/bloc/sigin_bloc.dart';
+import 'package:privateinsta/src/auth/sigin/signin_view.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
 import 'package:privateinsta/src/main_screen/discover/discover_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
@@ -33,9 +36,18 @@ class AppRouter {
             child: const SampleItemDetailsView(), settings: routeSettings);
 
       /// Auth Routes ========================================================
-      case LoginScreen.routeName:
+      case SigInScreen.routeName:
         return PIPageRoute(
-            child: const LoginScreen(),
+            child: RepositoryProvider(
+              create: (context) => AuthenticationRepository(),
+              child: BlocProvider(
+                create: (context) => SiginBloc(
+                    authService:
+                        RepositoryProvider.of<AuthenticationRepository>(
+                            context)),
+                child: const SigInScreen(),
+              ),
+            ),
             settings: routeSettings,
             direction: AxisDirection.up);
 
@@ -105,7 +117,19 @@ class AppRouter {
 
       case SampleItemListView.routeName:
       default:
-        return PIPageRoute(child: const LoginScreen(), settings: routeSettings);
+        return PIPageRoute(
+            child: RepositoryProvider(
+              create: (context) => AuthenticationRepository(),
+              child: BlocProvider(
+                create: (context) => SiginBloc(
+                    authService:
+                        RepositoryProvider.of<AuthenticationRepository>(
+                            context)),
+                child: const SigInScreen(),
+              ),
+            ),
+            settings: routeSettings,
+            direction: AxisDirection.up);
     }
   }
 }

@@ -11,16 +11,5 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     });
   }
 
-  Stream<SignUpState> mapEventToState(SignUpEvent event) async* {
-    if (event is SignupButtonPressed) {
-      yield SignUpLoading();
-      try {
-        // Simulate a signup process (replace with your actual signup logic)
-        await Future.delayed(const Duration(seconds: 2));
-        yield SignUpSuccess();
-      } catch (error) {
-        yield SignupFailure(error: 'Signup failed: $error');
-      }
-    }
-  }
+  
 }
