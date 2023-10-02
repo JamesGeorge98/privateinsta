@@ -1,27 +1,47 @@
 part of 'sigin_bloc.dart';
 
-sealed class SiginEvent {}
+sealed class SiginEvent extends Equatable {}
 
-class UserTextFieldChange extends SiginEvent{
+class UserTextFieldChange extends SiginEvent {
+  UserTextFieldChange({required this.email});
   final String email;
 
-  UserTextFieldChange({required this.email}); 
+  @override
+  List<Object?> get props => <Object?>[email];
 }
 
-class PasswordTextFieldChange extends SiginEvent{
-   final String password;
+class PasswordTextFieldChange extends SiginEvent {
+  PasswordTextFieldChange({required this.password});
+  final String password;
 
-  PasswordTextFieldChange({required this.password}); 
+  @override
+  List<Object?> get props => <Object?>[password];
 }
 
-class PasswordVisiablityPressed extends SiginEvent{}
+class PasswordVisiablityPressed extends SiginEvent {
+  PasswordVisiablityPressed({required this.isVisiable});
 
-class ForgotButtonPressed extends SiginEvent{}
+  final bool isVisiable;
+  @override
+  List<Object?> get props => <Object?>[isVisiable];
+}
 
-class LoginButtonPressedEvent extends SiginEvent{}
+class ForgotButtonPressed extends SiginEvent {
+  @override
+  List<Object?> get props => <Object?>[];
+}
 
-class LoginWithFBButtonPressed extends SiginEvent{}
+class LoginButtonPressedEvent extends SiginEvent {
+  @override
+  List<Object?> get props => <Object?>[];
+}
 
-class SignUpButtonPressed extends SiginEvent{}
+class LoginWithFBButtonPressed extends SiginEvent {
+  @override
+  List<Object?> get props => <Object?>[];
+}
 
-
+class SignUpButtonPressed extends SiginEvent {
+  @override
+  List<Object?> get props => <Object?>[];
+}

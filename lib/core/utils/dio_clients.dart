@@ -2,31 +2,33 @@ import 'package:dio/dio.dart';
 import 'package:privateinsta/core/constants/endpoints.dart';
 
 class BaseRespose<T> {
+  BaseRespose({this.status, this.data, this.message, this.error});
+
+  factory BaseRespose.fromJson(Map<String, dynamic> json) {
+    return BaseRespose(
+      status: json['status'] as bool? ?? false,
+      data: json['data'] as T?,
+      message: json['message'] as String? ?? '',
+      error: json['error'] as String? ?? '',
+    );
+  }
+
   bool? status;
   T? data;
   String? message;
   String? error;
-
-  BaseRespose({this.status, this.data, this.message});
-
-  BaseRespose.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    data = json['data'];
-    message = json['message'];
-    error = json['error'];
-  }
 }
 
 class DioClient<T> {
   // dio instance
-  final Dio _dio = Dio(BaseOptions(
+  final Dio _dio = Dio(
+    BaseOptions(
       baseUrl: Endpoints.baseUrl,
       connectTimeout: const Duration(seconds: Endpoints.connectionTimeout),
-      receiveTimeout: const Duration(seconds: Endpoints.receiveTimeout)));
+      receiveTimeout: const Duration(seconds: Endpoints.receiveTimeout),
+    ),
+  );
 
-  functionas() {
-    print("dio function hit");
-  }
 
   // Get:-----------------------------------------------------------------------
   Future<dynamic> get(
@@ -52,7 +54,7 @@ class DioClient<T> {
   }
 
   // Post:----------------------------------------------------------------------
-  Future<T> post(
+  Future<dynamic> post(
     String uri, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -62,8 +64,6 @@ class DioClient<T> {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      print("s");
-      print(" url : $uri");
       final Response response = await _dio.post(
         uri,
         data: data,
@@ -73,7 +73,6 @@ class DioClient<T> {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-
       return response.data;
     } catch (e) {
       rethrow;

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class SiginBloc extends Bloc<SiginEvent, SiginState> {
     on<LoginButtonPressedEvent>(_handleLogin);
     on<UserTextFieldChange>(_handleLoginEmailChangedEvent);
     on<PasswordTextFieldChange>(_handleLoginPasswordChangedEvent);
+    on<PasswordVisiablityPressed>(_handlePasswordVisiblity);
   }
 
   final AuthenticationRepository authService;
@@ -24,13 +26,12 @@ class SiginBloc extends Bloc<SiginEvent, SiginState> {
     try {
       emit(state.copyWith(message: 'LOADING', status: SignInStatus.loading));
 
-      await authService.signIn(
-        email: state.email,
-        password: state.password,
-      );
+      // await authService.signIn(
+      //   email: state.email,
+      //   password: state.password,
+      // );
       // print("event done");
-      // await Future.delayed(const Duration(seconds: 5));
-
+      await Future.delayed(const Duration(seconds: 1));
       emit(state.copyWith(message: 'Success', status: SignInStatus.success));
     } catch (e) {
       emit(state.copyWith(message: e.toString(), status: SignInStatus.failure));
@@ -51,9 +52,12 @@ class SiginBloc extends Bloc<SiginEvent, SiginState> {
     emit(state.copyWith(password: event.password));
   }
 
-  @override
-  Future<void> close() {
-    // dispose
-    return super.close();
+  Future<void> _handlePasswordVisiblity(
+    PasswordVisiablityPressed event,
+    Emitter<SiginState> emit,
+  ) async {
+    emit(
+      state.copyWith(isVisible: !state.isVisible),
+    );
   }
 }

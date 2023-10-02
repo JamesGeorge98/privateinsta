@@ -1,15 +1,12 @@
-
-
 class SignInModel {
-  String? userName;
-  String? uuid;
-
   SignInModel({this.userName, this.uuid});
 
   SignInModel.fromJson(Map<String, dynamic> json) {
-    userName = json['user_name'];
-    uuid = json['uuid'];
+    userName = json['user_name'] as String? ?? '';
+    uuid = json['uuid'] as String? ?? '';
   }
+  String? userName;
+  String? uuid;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

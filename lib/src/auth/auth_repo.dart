@@ -16,7 +16,6 @@ class AuthenticationRepository {
       print(a);
     } catch (e) {
       rethrow;
-      print(e);
     }
   }
 
