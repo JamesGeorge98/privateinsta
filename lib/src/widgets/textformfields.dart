@@ -7,7 +7,7 @@ class PITextFormField {
       this.hint,
       this.suffixIcon,
       this.obscureText = false,
-      this.onChanged});
+      this.onChanged,});
   final String? hint;
   final Widget? suffixIcon;
   final TextEditingController? textEditingController;

@@ -10,7 +10,7 @@ import 'package:privateinsta/src/messages/messages_view.dart';
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  static const routeName = '/mainscreen';
+  static const String routeName = '/mainscreen';
 
   static void changePage({required BuildContext context, bool index = true}) {
     context
@@ -19,7 +19,7 @@ class MainScreen extends StatefulWidget {
   }
 
   static void setIshome(
-      {required BuildContext context, bool swipable = false}) {
+      {required BuildContext context, bool swipable = false,}) {
     context.findAncestorStateOfType<_MainScreenState>()!.setHomePage(swipable);
   }
 
@@ -35,10 +35,10 @@ class _MainScreenState extends State<MainScreen> {
   changePageFromOutSide(bool nextPage) {
     nextPage
         ? _controller.nextPage(
-            duration: const Duration(milliseconds: 100), curve: Curves.bounceIn)
+            duration: const Duration(milliseconds: 100), curve: Curves.bounceIn,)
         : _controller.previousPage(
             duration: const Duration(milliseconds: 100),
-            curve: Curves.bounceIn);
+            curve: Curves.bounceIn,);
     setState(() {});
   }
 
@@ -50,10 +50,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     _controller = PageController(initialPage: 1);
-    reels = [
+    reels = <Widget>[
       const PostScreen(),
       const BottomTabScreens(),
-      const MessagesScreen()
+      const MessagesScreen(),
     ];
     super.initState();
   }
@@ -70,7 +70,6 @@ class _MainScreenState extends State<MainScreen> {
       physics: swipable
           ? const AlwaysScrollableScrollPhysics()
           : const NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.horizontal,
       controller: _controller,
       children: reels,
     );
@@ -80,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
 class BottomTabScreens extends StatefulWidget {
   const BottomTabScreens({super.key});
 
-  static const routeName = '/bottomtabscreen';
+  static const String routeName = '/bottomtabscreen';
 
   static void selectedIndex({required BuildContext context, int index = 0}) {
     context
@@ -114,12 +113,12 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(
               AppIcons.home,
             ),
-            label: "",
+            label: '',
             activeIcon: Icon(
               AppIcons.homeFilled,
               color:
@@ -130,7 +129,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
             icon: Icon(
               AppIcons.search,
             ),
-            label: "",
+            label: '',
             activeIcon: Icon(
               AppIcons.search,
             ),
@@ -139,7 +138,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
             icon: Icon(
               AppIcons.post,
             ),
-            label: "",
+            label: '',
             activeIcon: Icon(
               AppIcons.post,
             ),
@@ -148,7 +147,7 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
             icon: Icon(
               AppIcons.reels,
             ),
-            label: "",
+            label: '',
             activeIcon: Icon(
               AppIcons.reels,
             ),
@@ -157,13 +156,13 @@ class _BottomTabScreensState extends State<BottomTabScreens> {
             icon: Icon(
               AppIcons.profile,
             ),
-            label: "",
+            label: '',
             activeIcon: Icon(
               AppIcons.profile,
             ),
           ),
         ],
-        onTap: (index) {
+        onTap: (int index) {
           if (index == 2) {
             MainScreen.changePage(context: context, index: false);
           } else {

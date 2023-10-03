@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:privateinsta/core/constants/endpoints.dart';
 import 'package:privateinsta/core/utils/dio_clients.dart';
 import 'package:privateinsta/src/auth/model/sign_in_model.dart';
@@ -12,7 +11,20 @@ class AuthenticationRepository {
     required String password,
   }) async {
     try {
-      var a = await DioClient<SignInModel>().get(Endpoints.checkUsername);
+      final a = await DioClient<SignInModel>().get(Endpoints.checkUsername);
+      print(a);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  FutureOr<void> checkUserName({
+    required String userName,
+  }) async {
+    try {
+      final String user = '${Endpoints.checkUsername}$userName';
+      print(user.runtimeType);
+      final a = await DioClient<SignInModel>().get(user);
       print(a);
     } catch (e) {
       rethrow;

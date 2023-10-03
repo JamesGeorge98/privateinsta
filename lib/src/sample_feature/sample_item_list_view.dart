@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../settings/settings_view.dart';
-import 'sample_item.dart';
-import 'sample_item_details_view.dart';
+import 'package:privateinsta/src/settings/settings_view.dart';
+import 'package:privateinsta/src/sample_feature/sample_item.dart';
+import 'package:privateinsta/src/sample_feature/sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {
   const SampleItemListView({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
+    this.items = const <SampleItem>[SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
-  static const routeName = '/';
+  static const String routeName = '/';
 
   final List<SampleItem> items;
 
@@ -20,7 +20,7 @@ class SampleItemListView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sample Items'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
@@ -46,7 +46,7 @@ class SampleItemListView extends StatelessWidget {
         restorationId: 'sampleItemListView',
         itemCount: items.length,
         itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
+          final SampleItem item = items[index];
 
           return ListTile(
             title: Text('SampleItem ${item.id}'),
@@ -62,7 +62,7 @@ class SampleItemListView extends StatelessWidget {
                 context,
                 SampleItemDetailsView.routeName,
               );
-            }
+            },
           );
         },
       ),

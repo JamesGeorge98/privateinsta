@@ -4,13 +4,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/router.dart';
-import 'settings/settings_controller.dart';
+import 'package:privateinsta/src/settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
   const MyApp({
-    super.key,
-    required this.settingsController,
+    required this.settingsController, super.key,
   });
 
   final SettingsController settingsController;
@@ -35,13 +34,13 @@ class MyApp extends StatelessWidget {
           // Provide the generated AppLocalizations to the MaterialApp. This
           // allows descendant Widgets to display the correct translations
           // depending on the user's locale.
-          localizationsDelegates: const [
+          localizationsDelegates: const <LocalizationsDelegate>[
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: const [
+          supportedLocales: const <Locale>[
             Locale('en', ''), // English, no country code
           ],
 
@@ -67,14 +66,14 @@ class MyApp extends StatelessWidget {
                 elevation: 0,
                 selectedIconTheme: IconThemeData(color: Colors.black),
                 type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white),
+                backgroundColor: Colors.white,),
             appBarTheme: const AppBarTheme(
                 titleTextStyle: TextStyle(color: Colors.black),
-                iconTheme: IconThemeData(color: AppColors.black)),
+                iconTheme: IconThemeData(color: AppColors.black),),
             inputDecorationTheme: InputDecorationTheme(
                 iconColor: AppColors.black.withOpacity(0.5),
                 filled: true,
-                fillColor: AppColors.textFieldColor),
+                fillColor: AppColors.textFieldColor,),
             useMaterial3: false,
             textTheme: GoogleFonts.nunitoSansTextTheme(
               Theme.of(context).textTheme,
@@ -83,27 +82,27 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             bottomSheetTheme: const BottomSheetThemeData(
-                backgroundColor: AppColors.darkFieldColor),
+                backgroundColor: AppColors.darkFieldColor,),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme: TextSelectionThemeData(
-                cursorColor: AppColors.white.withOpacity(0.4)),
+                cursorColor: AppColors.white.withOpacity(0.4),),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
                 elevation: 0,
                 type: BottomNavigationBarType.fixed,
                 selectedIconTheme: IconThemeData(color: AppColors.white),
-                backgroundColor: Colors.black),
+                backgroundColor: Colors.black,),
             appBarTheme: const AppBarTheme(
                 elevation: 0,
                 backgroundColor: AppColors.transparent,
                 titleTextStyle: TextStyle(color: AppColors.white),
-                iconTheme: IconThemeData(color: AppColors.white)),
+                iconTheme: IconThemeData(color: AppColors.white),),
             scaffoldBackgroundColor: AppColors.black,
             inputDecorationTheme: InputDecorationTheme(
                 focusColor: AppColors.white.withOpacity(0.5),
                 iconColor: AppColors.white.withOpacity(0.5),
                 filled: true,
-                fillColor: AppColors.darkFieldColor),
+                fillColor: AppColors.darkFieldColor,),
             brightness: Brightness.dark,
             useMaterial3: false,
           ),

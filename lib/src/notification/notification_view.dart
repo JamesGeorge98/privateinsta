@@ -9,14 +9,14 @@ import 'package:privateinsta/src/widgets/extensions.dart';
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
-  static const routeName = '/notificationscreen';
+  static const String routeName = '/notificationscreen';
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final _random = Random();
+  final Random _random = Random();
   int next(int min, int max) => min + _random.nextInt(max - min);
 
   @override
@@ -27,17 +27,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
         title: PITextButton(
             onPressed: () {},
             child: const Text(
-              "Notification",
+              'Notification',
               style: TextStyle(
                 fontSize: 20,
               ),
-            )).iconButton(context),
+            ),).iconButton(context),
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
           },
           child: const Padding(
-            padding: EdgeInsets.only(left: 20.0, right: 10),
+            padding: EdgeInsets.only(left: 20, right: 10),
             child: Icon(Icons.arrow_back_ios_new_rounded),
           ),
         ),
@@ -47,9 +47,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               const Text(
-                "Last 7 days",
+                'Last 7 days',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox().sizedHeight(),
@@ -64,10 +64,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           : followingTile(index),
                   itemCount: 5,
                   separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox().sizedHeight(height: 15)),
+                      const SizedBox().sizedHeight(height: 15),),
               const SizedBox().sizedHeight(height: 30),
               const Text(
-                "Last 30 days",
+                'Last 30 days',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox().sizedHeight(),
@@ -82,7 +82,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           : followingTile(index),
                   itemCount: 10,
                   separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox().sizedHeight(height: 15)),
+                      const SizedBox().sizedHeight(height: 15),),
             ],
           ),
         ),
@@ -95,7 +95,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       contentPadding: const EdgeInsets.all(0),
       leading: const DisplayPicture(avatarSize: 50),
       title: Text(
-        "user$index liked your photo",
+        'user$index liked your photo',
         style: const TextStyle(fontSize: 14),
       ),
       trailing: Container(
@@ -104,7 +104,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         decoration: BoxDecoration(
             border: Border.all(
                 color: Theme.of(context).textTheme.bodyMedium?.color ??
-                    AppColors.white)),
+                    AppColors.white,),),
       ),
     );
   }
@@ -116,17 +116,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
       titleAlignment: ListTileTitleAlignment.top,
       leading: const DisplayPicture(avatarSize: 50),
       title: Text(
-        "user$index mentioned you in a comment: ",
+        'user$index mentioned you in a comment: ',
         style: const TextStyle(fontSize: 14),
       ),
-      subtitle: Text("@username " * next(1, 5)),
+      subtitle: Text('@username ' * next(1, 5)),
       trailing: Container(
         width: 50,
         height: 50,
         decoration: BoxDecoration(
             border: Border.all(
                 color: Theme.of(context).textTheme.bodyMedium?.color ??
-                    AppColors.white)),
+                    AppColors.white,),),
       ),
     );
   }
@@ -136,11 +136,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
         contentPadding: const EdgeInsets.all(0),
         leading: const DisplayPicture(avatarSize: 50),
         title: Text(
-          "user$index started following you",
+          'user$index started following you',
           style: const TextStyle(fontSize: 14),
         ),
         trailing:
-            PIElevatedButton(onPressed: () {}, child: const Text("Following"))
-                .sameThemeButton(context));
+            PIElevatedButton(onPressed: () {}, child: const Text('Following'))
+                .sameThemeButton(context),);
   }
 }

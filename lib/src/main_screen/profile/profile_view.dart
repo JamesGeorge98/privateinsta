@@ -12,7 +12,7 @@ import 'package:privateinsta/src/widgets/widgets.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  static const routeName = "/profilescreen";
+  static const String routeName = '/profilescreen';
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -25,8 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     customWidget = CustomWidgets(context: context);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      MainScreen.setIshome(context: context, swipable: false);
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      MainScreen.setIshome(context: context);
     });
   }
 
@@ -42,9 +42,9 @@ class _ProfilePageState extends State<ProfilePage> {
               //Navigator.restorablePushNamed(context, SettingsView.routeName);
             },
             child: const Row(
-              children: [
+              children: <Widget>[
                 Text(
-                  "_james_george_",
+                  '_james_george_',
                   style: TextStyle(
                     fontSize: 25,
                   ),
@@ -54,9 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   size: 25,
                 ),
               ],
-            )).iconButton(context),
+            ),).iconButton(context),
         automaticallyImplyLeading: false,
-        actions: [
+        actions: <Widget>[
           PITextButton(
               onPressed: () {
                 MainScreen.changePage(context: context, index: false);
@@ -65,92 +65,92 @@ class _ProfilePageState extends State<ProfilePage> {
               child: const Icon(
                 AppIcons.post,
                 size: 25,
-              )).iconButton(context),
+              ),).iconButton(context),
           PITextButton(
               onPressed: () {
                 //Navigator.restorablePushNamed(context, SettingsView.routeName);
-                BottomSheets(context: context, child: null)
+                BottomSheets(context: context)
                     .menuBottomSheets();
               },
               child: const Icon(
                 Icons.menu,
                 size: 30,
-              )).iconButton(context),
+              ),).iconButton(context),
         ],
       ),
       body: DefaultTabController(
         length: 3,
         child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrollable) => [
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrollable) => <Widget>[
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: <Widget>[
                             LimitedBox(
                               maxHeight:
                                   MediaQuery.of(context).size.height * .11,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
-                                children: [
+                                children: <Widget>[
                                   const DisplayPicture(avatarSize: 50),
                                   const SizedBox().sizedWidth(),
                                   Expanded(
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      children: [
+                                      children: <Widget>[
                                         customWidget.headingSubHeading(
-                                            heading: "10", subheading: "Posts"),
+                                            heading: '10', subheading: 'Posts',),
                                         customWidget.headingSubHeading(
-                                            heading: "100M",
-                                            subheading: "Followers"),
+                                            heading: '100M',
+                                            subheading: 'Followers',),
                                         customWidget.headingSubHeading(
-                                            heading: "200",
-                                            subheading: "Following")
+                                            heading: '200',
+                                            subheading: 'Following',),
                                       ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox().sizedHeight(height: 20),
+                            const SizedBox().sizedHeight(),
                             const Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("James George"),
-                                Text("Hiding Behind onces and zero"),
-                                Text("Lost In Japan")
+                              children: <Widget>[
+                                Text('James George'),
+                                Text('Hiding Behind onces and zero'),
+                                Text('Lost In Japan'),
                               ],
                             ),
-                            const SizedBox().sizedHeight(height: 20),
+                            const SizedBox().sizedHeight(),
                             Row(
-                              children: [
+                              children: <Widget>[
                                 Expanded(
                                   child: PIElevatedButton(
                                       onPressed: () {},
                                       child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text("Edit Profile"),
-                                      )).sameThemeButton(context),
+                                        padding: EdgeInsets.all(8),
+                                        child: Text('Edit Profile'),
+                                      ),).sameThemeButton(context),
                                 ),
                                 const SizedBox().sizedWidth(width: 10),
                                 Expanded(
                                   child: PIElevatedButton(
                                       onPressed: () {},
                                       child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text("Share Profile"),
-                                      )).sameThemeButton(context),
-                                )
+                                        padding: EdgeInsets.all(8),
+                                        child: Text('Share Profile'),
+                                      ),).sameThemeButton(context),
+                                ),
                               ],
                             ),
                             //for (var i = 0; i <= 10; i++)
                             Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 child: LimitedBox(
                                   maxHeight:
                                       MediaQuery.of(context).size.height * .12,
@@ -158,22 +158,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (BuildContext context,
-                                              int index) =>
+                                              int index,) =>
                                           customWidget.storyHighligths(
                                               isHighlight:
-                                                  index == 2 ? true : false),
+                                                  index == 2 ? true : false,),
                                       itemCount: 3,
                                       separatorBuilder:
                                           (BuildContext context, int index) =>
                                               const SizedBox()
-                                                  .sizedWidth(width: 5)),
-                                )),
-                          ]),
+                                                  .sizedWidth(width: 5),),
+                                ),),
+                          ],),
                     ),
                   ),
                 ],
             body: Column(
-              children: [
+              children: <Widget>[
                 TabBar(
                   labelPadding: const EdgeInsets.only(bottom: 10),
                   indicatorPadding: const EdgeInsets.symmetric(horizontal: 5),
@@ -181,56 +181,54 @@ class _ProfilePageState extends State<ProfilePage> {
                   splashBorderRadius: BorderRadius.circular(0),
                   splashFactory: NoSplash.splashFactory,
                   padding: const EdgeInsets.only(top: 10),
-                  tabs: const [
+                  tabs: const <Widget>[
                     Icon(AppIcons.grid),
                     Icon(AppIcons.reels),
-                    Icon(AppIcons.tag)
+                    Icon(AppIcons.tag),
                   ],
                 ),
                 Expanded(
                   child: TabBarView(
-                    children: [
+                    children: <Widget>[
                       GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: Dimensions.post),
+                                  crossAxisCount: 3,),
                           itemCount: 8,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
                               color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
-                          }),
+                          },),
                       GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 3,
-                                  childAspectRatio: Dimensions.igtv),
+                                  childAspectRatio: Dimensions.igtv,),
                           itemCount: 10,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
                               color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
-                          }),
+                          },),
                       GridView.builder(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  childAspectRatio: Dimensions.post),
+                                  crossAxisCount: 3,),
                           itemCount: 30,
                           itemBuilder: (BuildContext context, int index) {
                             return Card(
                               color: AppColors.darkFieldColor,
                               child: Center(child: Text('$index')),
                             );
-                          }),
+                          },),
                     ],
                   ),
                 ),
               ],
-            )),
+            ),),
       ),
     );
   }

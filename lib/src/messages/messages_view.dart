@@ -10,7 +10,7 @@ import 'package:privateinsta/src/widgets/widgets.dart';
 class MessagesScreen extends StatefulWidget {
   const MessagesScreen({super.key});
 
-  static const routeName = '/messagescreen';
+  static const String routeName = '/messagescreen';
 
   @override
   State<MessagesScreen> createState() => _MessagesScreenState();
@@ -18,7 +18,7 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   late final CustomWidgets customWidget;
-  List<String> tabs = ["Primary", "General", "Requested", "Channel"];
+  List<String> tabs = <String>['Primary', 'General', 'Requested', 'Channel'];
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Row(
-          children: [
+          children: <Widget>[
             InkWell(
               onTap: () {
                 MainScreen.changePage(context: context, index: false);
@@ -44,9 +44,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
             PITextButton(
                 onPressed: () {},
                 child: const Row(
-                  children: [
+                  children: <Widget>[
                     Text(
-                      "_james_george_",
+                      '_james_george_',
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -56,10 +56,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       size: 25,
                     ),
                   ],
-                )).iconButton(context),
+                ),).iconButton(context),
           ],
         ),
-        actions: [
+        actions: <Widget>[
           PITextButton(
               onPressed: () {
                 //Navigator.restorablePushNamed(context, SettingsView.routeName);
@@ -67,22 +67,22 @@ class _MessagesScreenState extends State<MessagesScreen> {
               child: const Icon(
                 Icons.more_horiz_rounded,
                 size: 25,
-              )).iconButton(context),
+              ),).iconButton(context),
           PITextButton(
               onPressed: () {},
               child: const Icon(
                 Icons.edit_square,
                 size: 30,
-              )).iconButton(context),
+              ),).iconButton(context),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               messageSearchBar(),
               const SizedBox().sizedHeight(),
               LimitedBox(
@@ -94,7 +94,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         const DisplayPicture.online(),
                     itemCount: 10,
                     separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox().sizedWidth(width: 5)),
+                        const SizedBox().sizedWidth(width: 5),),
               ),
               const SizedBox().sizedHeight(),
               LimitedBox(
@@ -108,10 +108,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
                             child: Text(
                               tabs[index],
                               style: const TextStyle(fontSize: 12),
-                            )).sameThemeButton(context),
+                            ),).sameThemeButton(context),
                     itemCount: 4,
                     separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox().sizedWidth(width: 5)),
+                        const SizedBox().sizedWidth(width: 5),),
               ),
               const SizedBox().sizedHeight(),
               ListView.separated(
@@ -121,7 +121,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       messageListTile(index),
                   itemCount: 30,
                   separatorBuilder: (BuildContext context, int index) =>
-                      const SizedBox().sizedHeight(height: 15))
+                      const SizedBox().sizedHeight(height: 15),),
             ],
           ),
         ),
@@ -133,7 +133,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       leading: const DisplayPicture(avatarSize: 50),
-      title: Text("Username$index"),
+      title: Text('Username$index'),
       trailing: const Icon(AppIcons.camera),
     );
   }
@@ -143,25 +143,24 @@ class _MessagesScreenState extends State<MessagesScreen> {
       void Function()? cancelOnPressed,
       void Function(PointerDownEvent)? onTapOutside,
       String? hintText,
-      bool isSerachFocused = false}) {
+      bool isSerachFocused = false,}) {
     return Row(
-      children: [
+      children: <Widget>[
         Expanded(
             child: customWidget.instaSearchBar(
-                onTap: onTap, onTapOutside: onTapOutside)),
+                onTap: onTap, onTapOutside: onTapOutside,),),
         TextButton(
             onPressed: cancelOnPressed,
             style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
             child: const Padding(
-              padding: EdgeInsets.only(left: 0.0),
+              padding: EdgeInsets.only(),
               child: FittedBox(
-                fit: BoxFit.contain,
                 child: Text(
-                  "Filter",
+                  'Filter',
                   style: TextStyle(fontSize: 12, color: AppColors.blue),
                 ),
               ),
-            ))
+            ),),
       ],
     );
   }

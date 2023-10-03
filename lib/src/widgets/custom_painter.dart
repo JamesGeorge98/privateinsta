@@ -10,25 +10,25 @@ class GradientBorder extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Rect innerRect = Rect.fromLTRB(
-        sWidth, sWidth, size.width - sWidth, size.height - sWidth);
-    Rect outerRect = Offset.zero & size;
-    RRect innerRoundedRect =
+    final Rect innerRect = Rect.fromLTRB(
+        sWidth, sWidth, size.width - sWidth, size.height - sWidth,);
+    final Rect outerRect = Offset.zero & size;
+    final RRect innerRoundedRect =
         RRect.fromRectAndRadius(innerRect, Radius.circular(bRadius));
-    RRect outerRoundedRect =
+    final RRect outerRoundedRect =
         RRect.fromRectAndRadius(outerRect, Radius.circular(bRadius));
 
     p.shader = gradient.createShader(outerRect);
     //Path borderPath = _calculateBorderPath(outerRect, innerRect);
-    Path borderPath = _calculateBorderPath(outerRoundedRect, innerRoundedRect);
+    final Path borderPath = _calculateBorderPath(outerRoundedRect, innerRoundedRect);
 
     canvas.drawPath(borderPath, p);
   }
 
   Path _calculateBorderPath(RRect outerRect, RRect innerRect) {
     // Update parameters
-    Path outerRectPath = Path()..addRRect(outerRect);
-    Path innerRectPath = Path()..addRRect(innerRect);
+    final Path outerRectPath = Path()..addRRect(outerRect);
+    final Path innerRectPath = Path()..addRRect(innerRect);
     return Path.combine(PathOperation.difference, outerRectPath, innerRectPath);
   }
 

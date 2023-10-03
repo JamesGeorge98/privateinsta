@@ -6,11 +6,11 @@ import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 
 class PIAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final AppBar appBar;
 
   /// you can add more fields that meet your needs
 
-  const PIAppBar({super.key, required this.appBar});
+  const PIAppBar({required this.appBar, super.key});
+  final AppBar appBar;
 
   @override
   Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
@@ -38,7 +38,7 @@ class _PIAppBarState extends State<PIAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        "Instagram",
+        'Instagram',
         style: GoogleFonts.cookie(
           fontSize: 50,
         ),
@@ -46,7 +46,7 @@ class _PIAppBarState extends State<PIAppBar> {
       automaticallyImplyLeading: false,
       backgroundColor: AppColors.transparent,
       elevation: 0,
-      actions: [
+      actions: <Widget>[
         PITextButton(
             onPressed: () {
               Navigator.restorablePushNamed(context, SettingsView.routeName);
@@ -54,7 +54,7 @@ class _PIAppBarState extends State<PIAppBar> {
             child: const Icon(
               Icons.favorite_border_rounded,
               size: 30,
-            )).iconButton(context),
+            ),).iconButton(context),
         PITextButton(
             onPressed: () {
               //Navigator.restorablePushNamed(context, SettingsView.routeName);
@@ -62,7 +62,7 @@ class _PIAppBarState extends State<PIAppBar> {
             child: const Icon(
               AppIcons.messenger,
               size: 25,
-            )).iconButton(context),
+            ),).iconButton(context),
       ],
     );
   }

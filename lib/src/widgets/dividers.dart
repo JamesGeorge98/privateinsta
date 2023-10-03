@@ -5,12 +5,12 @@ class PIDividers extends Divider {
 
   static Widget centerText({required String text}) {
     return Row(
-      children: [
+      children: <Widget>[
         Expanded(
             child: Divider(
           color: Colors.grey.shade500,
           endIndent: 20,
-        )),
+        ),),
         Text(
           text,
           style: const TextStyle(fontSize: 12),
@@ -19,7 +19,7 @@ class PIDividers extends Divider {
             child: Divider(
           color: Colors.grey.shade500,
           indent: 20,
-        ))
+        ),),
       ],
     );
   }

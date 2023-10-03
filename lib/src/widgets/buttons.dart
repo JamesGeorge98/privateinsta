@@ -3,9 +3,7 @@ import 'package:privateinsta/core/constants/colors.dart';
 
 class PITextButton extends TextButton {
   const PITextButton({
-    super.key,
-    required super.onPressed,
-    required super.child,
+    required super.onPressed, required super.child, super.key,
   });
 
   Widget basic() {
@@ -21,7 +19,7 @@ class PITextButton extends TextButton {
           },
         ),
         overlayColor:
-            MaterialStateColor.resolveWith((states) => AppColors.transparent),
+            MaterialStateColor.resolveWith((Set<MaterialState> states) => AppColors.transparent),
       ),
       child: child!,
     );
@@ -44,7 +42,7 @@ class PITextButton extends TextButton {
           },
         ),
         overlayColor:
-            MaterialStateColor.resolveWith((states) => AppColors.transparent),
+            MaterialStateColor.resolveWith((Set<MaterialState> states) => AppColors.transparent),
       ),
       child: child!,
     );
@@ -53,7 +51,7 @@ class PITextButton extends TextButton {
 
 class PIElevatedButton extends ElevatedButton {
   const PIElevatedButton(
-      {super.key, required super.onPressed, required super.child, super.style});
+      {required super.onPressed, required super.child, super.key, super.style,});
 
   Widget basic(BuildContext context) {
     return ElevatedButton(
@@ -61,8 +59,8 @@ class PIElevatedButton extends ElevatedButton {
       style: ButtonStyle(
           maximumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width * .9,
-              MediaQuery.of(context).size.width * .1))),
-      child: child!,
+              MediaQuery.of(context).size.width * .1,),),),
+      child: child,
     );
   }
 
@@ -72,17 +70,17 @@ class PIElevatedButton extends ElevatedButton {
       style: ButtonStyle(
           maximumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width * 0.9,
-              MediaQuery.of(context).size.height * 0.1)),
+              MediaQuery.of(context).size.height * 0.1,),),
           backgroundColor: MaterialStatePropertyAll(
               Theme.of(context).textTheme.bodyLarge!.color !=
                       const Color(0xdd000000)
                   ? AppColors.darkFieldColor
-                  : AppColors.textFieldColor),
+                  : AppColors.textFieldColor,),
           foregroundColor: MaterialStatePropertyAll(
-              Theme.of(context).textTheme.bodyLarge!.color),
+              Theme.of(context).textTheme.bodyLarge!.color,),
           shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)))),
-      child: child!,
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),),),
+      child: child,
     );
   }
 
@@ -92,15 +90,15 @@ class PIElevatedButton extends ElevatedButton {
       style: ButtonStyle(
           minimumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width,
-              MediaQuery.of(context).size.width * .1))),
-      child: child!,
+              MediaQuery.of(context).size.width * .1,),),),
+      child: child,
     );
   }
 }
 
 class PIOutlinedButton extends OutlinedButton {
   const PIOutlinedButton(
-      {super.key, required super.onPressed, required super.child});
+      {required super.onPressed, required super.child, super.key,});
 
   Widget basic(BuildContext context) {
     return OutlinedButton(
@@ -109,13 +107,13 @@ class PIOutlinedButton extends OutlinedButton {
           minimumSize: const MaterialStatePropertyAll(Size.zero),
           maximumSize: MaterialStatePropertyAll(Size(
               MediaQuery.of(context).size.width * .9,
-              MediaQuery.of(context).size.width * .1)),
+              MediaQuery.of(context).size.width * .1,),),
           padding:
               const MaterialStatePropertyAll(EdgeInsets.fromLTRB(10, 8, 10, 8)),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           shape: MaterialStatePropertyAll(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))),
-      child: child!,
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),),),
+      child: child,
     );
   }
 }

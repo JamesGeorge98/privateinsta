@@ -1,16 +1,22 @@
 part of 'sign_up_bloc.dart';
 
-@immutable
-sealed class SignUpState {}
+class SignUpState extends Equatable {
+  const SignUpState({
+    this.username = '',
+  });
 
-final class SignUpInitial extends SignUpState {}
+  final String username;
 
-final class SignUpLoading extends SignUpState {}
+  SignUpState copyWith({
+    String? username,
+  }) {
+    return SignUpState(
+      username: username ?? this.username,
+    );
+  }
 
-final class SignUpSuccess extends SignUpState {}
-
-final class SignupFailure extends SignUpState {
-  final String error;
-
-  SignupFailure({required this.error});
+  @override
+  List<Object?> get props => <Object?>[
+        username,
+      ];
 }

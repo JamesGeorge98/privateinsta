@@ -2,5 +2,5 @@
 class AppAssets {
   AppAssets._();
 
-  static const defultDp = "assets/images/instadefault.png";
+  static const String defultDp = 'assets/images/instadefault.png';
 }

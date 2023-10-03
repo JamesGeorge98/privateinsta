@@ -7,7 +7,7 @@ import 'package:privateinsta/src/widgets/widgets.dart';
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
 
-  static const routeName = '/discoverscreen';
+  static const String routeName = '/discoverscreen';
 
   @override
   State<DiscoverScreen> createState() => _DiscoverScreenState();
@@ -19,8 +19,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   void initState() {
     customWidget = CustomWidgets(context: context);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      MainScreen.setIshome(context: context, swipable: false);
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      MainScreen.setIshome(context: context);
     });
     super.initState();
   }
@@ -29,7 +29,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       floatHeaderSlivers: true,
-      headerSliverBuilder: (context, innerBoxIsScrollable) => [
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrollable) => <Widget>[
         SliverAppBar(
           floating: true,
           automaticallyImplyLeading: false,
@@ -43,17 +43,17 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               onTap: () {
                 isSerachFocused = !isSerachFocused;
                 setState(() {});
-              }),
-        )
+              },),
+        ),
       ],
       body: SingleChildScrollView(
         child: !isSerachFocused
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   grids(textDirection: TextDirection.rtl),
-                  grids(textDirection: TextDirection.ltr),
+                  grids(),
                   grids(textDirection: TextDirection.rtl),
                 ],
               )
@@ -66,28 +66,28 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Directionality(
         textDirection: textDirection,
         child: Row(
-          children: [
+          children: <Widget>[
             Expanded(
               child: customWidget.asceptRatioCart(ratio: Dimensions.half),
             ),
             Expanded(
               child: Column(
-                children: [
-                  customWidget.asceptRatioCart(ratio: Dimensions.post),
-                  customWidget.asceptRatioCart(ratio: Dimensions.post)
+                children: <Widget>[
+                  customWidget.asceptRatioCart(),
+                  customWidget.asceptRatioCart(),
                 ],
               ),
             ),
             Expanded(
               child: Column(
-                children: [
-                  customWidget.asceptRatioCart(ratio: Dimensions.post),
-                  customWidget.asceptRatioCart(ratio: Dimensions.post)
+                children: <Widget>[
+                  customWidget.asceptRatioCart(),
+                  customWidget.asceptRatioCart(),
                 ],
               ),
             ),
           ],
-        ));
+        ),);
   }
 
   Widget discoverSearchbar(
@@ -95,33 +95,32 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       void Function()? cancelOnPressed,
       void Function(PointerDownEvent)? onTapOutside,
       String? hintText,
-      bool isSerachFocused = false}) {
-    var initialWidth =
+      bool isSerachFocused = false,}) {
+    final double initialWidth =
         MediaQuery.of(context).size.width - 35; // without cancel button
     return Row(
-      children: [
+      children: <Widget>[
         AnimatedContainer(
             duration: const Duration(milliseconds: 350),
             width: !isSerachFocused ? initialWidth : initialWidth - 60,
             child: customWidget.instaSearchBar(
-                onTap: onTap, onTapOutside: onTapOutside)),
+                onTap: onTap, onTapOutside: onTapOutside,),),
         Expanded(
           child: Visibility(
             visible: isSerachFocused,
             child: PITextButton(
                 onPressed: cancelOnPressed,
                 child: const Padding(
-                  padding: EdgeInsets.only(left: 8.0),
+                  padding: EdgeInsets.only(left: 8),
                   child: FittedBox(
-                    fit: BoxFit.contain,
                     child: Text(
-                      "cancel",
+                      'cancel',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
-                )).iconButton(context),
+                ),).iconButton(context),
           ),
-        )
+        ),
       ],
     );
   }

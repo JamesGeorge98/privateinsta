@@ -11,7 +11,7 @@ import 'package:privateinsta/src/widgets/widgets.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  static const routeName = '/homescreen';
+  static const String routeName = '/homescreen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     customWidget = CustomWidgets(context: context);
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       MainScreen.setIshome(context: context, swipable: true);
     });
     super.initState();
@@ -33,11 +33,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       floatHeaderSlivers: true,
-      headerSliverBuilder: (context, innerBoxIsScrollable) => [
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrollable) => <Widget>[
         SliverAppBar(
           floating: true,
           title: Text(
-            "Instagram",
+            'Instagram',
             style: GoogleFonts.cookie(
               fontSize: 35,
             ),
@@ -45,16 +45,16 @@ class _HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
           backgroundColor: AppColors.transparent,
           elevation: 0,
-          actions: [
+          actions: <Widget>[
             PITextButton(
                 onPressed: () {
                   Navigator.restorablePushNamed(
-                      context, NotificationScreen.routeName);
+                      context, NotificationScreen.routeName,);
                 },
                 child: const Icon(
                   Icons.favorite_border_rounded,
                   size: 30,
-                )).iconButton(context),
+                ),).iconButton(context),
             PITextButton(
                 onPressed: () {
                   MainScreen.changePage(context: context);
@@ -62,15 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Icon(
                   AppIcons.messenger,
                   size: 25,
-                )).iconButton(context),
+                ),).iconButton(context),
           ],
-        )
+        ),
       ],
       body: ListView(
-        padding: const EdgeInsets.only(top: 0),
-        children: [
+        padding: const EdgeInsets.only(),
+        children: <Widget>[
           Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 0, 8, 0),
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
               child: LimitedBox(
                 maxHeight: MediaQuery.of(context).size.height * .10,
                 child: ListView.separated(
@@ -79,23 +79,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (BuildContext context, int index) =>
                         customWidget.displayPictureView(
                             index: index,
-                            isStroy: index == 0 ? false : true,
-                            isStoryViwed: true),
+                            isStroy: index == 0 ? false : true,),
                     itemCount: 10,
                     separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox().sizedWidth(width: 5)),
-              )),
+                        const SizedBox().sizedWidth(width: 5),),
+              ),),
           ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) =>
-                  const SizedBox().sizedHeight(height: 20),
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox().sizedHeight(),
               itemCount: 5,
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 return index % 2 == 0
                     ? customWidget.instaPostFeedView()
                     : customWidget.instaReelsFeedView();
-              }),
+              },),
         ],
       ),
     );

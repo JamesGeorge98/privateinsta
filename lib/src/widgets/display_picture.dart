@@ -11,19 +11,13 @@ class DisplayPicture extends StatelessWidget {
       this.isOnline = false,
       this.isPost = false,
       this.isStroyAvailable = false,
-      this.addHighligths = false})
+      this.addHighligths = false,})
       : assert(
             addHighligths == false &&
                 (isPost == false ||
                     isStroyAvailable == false ||
                     isOnline == false),
-            'Cannot keep AddHighligths true with any other Flag');
-  final double avatarSize;
-  final bool isOnline;
-  final bool isPost;
-  final bool isStroyAvailable;
-  final bool addHighligths;
-  final String? networkImage;
+            'Cannot keep AddHighligths true with any other Flag',);
 
   const DisplayPicture.online({
     super.key,
@@ -34,6 +28,12 @@ class DisplayPicture extends StatelessWidget {
     this.addHighligths = false,
     this.networkImage,
   });
+  final double avatarSize;
+  final bool isOnline;
+  final bool isPost;
+  final bool isStroyAvailable;
+  final bool addHighligths;
+  final String? networkImage;
 
   @override
   Widget build(BuildContext context) {
@@ -46,34 +46,34 @@ class DisplayPicture extends StatelessWidget {
               begin: Alignment.bottomLeft,
               end: Alignment.topRight,
               colors: isStroyAvailable
-                  ? [
+                  ? <Color>[
                       AppColors.instaSandle,
                       AppColors.instaOrange,
                       AppColors.instaPink,
                       AppColors.instaPurple,
                       // AppColors.instaBlue,
                     ]
-                  : [Colors.grey, Colors.grey],
+                  : <Color>[Colors.grey, Colors.grey],
             ),
-            sWidth: isStroyAvailable ? 10 : 3),
+            sWidth: isStroyAvailable ? 10 : 3,),
         child: Center(
             child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(1000),
-              color: Theme.of(context).colorScheme.background),
-          padding: const EdgeInsets.all(2.0),
+              color: Theme.of(context).colorScheme.background,),
+          padding: const EdgeInsets.all(2),
           child: Stack(
             clipBehavior: Clip.none,
-            children: [
+            children: <Widget>[
               GestureDetector(
                 onTap: () {},
                 child: networkImage != null
                     ? CircleAvatar(
                         radius: avatarSize,
-                        backgroundImage: NetworkImage(networkImage!))
+                        backgroundImage: NetworkImage(networkImage!),)
                     : CircleAvatar(
                         radius: avatarSize,
-                        backgroundImage: const AssetImage(AppAssets.defultDp)),
+                        backgroundImage: const AssetImage(AppAssets.defultDp),),
               ),
               Positioned(
                   bottom: 0,
@@ -88,7 +88,7 @@ class DisplayPicture extends StatelessWidget {
                                 border: Border.all(
                                     width: 2,
                                     color: Theme.of(context)
-                                        .scaffoldBackgroundColor)),
+                                        .scaffoldBackgroundColor,),),
                             child: const Icon(
                               Icons.add,
                               color: AppColors.white,
@@ -105,21 +105,19 @@ class DisplayPicture extends StatelessWidget {
                                   border: Border.all(
                                       width: 2,
                                       color: Theme.of(context)
-                                          .scaffoldBackgroundColor)),
+                                          .scaffoldBackgroundColor,),),
                             )
-                          : const SizedBox()),
-              addHighligths
-                  ? const Positioned.fill(
+                          : const SizedBox(),),
+              if (addHighligths) const Positioned.fill(
                       child: Icon(
                         Icons.add_rounded,
                         weight: 0.1,
                         size: 35,
                       ),
-                    )
-                  : const SizedBox()
+                    ) else const SizedBox(),
             ],
           ),
-        )),
+        ),),
       ),
     );
   }

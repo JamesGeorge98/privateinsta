@@ -12,14 +12,13 @@ class CustomWidgets {
   final BuildContext context;
 
   Widget headingSubHeading(
-      {String heading = "Heading",
-      String subheading = "Subheading",
+      {String heading = 'Heading',
+      String subheading = 'Subheading',
       TextStyle? headingTextStyle,
-      TextStyle? subHeadingTextStyle}) {
+      TextStyle? subHeadingTextStyle,}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
+      children: <Widget>[
         Text(
           heading,
           style: headingTextStyle ?? const TextStyle(),
@@ -27,7 +26,7 @@ class CustomWidgets {
         Text(
           subheading,
           style: subHeadingTextStyle ?? const TextStyle(),
-        )
+        ),
       ],
     );
   }
@@ -38,7 +37,7 @@ class CustomWidgets {
       double size = 50,
       bool isStroy = false,
       bool isStoryViwed = true,
-      bool isHighlights = false}) {
+      bool isHighlights = false,}) {
     return AspectRatio(
       aspectRatio: 1 / 1,
       child: CustomPaint(
@@ -48,40 +47,38 @@ class CustomWidgets {
               begin: Alignment.bottomLeft,
               end: Alignment.topRight,
               colors: isStroy
-                  ? [
+                  ? <Color>[
                       AppColors.instaSandle,
                       AppColors.instaOrange,
                       AppColors.instaPink,
                       AppColors.instaPurple,
                       // AppColors.instaBlue,
                     ]
-                  : [Colors.grey, Colors.grey],
+                  : <Color>[Colors.grey, Colors.grey],
             ),
-            sWidth: isStroy ? 10 : 0),
+            sWidth: isStroy ? 10 : 0,),
         child: Center(
             child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(1000),
-              color: Theme.of(context).colorScheme.background),
-          padding: const EdgeInsets.all(2.0),
+              color: Theme.of(context).colorScheme.background,),
+          padding: const EdgeInsets.all(2),
           child: Stack(
             clipBehavior: Clip.none,
-            children: [
+            children: <Widget>[
               GestureDetector(
                 onTap: () {},
                 child: dp != null
                     ? CircleAvatar(
                         radius: size,
-                        backgroundImage: isHighlights ? null : NetworkImage(dp))
+                        backgroundImage: isHighlights ? null : NetworkImage(dp),)
                     : CircleAvatar(
                         radius: size,
                         backgroundImage: isHighlights
                             ? null
-                            : const AssetImage(AppAssets.defultDp)),
+                            : const AssetImage(AppAssets.defultDp),),
               ),
-              index != 0
-                  ? const SizedBox()
-                  : Positioned(
+              if (index != 0) const SizedBox() else Positioned(
                       bottom: 0,
                       right: 0,
                       child: GestureDetector(
@@ -93,36 +90,34 @@ class CustomWidgets {
                               border: Border.all(
                                   width: 2,
                                   color: Theme.of(context)
-                                      .scaffoldBackgroundColor)),
+                                      .scaffoldBackgroundColor,),),
                           child: const Icon(
                             Icons.add,
                             color: AppColors.white,
                           ),
                         ),
-                      )),
-              isHighlights
-                  ? const Positioned.fill(
+                      ),),
+              if (isHighlights) const Positioned.fill(
                       child: Icon(
                         Icons.add_rounded,
                         weight: 0.1,
                         size: 35,
                       ),
-                    )
-                  : const SizedBox()
+                    ) else const SizedBox(),
             ],
           ),
-        )),
+        ),),
       ),
     );
   }
 
   Widget storyHighligths({bool isHighlight = false}) {
     return Column(
-      children: [
+      children: <Widget>[
         Expanded(
             child: displayPictureView(
-                size: 35, isStroy: false, isHighlights: isHighlight)),
-        const Text("name")
+                size: 35, isHighlights: isHighlight,),),
+        const Text('name'),
       ],
     );
   }
@@ -130,20 +125,20 @@ class CustomWidgets {
   Widget instaPostFeedView() {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         ListTile(
           titleAlignment: ListTileTitleAlignment.titleHeight,
-          leading: displayPictureView(size: 18, isStroy: false),
+          leading: displayPictureView(size: 18),
           horizontalTitleGap: 0,
           title: const Padding(
-            padding: EdgeInsets.only(bottom: 0.0, left: 12),
-            child: Text("username"),
+            padding: EdgeInsets.only(left: 12),
+            child: Text('username'),
           ),
           minLeadingWidth: 5,
           trailing: const Icon(Icons.more_horiz),
         ),
         const AspectRatio(aspectRatio: Dimensions.post, child: Placeholder()),
-        likesharecommet()
+        likesharecommet(),
       ],
     );
   }
@@ -151,26 +146,26 @@ class CustomWidgets {
   Widget instaReelsFeedView() {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         AspectRatio(
             aspectRatio: Dimensions.igtv,
             child: Stack(
-              children: [
+              children: <Widget>[
                 ListTile(
                   titleAlignment: ListTileTitleAlignment.titleHeight,
-                  leading: displayPictureView(size: 18, isStroy: false),
+                  leading: displayPictureView(size: 18),
                   horizontalTitleGap: 0,
                   title: const Padding(
-                    padding: EdgeInsets.only(bottom: 0, left: 20),
-                    child: Text("username"),
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text('username'),
                   ),
                   minLeadingWidth: 5,
                   trailing: const Icon(Icons.more_horiz),
                 ),
                 const Placeholder(),
               ],
-            )),
-        likesharecommet()
+            ),),
+        likesharecommet(),
       ],
     );
   }
@@ -179,13 +174,12 @@ class CustomWidgets {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         Row(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 PITextButton(
                   onPressed: () {},
                   child: const Icon(
@@ -221,10 +215,10 @@ class CustomWidgets {
         const Padding(
           padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text("3197 Likes"),
-            Text("Username bad grammer"),
-          ]),
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+            Text('3197 Likes'),
+            Text('Username bad grammer'),
+          ],),
         ),
       ],
     );
@@ -235,7 +229,6 @@ class CustomWidgets {
     void Function(PointerDownEvent)? onTapOutside,
   }) {
     return TextFormField(
-      enableSuggestions: true,
       onTap: onTap,
       onTapOutside: onTapOutside,
       decoration: InputDecoration(
@@ -255,8 +248,8 @@ class CustomWidgets {
             ),
           ),
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          hintText: "Search",
-          hintStyle: const TextStyle(fontSize: 13)),
+          hintText: 'Search',
+          hintStyle: const TextStyle(fontSize: 13),),
     );
   }
 
@@ -266,7 +259,7 @@ class CustomWidgets {
       child: Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0),
-            side: const BorderSide(width: 1)),
+            side: const BorderSide(),),
         margin: const EdgeInsets.all(0),
         color: AppColors.darkFieldColor,
         child: const Center(child: Text('1')),

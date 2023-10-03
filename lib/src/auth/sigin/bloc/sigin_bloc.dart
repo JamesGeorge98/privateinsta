@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:privateinsta/src/auth/auth_repo.dart';
-import 'package:http/http.dart' as http;
-
 part 'sigin_event.dart';
 part 'sigin_state.dart';
 

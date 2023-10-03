@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BottomSheets {
-  BottomSheets({this.child, required this.context});
+  BottomSheets({required this.context, this.child});
   final BuildContext context;
   final Widget? child;
 
@@ -9,15 +9,14 @@ class BottomSheets {
     showModalBottomSheet<int>(
       useSafeArea: true,
       isScrollControlled: true,
-      isDismissible: true,
       shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(50)),),
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.9,
           child: Column(
-            children: [
+            children: <Widget>[
               Container(
                 margin: const EdgeInsets.only(top: 10, bottom: 10),
                 width: 40,
@@ -29,11 +28,11 @@ class BottomSheets {
               ),
               Expanded(
                 child: ListView.separated(
-                    itemBuilder: (context, index) => const ListTile(),
-                    separatorBuilder: (context, index) =>
+                    itemBuilder: (BuildContext context, int index) => const ListTile(),
+                    separatorBuilder: (BuildContext context, int index) =>
                         const Divider(indent: 100),
-                    itemCount: 13),
-              )
+                    itemCount: 13,),
+              ),
             ],
           ),
         );

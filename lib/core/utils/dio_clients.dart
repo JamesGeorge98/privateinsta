@@ -5,7 +5,7 @@ class BaseRespose<T> {
   BaseRespose({this.status, this.data, this.message, this.error});
 
   factory BaseRespose.fromJson(Map<String, dynamic> json) {
-    return BaseRespose(
+    return BaseRespose<T>(
       status: json['status'] as bool? ?? false,
       data: json['data'] as T?,
       message: json['message'] as String? ?? '',

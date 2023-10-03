@@ -2,25 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class PIPageRoute extends PageRouteBuilder {
-  final Widget child;
-  final AxisDirection direction;
 
   PIPageRoute({
-    this.direction = AxisDirection.right,
-    required this.child,
-    RouteSettings? settings,
+    required this.child, this.direction = AxisDirection.right,
+    super.settings,
   }) : super(
             pageBuilder: (
               BuildContext context,
               Animation<double> animation,
               Animation<double> secondaryAnimation,
             ) =>
-                child,
-            settings: settings);
+                child,);
+  final Widget child;
+  final AxisDirection direction;
 
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
-          Animation<double> secondaryAnimation, Widget child) =>
+          Animation<double> secondaryAnimation, Widget child,) =>
       SlideTransition(
         position: Tween<Offset>(begin: getBeginOffset(), end: Offset.zero)
             .animate(animation),
@@ -45,17 +43,15 @@ class PIPageRoute extends PageRouteBuilder {
 }
 
 class FadeOnScroll extends StatefulWidget {
+
+  const FadeOnScroll(
+      {required this.controller, required this.child, super.key,
+      this.zeroOpacityOffset = 0,
+      this.fullOpacityOffset = 0,});
   final PageController controller;
   final double zeroOpacityOffset;
   final double fullOpacityOffset;
   final Widget child;
-
-  const FadeOnScroll(
-      {super.key,
-      required this.controller,
-      required this.child,
-      this.zeroOpacityOffset = 0,
-      this.fullOpacityOffset = 0});
 
   @override
   State<FadeOnScroll> createState() => _FadeOnScrollState();

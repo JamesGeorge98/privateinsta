@@ -9,7 +9,7 @@ import 'package:privateinsta/src/widgets/widgets.dart';
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
 
-  static const routeName = '/reelscreen';
+  static const String routeName = '/reelscreen';
 
   @override
   State<ReelsScreen> createState() => _ReelsScreenState();
@@ -24,11 +24,11 @@ class _ReelsScreenState extends State<ReelsScreen> {
     _controller = PageController();
     reels = List.generate(
         10,
-        (index) => SingleReelsView(
+        (int index) => SingleReelsView(
               index: index,
-            ));
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      MainScreen.setIshome(context: context, swipable: false);
+            ),);
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      MainScreen.setIshome(context: context);
     });
     super.initState();
   }
@@ -42,7 +42,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         PageView(
           scrollDirection: Axis.vertical,
           controller: _controller,
@@ -50,7 +50,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
         ),
         SizedBox(
             height: Theme.of(context).appBarTheme.toolbarHeight ?? 80,
-            child: appbar()),
+            child: appbar(),),
       ],
     );
   }
@@ -63,9 +63,9 @@ class _ReelsScreenState extends State<ReelsScreen> {
         controller: _controller,
         fullOpacityOffset: 180,
         child: const Row(
-          children: [
+          children: <Widget>[
             Text(
-              "Reels",
+              'Reels',
               style: TextStyle(fontSize: 24),
             ),
             Icon(
@@ -75,16 +75,16 @@ class _ReelsScreenState extends State<ReelsScreen> {
           ],
         ),
       ),
-      actions: [
+      actions: <Widget>[
         PITextButton(onPressed: () {}, child: const Icon(AppIcons.camera))
-            .iconButton(context)
+            .iconButton(context),
       ],
     );
   }
 }
 
 class SingleReelsView extends StatefulWidget {
-  const SingleReelsView({super.key, required this.index});
+  const SingleReelsView({required this.index, super.key});
 
   final int index;
 
@@ -96,11 +96,11 @@ class _SingleReelsViewState extends State<SingleReelsView> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         Positioned.fill(
-            child: Card(child: Center(child: Text("${widget.index}")))),
+            child: Card(child: Center(child: Text('${widget.index}'))),),
         Positioned(right: 0, bottom: 0, child: likeShareComment()),
-        Positioned(left: 20, bottom: 40, child: profileInfo())
+        Positioned(left: 20, bottom: 40, child: profileInfo()),
       ],
     );
   }
@@ -108,29 +108,29 @@ class _SingleReelsViewState extends State<SingleReelsView> {
   Widget profileInfo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Row(
-          children: [
+          children: <Widget>[
             Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: LimitedBox(
                   maxHeight: MediaQuery.of(context).size.height * .05,
                   child: CustomWidgets(context: context).displayPictureView(),
-                )),
+                ),),
             const SizedBox().sizedWidth(width: 7),
-            const Text("Username"),
+            const Text('Username'),
             const SizedBox().sizedWidth(width: 7),
             PIOutlinedButton(
                 onPressed: () {},
                 child: Text(
-                  "Follow",
+                  'Follow',
                   style: TextStyle(
                       fontSize: 12,
-                      color: Theme.of(context).textTheme.bodyLarge?.color),
-                )).basic(context)
+                      color: Theme.of(context).textTheme.bodyLarge?.color,),
+                ),).basic(context),
           ],
         ),
-        const Text("Tag your friend"),
+        const Text('Tag your friend'),
       ],
     );
   }
@@ -138,7 +138,7 @@ class _SingleReelsViewState extends State<SingleReelsView> {
   Widget likeShareComment() {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         PITextButton(
           onPressed: () {},
           child: const Icon(
