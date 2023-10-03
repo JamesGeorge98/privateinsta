@@ -22,10 +22,10 @@ class AuthenticationRepository {
     required String userName,
   }) async {
     try {
-      final String user = '${Endpoints.checkUsername}$userName';
-      print(user.runtimeType);
-      final a = await DioClient<SignInModel>().get(user);
-      print(a);
+      // final String user = '${Endpoints.checkUsername}$userName';
+      // print(user.runtimeType);
+      // final a = await DioClient<SignInModel>().get(user);
+      // print(a);
     } catch (e) {
       rethrow;
     }

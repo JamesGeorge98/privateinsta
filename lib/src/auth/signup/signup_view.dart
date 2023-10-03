@@ -48,6 +48,8 @@ class SignUpScreen extends StatelessWidget {
               space.sizedHeight(),
               PITextFormField(
                 hint: 'Username',
+                textEditingController:
+                    context.read<SignUpBloc>().usernameController,
                 onChanged: (String value) {
                   context
                       .read<SignUpBloc>()
