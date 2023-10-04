@@ -48,38 +48,9 @@ class SigInScreen extends StatelessWidget {
                         style: GoogleFonts.cookie(fontSize: 50),
                       ),
                       space.sizedHeight(),
-                      PITextFormField(
-                        hint: 'Phone number, email or email address',
-                        onChanged: (String value) {
-                          context
-                              .read<SiginBloc>()
-                              .add(UserTextFieldChange(email: value));
-                        },
-                      ).basicInput(),
+                      email(context).basicInput(),
                       space.sizedHeight(),
-                      PITextFormField(
-                        hint: 'Password',
-                        onChanged: (String value) {
-                          context.read<SiginBloc>().add(
-                                PasswordTextFieldChange(password: value),
-                              );
-                        },
-                        obscureText: !state.isVisible,
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            context.read<SiginBloc>().add(
-                                  PasswordVisiablityPressed(
-                                    isVisiable: state.isVisible,
-                                  ),
-                                );
-                          },
-                          child: Icon(
-                            state.isVisible
-                                ? AppIcons.visiblityicon
-                                : AppIcons.invisiblityicon,
-                          ),
-                        ),
-                      ).basicInput(),
+                      password(context, state).basicInput(),
                       Align(
                         alignment: Alignment.centerRight,
                         child: PITextButton(
@@ -88,16 +59,7 @@ class SigInScreen extends StatelessWidget {
                         ).basic(),
                       ),
                       space.sizedHeight(),
-                      PIElevatedButton(
-                        onPressed: () {
-                          context
-                              .read<SiginBloc>()
-                              .add(LoginButtonPressedEvent());
-                        },
-                        child: (state.status == SignInStatus.loading)
-                            ? const CupertinoActivityIndicator()
-                            : const Text('Log In'),
-                      ).expanded(context),
+                      loginButton(context, state).expanded(context),
                       space.sizedHeight(),
                       PIDividers.centerText(text: 'OR'),
                       space.sizedHeight(),
@@ -124,30 +86,7 @@ class SigInScreen extends StatelessWidget {
                       Divider(
                         color: Colors.grey.shade500,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text(
-                            'Dont have an account?',
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                          PITextButton(
-                            onPressed: () {
-                              Navigator.restorablePushNamed(
-                                context,
-                                SignUpScreen.routeName,
-                              );
-                            },
-                            child: const Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ).basic(),
-                        ],
-                      ),
+                      signUpButton(context),
                     ],
                   );
                 },
@@ -156,6 +95,77 @@ class SigInScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  PIElevatedButton loginButton(BuildContext context, SiginState state) {
+    return PIElevatedButton(
+      onPressed: () {
+        context.read<SiginBloc>().add(LoginButtonPressedEvent());
+      },
+      child: (state.status == SignInStatus.loading)
+          ? const CupertinoActivityIndicator()
+          : const Text('Log In'),
+    );
+  }
+
+  Row signUpButton(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text(
+          'Dont have an account?',
+          style: TextStyle(color: Colors.grey, fontSize: 12),
+        ),
+        PITextButton(
+          onPressed: () {
+            Navigator.restorablePushNamed(
+              context,
+              SignUpScreen.routeName,
+            );
+          },
+          child: const Text(
+            'Sign Up',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ).basic(),
+      ],
+    );
+  }
+
+  PITextFormField password(BuildContext context, SiginState state) {
+    return PITextFormField(
+      hint: 'Password',
+      onChanged: (String value) {
+        context.read<SiginBloc>().add(
+              PasswordTextFieldChange(password: value),
+            );
+      },
+      obscureText: !state.isVisible,
+      suffixIcon: InkWell(
+        onTap: () {
+          context.read<SiginBloc>().add(
+                PasswordVisiablityPressed(
+                  isVisiable: state.isVisible,
+                ),
+              );
+        },
+        child: Icon(
+          state.isVisible ? AppIcons.visiblityicon : AppIcons.invisiblityicon,
+        ),
+      ),
+    );
+  }
+
+  PITextFormField email(BuildContext context) {
+    return PITextFormField(
+      hint: 'Phone number, email or email address',
+      onChanged: (String value) {
+        context.read<SiginBloc>().add(UserTextFieldChange(email: value));
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +16,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationRepository authService;
 
   TextEditingController usernameController = TextEditingController();
+
+  Timer? _debounceTimer;
 
   Future<void> _handleLoginUserNameChangedEvent(
     UserNameCheckEvent event,
@@ -34,7 +38,21 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(state.copyWith(username: event.username));
       }
 
-      await authService.checkUserName(userName: state.username);
+      if (_debounceTimer != null) {
+        _debounceTimer!.cancel();
+      }
+
+      _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+        //emit(state.copyWith(status: SignUpStatus.loading));
+
+        if (state.username != '') {
+          await authService.checkUserName(userName: state.username);
+        }
+
+        //await Future<void>.delayed(const Duration(milliseconds: 500));
+
+        //emit(state.copyWith(status: SignUpStatus.success));
+      });
     } catch (e) {
       print(e);
     }

@@ -11,8 +11,9 @@ class AuthenticationRepository {
     required String password,
   }) async {
     try {
-      final a = await DioClient<SignInModel>().get(Endpoints.checkUsername);
-      print(a);
+      // final BaseRespose<SignInModel> a =
+      //     await DioClient<SignInModel>().get(Endpoints.checkUsername);
+      // print(a);
     } catch (e) {
       rethrow;
     }
@@ -22,10 +23,10 @@ class AuthenticationRepository {
     required String userName,
   }) async {
     try {
-      // final String user = '${Endpoints.checkUsername}$userName';
-      // print(user.runtimeType);
-      // final a = await DioClient<SignInModel>().get(user);
-      // print(a);
+      final String user = '${Endpoints.checkUsername}$userName';
+      final BaseRespose<List<String>> resposeData =
+          await DioClient<List<String>>().get(user);
+      print(resposeData.status);
     } catch (e) {
       rethrow;
     }

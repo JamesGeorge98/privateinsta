@@ -22,7 +22,7 @@ class SiginBloc extends Bloc<SiginEvent, SiginState> {
     try {
       emit(state.copyWith(message: 'LOADING', status: SignInStatus.loading));
 
-      // await authService.signIn(
+      // await authService.signIn( 
       //   email: state.email,
       //   password: state.password,
       // );
