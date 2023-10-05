@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:privateinsta/core/constants/endpoints.dart';
 
-class BaseRespose<T> {
-  BaseRespose({this.status, this.data, this.message, this.error});
+// ignore: constant_identifier_names
+typedef JSON = Map<String, dynamic>;
 
-  factory BaseRespose.fromJson(Map<String, dynamic> json) {
-    print(T);
-    print(json['data'] as T);
-    return BaseRespose<T>(
+class BaseResponse<T> {
+  BaseResponse({this.status, this.data, this.message, this.error});
+  factory BaseResponse.fromJson(Map<String, dynamic> json) {
+    return BaseResponse<T>(
       status: json['status'] as bool? ?? false,
       data: json['data'] as T?,
       message: json['message'] as String? ?? '',
@@ -23,18 +23,32 @@ class BaseRespose<T> {
   String? error;
 }
 
-class DioClient<T> {
-  // dio instance
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: Endpoints.baseUrl,
-      connectTimeout: const Duration(seconds: Endpoints.connectionTimeout),
-      receiveTimeout: const Duration(seconds: Endpoints.receiveTimeout),
-    ),
-  );
+class DioClient {
+  DioClient({
+    required Dio dioClient,
+    Iterable<Interceptor>? interceptors,
+    HttpClientAdapter? httpClientAdapter,
+    BaseOptions? baseOptions,
+  }) : _dio = dioClient {
+    if (interceptors != null) _dio.interceptors.addAll(interceptors);
+    if (httpClientAdapter != null) {
+      _dio.httpClientAdapter = httpClientAdapter;
+    }
+    if (baseOptions != null) {
+      _dio.options = baseOptions;
+    } else {
+      _dio.options = BaseOptions(
+        baseUrl: Endpoints.baseUrl,
+        connectTimeout: const Duration(seconds: Endpoints.connectionTimeout),
+        receiveTimeout: const Duration(seconds: Endpoints.receiveTimeout),
+      );
+    }
+  }
+
+  final Dio _dio;
 
   // Get:-----------------------------------------------------------------------
-  Future<BaseRespose<T>> get(
+  Future<BaseResponse<R>> get<R>(
     String uri, {
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -42,31 +56,31 @@ class DioClient<T> {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response<dynamic> response = await _dio.get(
+      final Response<JSON> response = await _dio.get<JSON>(
         uri,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      return _createResponse(response);
+      return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
       rethrow;
     }
   }
 
   // Post:----------------------------------------------------------------------
-  Future<dynamic> post(
+  Future<BaseResponse<R>> post<R>(
     String uri, {
-    data,
-    Map<String, dynamic>? queryParameters,
+    JSON? data,
+    JSON? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.post(
+      final Response<JSON> response = await _dio.post<JSON>(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -75,24 +89,24 @@ class DioClient<T> {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return response.data;
+      return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
       rethrow;
     }
   }
 
   // Put:-----------------------------------------------------------------------
-  Future<dynamic> put(
+  Future<BaseResponse<R>> put<R>(
     String uri, {
-    data,
-    Map<String, dynamic>? queryParameters,
+    JSON? data,
+    JSON? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.put(
+      final Response<JSON> response = await _dio.put<JSON>(
         uri,
         data: data,
         queryParameters: queryParameters,
@@ -101,62 +115,62 @@ class DioClient<T> {
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
       );
-      return response.data;
+      return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
       rethrow;
     }
   }
 
   // Delete:--------------------------------------------------------------------
-  Future<dynamic> delete(
+  Future<BaseResponse<R>> delete<R>(
     String uri, {
-    data,
-    Map<String, dynamic>? queryParameters,
+    JSON? data,
+    JSON? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      final Response response = await _dio.delete(
+      final Response<JSON> response = await _dio.delete<JSON>(
         uri,
         data: data,
         queryParameters: queryParameters,
         options: options,
         cancelToken: cancelToken,
       );
-      return response.data;
+      return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
       rethrow;
     }
   }
 
-  BaseRespose<T> _createResponse(Response<dynamic> httpResponse) {
-    print(httpResponse.data['data']);
-    switch (httpResponse.statusCode) {
-      case 200:
-        final BaseRespose<T> baseResponse =
-            BaseRespose<T>.fromJson(httpResponse.data as Map<String, dynamic>);
-        print(baseResponse.data);
-        return baseResponse;
+  // BaseResponse<T> _createResponse(Response<dynamic> httpResponse) {
+  //   print(httpResponse.data['data']);
+  //   switch (httpResponse.statusCode) {
+  //     case 200:
+  //       final BaseRespose<T> baseResponse =
+  //           BaseRespose<T>.fromJson(httpResponse.data as Map<String, dynamic>);
+  //       print(baseResponse.data);
+  //       return baseResponse;
 
-      case 204:
-        final Map<String, dynamic> defaultResponse = <String, dynamic>{
-          'status': false,
-          'data': T,
-          'message': '204 Response',
-        };
-        final BaseRespose<T> baseResponse =
-            BaseRespose<T>.fromJson(defaultResponse);
-        return baseResponse;
-      default:
-        final Map<String, dynamic> error = <String, dynamic>{
-          'status': false,
-          'data': <dynamic>[],
-          'message': 'something went worng',
-        };
-        final BaseRespose<T> baseResponse = BaseRespose<T>.fromJson(error);
-        return baseResponse;
-    }
-  }
+  //     case 204:
+  //       final Map<String, dynamic> defaultResponse = <String, dynamic>{
+  //         'status': false,
+  //         'data': T,
+  //         'message': '204 Response',
+  //       };
+  //       final BaseRespose<T> baseResponse =
+  //           BaseRespose<T>.fromJson(defaultResponse);
+  //       return baseResponse;
+  //     default:
+  //       final Map<String, dynamic> error = <String, dynamic>{
+  //         'status': false,
+  //         'data': <dynamic>[],
+  //         'message': 'something went worng',
+  //       };
+  //       final BaseRespose<T> baseResponse = BaseRespose<T>.fromJson(error);
+  //       return baseResponse;
+  //   }
+  // }
 }

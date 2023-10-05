@@ -24,9 +24,9 @@ class AuthenticationRepository {
   }) async {
     try {
       final String user = '${Endpoints.checkUsername}$userName';
-      final BaseRespose<List<String>> resposeData =
-          await DioClient<List<String>>().get(user);
-      print(resposeData.status);
+      // final BaseRespose<List<String>> resposeData =
+      //     await DioClient<List<String>>().get(user);
+      // print(resposeData.status);
     } catch (e) {
       rethrow;
     }
