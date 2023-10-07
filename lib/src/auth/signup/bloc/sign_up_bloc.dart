@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:privateinsta/core/utils/exception.dart';
 import 'package:privateinsta/src/auth/auth_repo.dart';
 
 part 'sign_up_event.dart';
@@ -11,6 +14,7 @@ part 'sign_up_state.dart';
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({required this.authService}) : super(const SignUpState()) {
     on<UserNameCheckEvent>(_handleLoginUserNameChangedEvent);
+    on<CheckUserNameAPI>(_hitChangeTextFieldStatus);
   }
 
   final AuthenticationRepository authService;
@@ -43,19 +47,58 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       }
 
       _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-        //emit(state.copyWith(status: SignUpStatus.loading));
+        add(CheckUserNameAPI(isLoading: true));
 
-        if (state.username != '') {
-          await authService.checkUserName(userName: state.username);
+        if (state.username.isNotEmpty) {
+          try {
+            await authService.checkUserName(userName: state.username);
+          } catch (e) {
+            print(e);
+            rethrow;
+          }
         }
-
-        //await Future<void>.delayed(const Duration(milliseconds: 500));
-
-        //emit(state.copyWith(status: SignUpStatus.success));
+        add(CheckUserNameAPI(isLoading: false));
       });
+    } on CustomException catch (e) {
+      emit(
+        state.copyWith(
+          status: SignUpStatus.failure,
+          expection: e,
+          suffixIcon: const SizedBox(),
+        ),
+      );
     } catch (e) {
-      print(e);
+      emit(
+        state.copyWith(
+          expection: CustomException.somthingWentWrong(),
+          status: SignUpStatus.failure,
+          suffixIcon: const SizedBox(),
+        ),
+      );
     }
+  }
+
+  Future<void> _hitChangeTextFieldStatus(
+    CheckUserNameAPI event,
+    Emitter<SignUpState> emit,
+  ) async {
+    try {
+      if (event.isLoading) {
+        emit(
+          state.copyWith(
+            status: SignUpStatus.loading,
+            suffixIcon: const CupertinoActivityIndicator(),
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            status: SignUpStatus.success,
+            suffixIcon: const Icon(Icons.check_circle_outline_outlined),
+          ),
+        );
+      }
+    } catch (e) {}
   }
 
   @override

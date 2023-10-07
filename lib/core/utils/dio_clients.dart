@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:privateinsta/core/constants/endpoints.dart';
@@ -65,6 +65,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
+      log('Error in get Dio', error: e);
       rethrow;
     }
   }
@@ -91,6 +92,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
+       log('Error in post Dio', error: e);
       rethrow;
     }
   }
@@ -117,6 +119,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
+       log('Error in put Dio', error: e);
       rethrow;
     }
   }
@@ -141,6 +144,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
+       log('Error in delete Dio', error: e);
       rethrow;
     }
   }

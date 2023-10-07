@@ -6,6 +6,7 @@ import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/constants/icons.dart';
 import 'package:privateinsta/src/auth/sigin/bloc/sigin_bloc.dart';
 import 'package:privateinsta/src/auth/signup/signup_view.dart';
+import 'package:privateinsta/src/main_screen/main_screen.dart';
 import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/dividers.dart';
@@ -32,8 +33,10 @@ class SigInScreen extends StatelessWidget {
               child: BlocConsumer<SiginBloc, SiginState>(
                 listener: (BuildContext context, SiginState state) {
                   if (state.status == SignInStatus.success) {
-                    // Navigator.restorablePushNamed(
-                    //     context, MainScreen.routeName);
+                    Navigator.restorablePushNamed(
+                      context,
+                      MainScreen.routeName,
+                    );
                   }
                 },
                 builder: (BuildContext context, SiginState state) {

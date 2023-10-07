@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 
 class PITextFormField {
-  PITextFormField(
-      {this.textEditingController,
-      this.hint,
-      this.suffixIcon,
-      this.obscureText = false,
-      this.onChanged,});
+  PITextFormField({
+    this.textEditingController,
+    this.hint,
+    this.suffixIcon,
+    this.obscureText = false,
+    this.onChanged,
+    this.onEditingComplete,
+  });
   final String? hint;
   final Widget? suffixIcon;
   final TextEditingController? textEditingController;
   final bool obscureText;
   void Function(String)? onChanged;
+  void Function()? onEditingComplete;
 
   Widget basicInput() {
     return TextFormField(
-      
+      onEditingComplete: onEditingComplete,
       controller: textEditingController,
       obscureText: obscureText,
       onChanged: onChanged,

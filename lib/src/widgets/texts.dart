@@ -8,6 +8,6 @@ class PITextStyle {
   }
 
   TextStyle bodyTextStyle({double size = 14}) {
-    return TextStyle(fontSize: size, color: Colors.white.withOpacity(0.5));
+    return TextStyle(fontSize: size, color: Colors.white.withOpacity(0.7));
   }
 }

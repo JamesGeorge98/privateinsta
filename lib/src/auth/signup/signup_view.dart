@@ -5,6 +5,7 @@ import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
+import 'package:privateinsta/src/widgets/snack_bar.dart';
 import 'package:privateinsta/src/widgets/textformfields.dart';
 import 'package:privateinsta/src/widgets/texts.dart';
 
@@ -19,10 +20,14 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        toolbarHeight: 40,
         elevation: 0,
         backgroundColor: AppColors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_rounded),
+          icon: const Icon(
+            Icons.close,
+            size: 30,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -31,46 +36,64 @@ class SignUpScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Create username',
-                style: PITextStyle().headerTextStyle(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  'Choose a username for your new account. You can always change it later.',
-                  style: PITextStyle().bodyTextStyle(size: 12),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              space.sizedHeight(),
-              PITextFormField(
-                hint: 'Username',
-                textEditingController:
-                    context.read<SignUpBloc>().usernameController,
-                onChanged: (String value) {
-                  context
-                      .read<SignUpBloc>()
-                      .add(UserNameCheckEvent(username: value));
-                },
-              ).basicInput(),
-              space.sizedHeight(),
-              PIElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PIPageRoute(
-                      child: const CreatePassword(),
-                      direction: AxisDirection.left,
+          child: BlocConsumer<SignUpBloc, SignUpState>(
+            listener: (BuildContext context, SignUpState state) {
+              if (state.status == SignUpStatus.failure) {
+                PISanckBar(
+                  content: Text(state.expection!.message),
+                );
+              }
+            },
+            builder: (BuildContext context, SignUpState state) {
+              return Column(
+                children: <Widget>[
+                  Text(
+                    'Create username',
+                    style: PITextStyle().headerTextStyle(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      'Choose a username for your new account. You can always change it later.',
+                      style: PITextStyle().bodyTextStyle(size: 12),
+                      textAlign: TextAlign.center,
                     ),
-                  );
-                },
-                child: const Text('Next'),
-              ).expanded(context),
-              Expanded(child: availableUserNames()),
-            ],
+                  ),
+                  space.sizedHeight(),
+                  PITextFormField(
+                    suffixIcon: state.suffixIcon,
+                    hint: 'Username',
+                    textEditingController:
+                        context.read<SignUpBloc>().usernameController,
+                    onChanged: (String value) {
+                      context
+                          .read<SignUpBloc>()
+                          .add(UserNameCheckEvent(username: value));
+                    },
+                    onEditingComplete: () {
+                      print('completet');
+                    },
+                  ).basicInput(),
+                  space.sizedHeight(),
+                  PIElevatedButton(
+                    autoFocus: true,
+                    onPressed: state.username.isEmpty
+                        ? null
+                        : () {
+                            Navigator.push(
+                              context,
+                              PIPageRoute(
+                                child: const CreatePassword(),
+                                direction: AxisDirection.left,
+                              ),
+                            );
+                          },
+                    child: const Text('Next'),
+                  ).expanded(context),
+                  Expanded(child: availableUserNames()),
+                ],
+              );
+            },
           ),
         ),
       ),

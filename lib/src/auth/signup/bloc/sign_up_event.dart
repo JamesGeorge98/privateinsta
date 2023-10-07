@@ -18,3 +18,12 @@ class UserNameCheckEvent extends SignUpEvent {
   @override
   List<Object?> get props => <Object?>[username];
 }
+
+class CheckUserNameAPI extends SignUpEvent {
+  CheckUserNameAPI({required this.isLoading});
+
+  final  bool isLoading ;
+
+  @override
+  List<Object?> get props => <Object?>[isLoading];
+}
