@@ -28,12 +28,16 @@ class AuthenticationRepository {
   }) async {
     try {
       final String user = '${Endpoints.checkUsername}$userName';
-      await Future<void>.delayed(const Duration(seconds: 2));
       final BaseResponse<List<String>> responseData =
           await DioClient(dioClient: _dio).get(user);
+      print(responseData);
     } on DioException catch (e) {
-      CustomException.fromDioException(e);
-      rethrow;
+      print(e.requestOptions.path);
+      print(e.requestOptions.baseUrl);
+      print(e.requestOptions.headers);
+      print(e.requestOptions.uri);
+
+      throw CustomException.fromDioException(e);
     } catch (e) {
       log(e.toString());
       rethrow;

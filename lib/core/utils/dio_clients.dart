@@ -65,6 +65,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
+      print(e);
       log('Error in get Dio', error: e);
       rethrow;
     }
@@ -92,7 +93,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
-       log('Error in post Dio', error: e);
+      log('Error in post Dio', error: e);
       rethrow;
     }
   }
@@ -119,7 +120,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
-       log('Error in put Dio', error: e);
+      log('Error in put Dio', error: e);
       rethrow;
     }
   }
@@ -144,7 +145,7 @@ class DioClient {
       );
       return BaseResponse<R>.fromJson(response.data!);
     } catch (e) {
-       log('Error in delete Dio', error: e);
+      log('Error in delete Dio', error: e);
       rethrow;
     }
   }

@@ -9,7 +9,8 @@ import 'package:privateinsta/src/settings/settings_controller.dart';
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
   const MyApp({
-    required this.settingsController, super.key,
+    required this.settingsController,
+    super.key,
   });
 
   final SettingsController settingsController;
@@ -56,6 +57,8 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            snackBarTheme:
+                const SnackBarThemeData(backgroundColor: Colors.white70),
             bottomSheetTheme:
                 const BottomSheetThemeData(backgroundColor: Colors.black54),
             highlightColor: Colors.transparent,
@@ -63,17 +66,20 @@ class MyApp extends StatelessWidget {
             textSelectionTheme:
                 const TextSelectionThemeData(cursorColor: AppColors.black),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                elevation: 0,
-                selectedIconTheme: IconThemeData(color: Colors.black),
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white,),
+              elevation: 0,
+              selectedIconTheme: IconThemeData(color: Colors.black),
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+            ),
             appBarTheme: const AppBarTheme(
-                titleTextStyle: TextStyle(color: Colors.black),
-                iconTheme: IconThemeData(color: AppColors.black),),
+              titleTextStyle: TextStyle(color: Colors.black),
+              iconTheme: IconThemeData(color: AppColors.black),
+            ),
             inputDecorationTheme: InputDecorationTheme(
-                iconColor: AppColors.black.withOpacity(0.5),
-                filled: true,
-                fillColor: AppColors.textFieldColor,),
+              iconColor: AppColors.black.withOpacity(0.5),
+              filled: true,
+              fillColor: AppColors.textFieldColor,
+            ),
             useMaterial3: false,
             textTheme: GoogleFonts.nunitoSansTextTheme(
               Theme.of(context).textTheme,
@@ -81,28 +87,35 @@ class MyApp extends StatelessWidget {
             bottomAppBarTheme: const BottomAppBarTheme(color: AppColors.black),
           ),
           darkTheme: ThemeData(
+            snackBarTheme:
+                const SnackBarThemeData(backgroundColor: Colors.teal),
             bottomSheetTheme: const BottomSheetThemeData(
-                backgroundColor: AppColors.darkFieldColor,),
+              backgroundColor: AppColors.darkFieldColor,
+            ),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
             textSelectionTheme: TextSelectionThemeData(
-                cursorColor: AppColors.white.withOpacity(0.4),),
+              cursorColor: AppColors.white.withOpacity(0.4),
+            ),
             bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                elevation: 0,
-                type: BottomNavigationBarType.fixed,
-                selectedIconTheme: IconThemeData(color: AppColors.white),
-                backgroundColor: Colors.black,),
+              elevation: 0,
+              type: BottomNavigationBarType.fixed,
+              selectedIconTheme: IconThemeData(color: AppColors.white),
+              backgroundColor: Colors.black,
+            ),
             appBarTheme: const AppBarTheme(
-                elevation: 0,
-                backgroundColor: AppColors.transparent,
-                titleTextStyle: TextStyle(color: AppColors.white),
-                iconTheme: IconThemeData(color: AppColors.white),),
+              elevation: 0,
+              backgroundColor: AppColors.transparent,
+              titleTextStyle: TextStyle(color: AppColors.white),
+              iconTheme: IconThemeData(color: AppColors.white),
+            ),
             scaffoldBackgroundColor: AppColors.black,
             inputDecorationTheme: InputDecorationTheme(
-                focusColor: AppColors.white.withOpacity(0.5),
-                iconColor: AppColors.white.withOpacity(0.5),
-                filled: true,
-                fillColor: AppColors.darkFieldColor,),
+              focusColor: AppColors.white.withOpacity(0.5),
+              iconColor: AppColors.white.withOpacity(0.5),
+              filled: true,
+              fillColor: AppColors.darkFieldColor,
+            ),
             brightness: Brightness.dark,
             useMaterial3: false,
           ),

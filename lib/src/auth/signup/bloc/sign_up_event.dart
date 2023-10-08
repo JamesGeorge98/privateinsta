@@ -11,19 +11,20 @@ class SignupButtonPressed extends SignUpEvent {
   List<Object?> get props => <Object?>[email, password];
 }
 
-class UserNameCheckEvent extends SignUpEvent {
-  UserNameCheckEvent({required this.username});
+class UserNameTextfieldChangeEvent extends SignUpEvent {
+  UserNameTextfieldChangeEvent({required this.username});
   final String username;
 
   @override
   List<Object?> get props => <Object?>[username];
 }
 
-class CheckUserNameAPI extends SignUpEvent {
-  CheckUserNameAPI({required this.isLoading});
+class CheckUserNameAPIHit extends SignUpEvent {
+  CheckUserNameAPIHit({required this.isLoading, this.error});
 
-  final  bool isLoading ;
+  final bool isLoading;
+  final CustomException? error;
 
   @override
-  List<Object?> get props => <Object?>[isLoading];
+  List<Object?> get props => <Object?>[isLoading, error];
 }

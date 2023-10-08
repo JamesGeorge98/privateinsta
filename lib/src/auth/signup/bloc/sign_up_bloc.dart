@@ -13,8 +13,8 @@ part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({required this.authService}) : super(const SignUpState()) {
-    on<UserNameCheckEvent>(_handleLoginUserNameChangedEvent);
-    on<CheckUserNameAPI>(_hitChangeTextFieldStatus);
+    on<UserNameTextfieldChangeEvent>(_handleUserNameChangedEvent);
+    on<CheckUserNameAPIHit>(_hitChangeTextFieldStatus);
   }
 
   final AuthenticationRepository authService;
@@ -23,8 +23,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
   Timer? _debounceTimer;
 
-  Future<void> _handleLoginUserNameChangedEvent(
-    UserNameCheckEvent event,
+  Future<void> _handleUserNameChangedEvent(
+    UserNameTextfieldChangeEvent event,
     Emitter<SignUpState> emit,
   ) async {
     try {
@@ -39,31 +39,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           ),
         );
       } else {
-        emit(state.copyWith(username: event.username));
+        emit(
+          state.copyWith(
+            username: event.username,
+            status: SignUpStatus.idle,
+          ),
+        );
       }
-
-      if (_debounceTimer != null) {
-        _debounceTimer!.cancel();
-      }
-
-      _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
-        add(CheckUserNameAPI(isLoading: true));
-
-        if (state.username.isNotEmpty) {
-          try {
-            await authService.checkUserName(userName: state.username);
-          } catch (e) {
-            print(e);
-            rethrow;
-          }
-        }
-        add(CheckUserNameAPI(isLoading: false));
-      });
+      await _hitCheckUserNameAPI(emit);
     } on CustomException catch (e) {
       emit(
         state.copyWith(
-          status: SignUpStatus.failure,
           expection: e,
+          status: SignUpStatus.failure,
           suffixIcon: const SizedBox(),
         ),
       );
@@ -78,25 +66,64 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
   }
 
+  Future<void> _hitCheckUserNameAPI(
+    Emitter<SignUpState> emit,
+  ) async {
+    if (_debounceTimer != null) {
+      _debounceTimer!.cancel();
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 2000), () async {
+      print('hit');
+      if (state.username.isNotEmpty) {
+        try {
+          add(CheckUserNameAPIHit(isLoading: true));
+          await authService.checkUserName(userName: state.username);
+          add(CheckUserNameAPIHit(isLoading: false));
+        } on CustomException catch (e) {
+          add(CheckUserNameAPIHit(isLoading: false, error: e));
+        } catch (e) {
+          add(
+            CheckUserNameAPIHit(
+              isLoading: false,
+              error: CustomException.somthingWentWrong(),
+            ),
+          );
+        }
+      }
+    });
+  }
+
   Future<void> _hitChangeTextFieldStatus(
-    CheckUserNameAPI event,
+    CheckUserNameAPIHit event,
     Emitter<SignUpState> emit,
   ) async {
     try {
-      if (event.isLoading) {
+      if (event.error != null) {
         emit(
           state.copyWith(
-            status: SignUpStatus.loading,
-            suffixIcon: const CupertinoActivityIndicator(),
+            status: SignUpStatus.failure,
+            expection: event.error,
+            suffixIcon: const Icon(Icons.close_rounded),
           ),
         );
       } else {
-        emit(
-          state.copyWith(
-            status: SignUpStatus.success,
-            suffixIcon: const Icon(Icons.check_circle_outline_outlined),
-          ),
-        );
+        if (event.isLoading) {
+          emit(
+            state.copyWith(
+              expection: event.error,
+              status: SignUpStatus.loading,
+              suffixIcon: const CupertinoActivityIndicator(),
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              status: SignUpStatus.success,
+              suffixIcon: const Icon(Icons.check_circle_outline_outlined),
+            ),
+          );
+        }
       }
     } catch (e) {}
   }

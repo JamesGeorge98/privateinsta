@@ -41,7 +41,7 @@ class SignUpScreen extends StatelessWidget {
               if (state.status == SignUpStatus.failure) {
                 PISanckBar(
                   content: Text(state.expection!.message),
-                );
+                ).showSnackBar(context);
               }
             },
             builder: (BuildContext context, SignUpState state) {
@@ -68,10 +68,7 @@ class SignUpScreen extends StatelessWidget {
                     onChanged: (String value) {
                       context
                           .read<SignUpBloc>()
-                          .add(UserNameCheckEvent(username: value));
-                    },
-                    onEditingComplete: () {
-                      print('completet');
+                          .add(UserNameTextfieldChangeEvent(username: value));
                     },
                   ).basicInput(),
                   space.sizedHeight(),

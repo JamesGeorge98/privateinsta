@@ -4,9 +4,8 @@ class PISanckBar extends SnackBar {
   const PISanckBar({required super.content, super.key});
 
   void showSnackBar(BuildContext context) {
-    const SnackBar snackBar = SnackBar(
-      content: Text('Hi, Flutter developers'),
-      backgroundColor: Colors.teal,
+    final SnackBar snackBar = SnackBar(
+      content: content,
       behavior: SnackBarBehavior.floating,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
