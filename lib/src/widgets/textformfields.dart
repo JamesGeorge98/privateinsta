@@ -9,6 +9,7 @@ class PITextFormField {
     this.obscureText = false,
     this.onChanged,
     this.onEditingComplete,
+    this.validator,
   });
   final String? hint;
   final Widget? suffixIcon;
@@ -16,11 +17,13 @@ class PITextFormField {
   final bool obscureText;
   void Function(String)? onChanged;
   void Function()? onEditingComplete;
+  String? Function(String?)? validator;
 
   Widget basicInput() {
     return TextFormField(
       onEditingComplete: onEditingComplete,
       controller: textEditingController,
+      validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,
       decoration: InputDecoration(

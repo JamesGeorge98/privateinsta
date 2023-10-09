@@ -57,6 +57,10 @@ class MyApp extends StatelessWidget {
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.w
           theme: ThemeData(
+            checkboxTheme: const CheckboxThemeData(
+              fillColor: MaterialStatePropertyAll<Color?>(AppColors.blue),
+              checkColor: MaterialStatePropertyAll<Color?>(AppColors.white),
+            ),
             snackBarTheme:
                 const SnackBarThemeData(backgroundColor: Colors.white70),
             bottomSheetTheme:
@@ -91,6 +95,11 @@ class MyApp extends StatelessWidget {
                 const SnackBarThemeData(backgroundColor: Colors.teal),
             bottomSheetTheme: const BottomSheetThemeData(
               backgroundColor: AppColors.darkFieldColor,
+            ),
+            checkboxTheme: const CheckboxThemeData(
+              fillColor: MaterialStatePropertyAll<Color?>(AppColors.blue),
+              checkColor:
+                  MaterialStatePropertyAll<Color?>(AppColors.darkFieldColor),
             ),
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,

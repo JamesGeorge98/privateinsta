@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:privateinsta/src/settings/settings_view.dart';
 import 'package:privateinsta/src/sample_feature/sample_item.dart';
 import 'package:privateinsta/src/sample_feature/sample_item_details_view.dart';
+import 'package:privateinsta/src/settings/settings_view.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {

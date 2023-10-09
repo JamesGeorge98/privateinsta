@@ -20,11 +20,16 @@ class UserNameTextfieldChangeEvent extends SignUpEvent {
 }
 
 class CheckUserNameAPIHit extends SignUpEvent {
-  CheckUserNameAPIHit({required this.isLoading, this.error});
+  CheckUserNameAPIHit({
+    required this.isLoading,
+    this.names,
+    this.error,
+  });
 
   final bool isLoading;
   final CustomException? error;
+  final List<String>? names;
 
   @override
-  List<Object?> get props => <Object?>[isLoading, error];
+  List<Object?> get props => <Object?>[isLoading, error, names];
 }

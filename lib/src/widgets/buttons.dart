@@ -67,7 +67,6 @@ class PIElevatedButton extends ElevatedButton {
       autofocus: autoFocus,
       onPressed: onPressed,
       style: ButtonStyle(
-        
         maximumSize: MaterialStatePropertyAll(
           Size(
             MediaQuery.of(context).size.width * .9,
@@ -109,7 +108,6 @@ class PIElevatedButton extends ElevatedButton {
 
   Widget expanded(BuildContext context) {
     return ElevatedButton(
-
       onPressed: onPressed,
       autofocus: autoFocus,
       style: ButtonStyle(

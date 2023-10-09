@@ -15,6 +15,9 @@ class AppColors {
 
   static const Color white = Colors.white;
 
+    static const Color red = Colors.red;
+
+
   /// custom Colors =========================================================
 
   static const Color blue = Color.fromARGB(255, 12, 143, 250);

@@ -63,9 +63,8 @@ class DioClient {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-      return BaseResponse<R>.fromJson(response.data!);
+      return _createResponse(response);
     } catch (e) {
-      print(e);
       log('Error in get Dio', error: e);
       rethrow;
     }
@@ -150,32 +149,28 @@ class DioClient {
     }
   }
 
-  // BaseResponse<T> _createResponse(Response<dynamic> httpResponse) {
-  //   print(httpResponse.data['data']);
-  //   switch (httpResponse.statusCode) {
-  //     case 200:
-  //       final BaseRespose<T> baseResponse =
-  //           BaseRespose<T>.fromJson(httpResponse.data as Map<String, dynamic>);
-  //       print(baseResponse.data);
-  //       return baseResponse;
-
-  //     case 204:
-  //       final Map<String, dynamic> defaultResponse = <String, dynamic>{
-  //         'status': false,
-  //         'data': T,
-  //         'message': '204 Response',
-  //       };
-  //       final BaseRespose<T> baseResponse =
-  //           BaseRespose<T>.fromJson(defaultResponse);
-  //       return baseResponse;
-  //     default:
-  //       final Map<String, dynamic> error = <String, dynamic>{
-  //         'status': false,
-  //         'data': <dynamic>[],
-  //         'message': 'something went worng',
-  //       };
-  //       final BaseRespose<T> baseResponse = BaseRespose<T>.fromJson(error);
-  //       return baseResponse;
-  //   }
-  // }
+  BaseResponse<R> _createResponse<R>(Response<dynamic> httpResponse) {
+    switch (httpResponse.statusCode) {
+      case 200:
+        final BaseResponse<R> baseResponse =
+            BaseResponse<R>.fromJson(httpResponse.data as JSON);
+        return baseResponse;
+      case 204:
+        final JSON defaultResponse = <String, dynamic>{
+          'status': false,
+          'message': '204 Response',
+        };
+        final BaseResponse<R> baseResponse =
+            BaseResponse<R>.fromJson(defaultResponse);
+        return baseResponse;
+      default:
+        final JSON error = <String, dynamic>{
+          'status': false,
+          'data': <dynamic>[],
+          'message': 'something went worng',
+        };
+        final BaseResponse<R> baseResponse = BaseResponse<R>.fromJson(error);
+        return baseResponse;
+    }
+  }
 }

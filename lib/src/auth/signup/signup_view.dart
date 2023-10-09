@@ -17,6 +17,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -43,52 +44,76 @@ class SignUpScreen extends StatelessWidget {
                   content: Text(state.expection!.message),
                 ).showSnackBar(context);
               }
+              if (state.status == SignUpStatus.success) {
+                final FormState? form = formKey.currentState;
+                if (form != null) {
+                  if (state.availableNames!.isNotEmpty) {
+                    form.validate();
+                  } else {
+                    form.reset();
+                  }
+                }
+              }
             },
             builder: (BuildContext context, SignUpState state) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    'Create username',
-                    style: PITextStyle().headerTextStyle(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      'Choose a username for your new account. You can always change it later.',
-                      style: PITextStyle().bodyTextStyle(size: 12),
-                      textAlign: TextAlign.center,
+              return Form(
+                key: formKey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Create username',
+                      style: PITextStyle().headerTextStyle(),
                     ),
-                  ),
-                  space.sizedHeight(),
-                  PITextFormField(
-                    suffixIcon: state.suffixIcon,
-                    hint: 'Username',
-                    textEditingController:
-                        context.read<SignUpBloc>().usernameController,
-                    onChanged: (String value) {
-                      context
-                          .read<SignUpBloc>()
-                          .add(UserNameTextfieldChangeEvent(username: value));
-                    },
-                  ).basicInput(),
-                  space.sizedHeight(),
-                  PIElevatedButton(
-                    autoFocus: true,
-                    onPressed: state.username.isEmpty
-                        ? null
-                        : () {
-                            Navigator.push(
-                              context,
-                              PIPageRoute(
-                                child: const CreatePassword(),
-                                direction: AxisDirection.left,
-                              ),
-                            );
-                          },
-                    child: const Text('Next'),
-                  ).expanded(context),
-                  Expanded(child: availableUserNames()),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        '''
+                        Choose a username for your new account. 
+                        You can always change it later.
+                        ''',
+                        style: PITextStyle().bodyTextStyle(size: 12),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    space.sizedHeight(),
+                    PITextFormField(
+                      suffixIcon: state.suffixIcon,
+                      hint: 'Username',
+                      textEditingController:
+                          context.read<SignUpBloc>().usernameController,
+                      onChanged: (String value) {
+                        context
+                            .read<SignUpBloc>()
+                            .add(UserNameTextfieldChangeEvent(username: value));
+                      },
+                      validator: (String? text) {
+                        return 'This username is not avaliable';
+                      },
+                    ).basicInput(),
+                    space.sizedHeight(),
+                    PIElevatedButton(
+                      autoFocus: true,
+                      onPressed: state.username.isEmpty ||
+                              state.status == SignUpStatus.loading
+                          ? null
+                          : () {
+                              Navigator.push(
+                                context,
+                                PIPageRoute(
+                                  child: const CreatePassword(),
+                                  direction: AxisDirection.left,
+                                ),
+                              );
+                            },
+                      child: const Text('Next'),
+                    ).expanded(context),
+                    Expanded(
+                      child: availableUserNames(
+                        state.availableNames ?? <String>[],
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),
@@ -97,18 +122,27 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget availableUserNames() {
+  Widget availableUserNames(List<String> availablesName) {
     return ListView.separated(
-      itemBuilder: (BuildContext context, int index) => const ListTile(
-        leading: Text(
-          'Name',
-        ),
-        trailing: Icon(
-          Icons.check_circle_outline_rounded,
-          color: AppColors.green,
+      itemBuilder: (BuildContext context, int index) => InkWell(
+        onTap: () {
+          context.read<SignUpBloc>().add(
+                UserNameTextfieldChangeEvent(username: availablesName[index]),
+              );
+          context.read<SignUpBloc>().usernameController.text =
+              availablesName[index];
+        },
+        child: ListTile(
+          leading: Text(
+            availablesName[index],
+          ),
+          trailing: const Icon(
+            Icons.check_circle_outline_rounded,
+            color: AppColors.green,
+          ),
         ),
       ),
-      itemCount: 5,
+      itemCount: availablesName.length,
       separatorBuilder: (BuildContext context, int index) => const Divider(
         color: Colors.grey,
       ),
@@ -116,30 +150,10 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
-class CreatePassword extends StatefulWidget {
+class CreatePassword extends StatelessWidget {
   const CreatePassword({super.key});
 
-  @override
-  State<CreatePassword> createState() => _CreatePasswordState();
-}
-
-class _CreatePasswordState extends State<CreatePassword> {
-  SizedBox space = const SizedBox();
-  bool isSaved = false;
-
-  late final TextEditingController passwordController;
-
-  @override
-  void initState() {
-    passwordController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    passwordController.dispose();
-    super.dispose();
-  }
+  static const SizedBox space =  SizedBox();
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +181,9 @@ class _CreatePasswordState extends State<CreatePassword> {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Choose a username for your new account. You can always chnage it later.',
+                  '''
+                  Choose a username for your new account. 
+                  You can always chnage it later.''',
                   style: PITextStyle().bodyTextStyle(),
                   textAlign: TextAlign.center,
                 ),
@@ -175,15 +191,16 @@ class _CreatePasswordState extends State<CreatePassword> {
               space.sizedHeight(),
               PITextFormField(
                 hint: 'Password',
-                textEditingController: passwordController,
+                // textEditingController: passwordController,
                 onChanged: (String value) {},
               ).basicInput(),
               space.sizedHeight(height: 10),
               CheckboxListTile.adaptive(
                 visualDensity: VisualDensity.compact,
                 value: true,
-                overlayColor:
-                    const MaterialStatePropertyAll(AppColors.transparent),
+                overlayColor: const MaterialStatePropertyAll<Color?>(
+                  AppColors.transparent,
+                ),
                 dense: false,
                 splashRadius: 0,
                 controlAffinity: ListTileControlAffinity.leading,

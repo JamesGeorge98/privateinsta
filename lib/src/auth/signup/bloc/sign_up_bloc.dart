@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
-
+import 'dart:math' as math;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/exception.dart';
 import 'package:privateinsta/src/auth/auth_repo.dart';
 
@@ -42,11 +42,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(
           state.copyWith(
             username: event.username,
-            status: SignUpStatus.idle,
           ),
         );
       }
-      await _hitCheckUserNameAPI(emit);
+      await _hitCheckUserNameAPI();
     } on CustomException catch (e) {
       emit(
         state.copyWith(
@@ -66,20 +65,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
   }
 
-  Future<void> _hitCheckUserNameAPI(
-    Emitter<SignUpState> emit,
-  ) async {
+  Future<void> _hitCheckUserNameAPI() async {
+    add(CheckUserNameAPIHit(isLoading: true));
     if (_debounceTimer != null) {
       _debounceTimer!.cancel();
     }
 
     _debounceTimer = Timer(const Duration(milliseconds: 2000), () async {
-      print('hit');
       if (state.username.isNotEmpty) {
         try {
-          add(CheckUserNameAPIHit(isLoading: true));
-          await authService.checkUserName(userName: state.username);
-          add(CheckUserNameAPIHit(isLoading: false));
+          final List<String> names =
+              await authService.checkUserName(userName: state.username);
+          add(CheckUserNameAPIHit(isLoading: false, names: names));
         } on CustomException catch (e) {
           add(CheckUserNameAPIHit(isLoading: false, error: e));
         } catch (e) {
@@ -104,7 +101,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           state.copyWith(
             status: SignUpStatus.failure,
             expection: event.error,
-            suffixIcon: const Icon(Icons.close_rounded),
+            suffixIcon: Transform.rotate(
+              angle: 2,
+              child: const Icon(
+                Icons.add_circle_outline_sharp,
+              ),
+            ),
           ),
         );
       } else {
@@ -120,7 +122,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           emit(
             state.copyWith(
               status: SignUpStatus.success,
-              suffixIcon: const Icon(Icons.check_circle_outline_outlined),
+              availableNames: event.names,
+              suffixIcon: event.names?.isEmpty ?? false
+                  ? const Icon(
+                      Icons.check_circle_outline_outlined,
+                      color: AppColors.green,
+                    )
+                  : Transform.rotate(
+                      angle: 45,
+                      child: const Icon(
+                        Icons.add_circle_outline_sharp,
+                        color: AppColors.red,
+                      ),
+                    ),
             ),
           );
         }

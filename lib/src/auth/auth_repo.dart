@@ -10,6 +10,8 @@ class AuthenticationRepository {
 
   final Dio _dio = Dio();
 
+  List<String> avaliableNames = <String>[];
+
   FutureOr<void> signIn({
     required String email,
     required String password,
@@ -23,20 +25,19 @@ class AuthenticationRepository {
     }
   }
 
-  FutureOr<void> checkUserName({
+  FutureOr<List<String>> checkUserName({
     required String userName,
   }) async {
     try {
       final String user = '${Endpoints.checkUsername}$userName';
-      final BaseResponse<List<String>> responseData =
+      final BaseResponse<List<dynamic>> responseData =
           await DioClient(dioClient: _dio).get(user);
-      print(responseData);
+      avaliableNames.clear();
+      if (responseData.status!) {
+        avaliableNames = List<String>.from(responseData.data!);
+      }
+      return avaliableNames;
     } on DioException catch (e) {
-      print(e.requestOptions.path);
-      print(e.requestOptions.baseUrl);
-      print(e.requestOptions.headers);
-      print(e.requestOptions.uri);
-
       throw CustomException.fromDioException(e);
     } catch (e) {
       log(e.toString());
