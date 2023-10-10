@@ -67,10 +67,7 @@ class SignUpScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
-                        '''
-                        Choose a username for your new account. 
-                        You can always change it later.
-                        ''',
+                        'Choose a username for your new account. You can always change it later.',
                         style: PITextStyle().bodyTextStyle(size: 12),
                         textAlign: TextAlign.center,
                       ),
@@ -94,7 +91,8 @@ class SignUpScreen extends StatelessWidget {
                     PIElevatedButton(
                       autoFocus: true,
                       onPressed: state.username.isEmpty ||
-                              state.status == SignUpStatus.loading
+                              state.status == SignUpStatus.loading ||
+                              state.status == SignUpStatus.failure
                           ? null
                           : () {
                               Navigator.push(
@@ -153,7 +151,7 @@ class SignUpScreen extends StatelessWidget {
 class CreatePassword extends StatelessWidget {
   const CreatePassword({super.key});
 
-  static const SizedBox space =  SizedBox();
+  static const SizedBox space = SizedBox();
 
   @override
   Widget build(BuildContext context) {

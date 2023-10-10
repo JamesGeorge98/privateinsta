@@ -8,7 +8,13 @@ import 'package:privateinsta/core/utils/exception.dart';
 class AuthenticationRepository {
   AuthenticationRepository();
 
-  final Dio _dio = Dio();
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: Endpoints.baseUrlEmulator,
+      connectTimeout: const Duration(seconds: Endpoints.connectionTimeout),
+      receiveTimeout: const Duration(seconds: Endpoints.receiveTimeout),
+    ),
+  );
 
   List<String> avaliableNames = <String>[];
 

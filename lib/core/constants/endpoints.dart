@@ -4,6 +4,7 @@ abstract class Endpoints {
 
   static const String getFCM = 'https://fcm.googleapis.com/fcm/send';
 
+  static const String baseUrlEmulator = 'http://10.0.2.2:3000/api/v1/';
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

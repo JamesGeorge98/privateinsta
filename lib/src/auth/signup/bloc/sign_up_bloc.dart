@@ -101,10 +101,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           state.copyWith(
             status: SignUpStatus.failure,
             expection: event.error,
-            suffixIcon: Transform.rotate(
-              angle: 2,
-              child: const Icon(
-                Icons.add_circle_outline_sharp,
+            suffixIcon: InkWell(
+              onTap: () {
+                usernameController.clear();
+              },
+              child: Transform.rotate(
+                angle: 41.6,
+                child: const Icon(
+                  Icons.add_circle_outline_sharp,
+                ),
               ),
             ),
           ),
@@ -128,11 +133,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
                       Icons.check_circle_outline_outlined,
                       color: AppColors.green,
                     )
-                  : Transform.rotate(
-                      angle: 45,
-                      child: const Icon(
-                        Icons.add_circle_outline_sharp,
-                        color: AppColors.red,
+                  : InkWell(
+                      onTap: () {
+                        usernameController.clear();
+                      },
+                      child: Transform.rotate(
+                        angle: 41.6,
+                        child: const Icon(
+                          Icons.add_circle_outline_sharp,
+                          color: AppColors.red,
+                        ),
                       ),
                     ),
             ),

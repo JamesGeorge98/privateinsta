@@ -27,7 +27,7 @@ class SigInScreen extends StatelessWidget {
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * .9,
+            height: MediaQuery.of(context).size.height,
             child: Padding(
               padding: const EdgeInsets.all(25),
               child: BlocConsumer<SiginBloc, SiginState>(
@@ -41,11 +41,9 @@ class SigInScreen extends StatelessWidget {
                 },
                 builder: (BuildContext context, SiginState state) {
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      const Spacer(
-                        flex: 2,
-                      ),
+                      const Spacer(),
                       Text(
                         'Instagram',
                         style: GoogleFonts.cookie(fontSize: 50),
