@@ -21,15 +21,15 @@ import 'package:privateinsta/src/widgets/page_transition.dart';
 
 class AppRouter {
   AppRouter({
-    required this.settingsController,
+    this.settingsController,
   });
-  final SettingsController settingsController;
+  final SettingsController? settingsController;
   Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       /// settings Routes ====================================================
       case SettingsView.routeName:
         return PIPageRoute(
-          child: SettingsView(controller: settingsController),
+          child: SettingsView(controller: settingsController!),
           settings: routeSettings,
         );
 
@@ -151,6 +151,21 @@ class AppRouter {
           ),
           settings: routeSettings,
           direction: AxisDirection.up,
+        );
+    }
+  }
+
+  Route<dynamic> signUpNestedRoutes(RouteSettings routeSettings) {
+    switch (routeSettings.name) {
+      case CreateUserName.routeName:
+        return PIPageRoute(
+          child: const CreateUserName(),
+          settings: routeSettings,
+        );
+      default:
+        return PIPageRoute(
+          child: const CreateUserName(),
+          settings: routeSettings,
         );
     }
   }

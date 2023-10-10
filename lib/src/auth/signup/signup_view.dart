@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:privateinsta/core/constants/colors.dart';
+import 'package:privateinsta/core/utils/router.dart';
 import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
@@ -13,11 +14,29 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   static const String routeName = '/signup';
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<NavigatorState> nestedNavigatorKey =
+        GlobalKey<NavigatorState>();
+    return Navigator(
+      key: nestedNavigatorKey,
+      onGenerateRoute: AppRouter().signUpNestedRoutes,
+    );
+  }
+}
+
+class CreateUserName extends StatelessWidget {
+  const CreateUserName({super.key});
+
+  static const String routeName = '/createusername';
+
   static const SizedBox space = SizedBox();
 
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -30,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
             size: 30,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.of(context, rootNavigator: true).pop();
           },
         ),
       ),
@@ -153,6 +172,8 @@ class CreatePassword extends StatelessWidget {
 
   static const SizedBox space = SizedBox();
 
+  static const String routeName = '/createpassword';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,47 +191,50 @@ class CreatePassword extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'Create a password',
-                style: PITextStyle().headerTextStyle(),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Text(
-                  '''
-                  Choose a username for your new account. 
-                  You can always chnage it later.''',
-                  style: PITextStyle().bodyTextStyle(),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              space.sizedHeight(),
-              PITextFormField(
-                hint: 'Password',
-                // textEditingController: passwordController,
-                onChanged: (String value) {},
-              ).basicInput(),
-              space.sizedHeight(height: 10),
-              CheckboxListTile.adaptive(
-                visualDensity: VisualDensity.compact,
-                value: true,
-                overlayColor: const MaterialStatePropertyAll<Color?>(
-                  AppColors.transparent,
-                ),
-                dense: false,
-                splashRadius: 0,
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: const EdgeInsets.all(0),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onChanged: (bool? value) {},
-                title: const Text('Save password'),
-              ),
-              space.sizedHeight(height: 10),
-              PIElevatedButton(onPressed: () {}, child: const Text('Next'))
-                  .expanded(context),
-            ],
+          child: BlocConsumer<SignUpBloc, SignUpState>(
+            listener: (BuildContext context, SignUpState state) {},
+            builder: (BuildContext context, SignUpState state) {
+              return Column(
+                children: <Widget>[
+                  Text(
+                    'Create a password',
+                    style: PITextStyle().headerTextStyle(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      'Choose a username for your new account. You can always change it later.',
+                      style: PITextStyle().bodyTextStyle(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  space.sizedHeight(),
+                  PITextFormField(
+                    hint: 'Password',
+                    // textEditingController: passwordController,
+                    onChanged: (String value) {},
+                  ).basicInput(),
+                  space.sizedHeight(height: 10),
+                  CheckboxListTile.adaptive(
+                    visualDensity: VisualDensity.compact,
+                    value: true,
+                    overlayColor: const MaterialStatePropertyAll<Color?>(
+                      AppColors.transparent,
+                    ),
+                    dense: false,
+                    splashRadius: 0,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: const EdgeInsets.all(0),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    onChanged: (bool? value) {},
+                    title: const Text('Save password'),
+                  ),
+                  space.sizedHeight(height: 10),
+                  PIElevatedButton(onPressed: () {}, child: const Text('Next'))
+                      .expanded(context),
+                ],
+              );
+            },
           ),
         ),
       ),
