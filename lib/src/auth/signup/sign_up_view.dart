@@ -176,6 +176,8 @@ class CreatePassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -194,45 +196,88 @@ class CreatePassword extends StatelessWidget {
           child: BlocConsumer<SignUpBloc, SignUpState>(
             listener: (BuildContext context, SignUpState state) {},
             builder: (BuildContext context, SignUpState state) {
-              return Column(
-                children: <Widget>[
-                  Text(
-                    'Create a password',
-                    style: PITextStyle().headerTextStyle(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      'Choose a username for your new account. You can always change it later.',
-                      style: PITextStyle().bodyTextStyle(),
-                      textAlign: TextAlign.center,
+              return Form(
+                key: formKey,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Create a password',
+                      style: PITextStyle().headerTextStyle(),
                     ),
-                  ),
-                  space.sizedHeight(),
-                  PITextFormField(
-                    hint: 'Password',
-                    // textEditingController: passwordController,
-                    onChanged: (String value) {},
-                  ).basicInput(),
-                  space.sizedHeight(height: 10),
-                  CheckboxListTile.adaptive(
-                    visualDensity: VisualDensity.compact,
-                    value: true,
-                    overlayColor: const MaterialStatePropertyAll<Color?>(
-                      AppColors.transparent,
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        'Choose a username for your new account. You can always change it later.',
+                        style: PITextStyle().bodyTextStyle(),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    dense: false,
-                    splashRadius: 0,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: const EdgeInsets.all(0),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    onChanged: (bool? value) {},
-                    title: const Text('Save password'),
-                  ),
-                  space.sizedHeight(height: 10),
-                  PIElevatedButton(onPressed: () {}, child: const Text('Next'))
-                      .expanded(context),
-                ],
+                    space.sizedHeight(),
+                    PITextFormField(
+                      hint: 'Password',
+                      textEditingController:
+                          context.read<SignUpBloc>().passwordController,
+                      suffixIcon: state.password.isEmpty
+                          ? const SizedBox()
+                          : InkWell(
+                              onTap: () {
+                                context.read<SignUpBloc>().add(
+                                      PasswordTextfieldChangeEvent(
+                                        password: '',
+                                      ),
+                                    );
+                              },
+                              child: Transform.rotate(
+                                angle: 41.6,
+                                child: const Icon(
+                                  Icons.add_circle_outline_sharp,
+                                  color: AppColors.red,
+                                ),
+                              ),
+                            ),
+                      onChanged: (String value) {
+                        context
+                            .read<SignUpBloc>()
+                            .add(PasswordTextfieldChangeEvent(password: value));
+                      },
+                    ).basicInput(),
+                    space.sizedHeight(height: 10),
+                    CheckboxListTile.adaptive(
+                      visualDensity: VisualDensity.compact,
+                      value: state.savePassword,
+                      overlayColor: const MaterialStatePropertyAll<Color?>(
+                        AppColors.transparent,
+                      ),
+                      dense: false,
+                      splashRadius: 0,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      contentPadding: EdgeInsets.zero,
+                      checkboxShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                      activeColor: AppColors.blue,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      onChanged: (bool? value) {
+                        context.read<SignUpBloc>().add(
+                              SavepasswordButtonPressed(
+                                savePassword: value ?? true,
+                              ),
+                            );
+                      },
+                      title: const Text('Save password'),
+                    ),
+                    space.sizedHeight(height: 10),
+                    PIElevatedButton(
+                      onPressed: state.password.length < 6
+                          ? null
+                          : () {
+                              final FormState? form = formKey.currentState;
+                              if (form != null && form.validate()) {}
+                            },
+                      child: const Text('Next'),
+                    ).expanded(context),
+                  ],
+                ),
               );
             },
           ),

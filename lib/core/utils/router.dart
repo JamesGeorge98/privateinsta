@@ -4,7 +4,7 @@ import 'package:privateinsta/src/auth/auth_repo.dart';
 import 'package:privateinsta/src/auth/sigin/bloc/sigin_bloc.dart';
 import 'package:privateinsta/src/auth/sigin/signin_view.dart';
 import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
-import 'package:privateinsta/src/auth/signup/signup_view.dart';
+import 'package:privateinsta/src/auth/signup/sign_up_view.dart';
 import 'package:privateinsta/src/main_screen/discover/discover_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';

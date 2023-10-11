@@ -15,11 +15,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({required this.authService}) : super(const SignUpState()) {
     on<UserNameTextfieldChangeEvent>(_handleUserNameChangedEvent);
     on<CheckUserNameAPIHit>(_hitChangeTextFieldStatus);
+    on<PasswordTextfieldChangeEvent>(_hitPasswordChangeEvent);
+    on<SavepasswordButtonPressed>(_hitSavePasswordEvent);
   }
 
   final AuthenticationRepository authService;
 
   TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   Timer? _debounceTimer;
 
@@ -71,7 +74,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       _debounceTimer!.cancel();
     }
 
-    _debounceTimer = Timer(const Duration(milliseconds: 2000), () async {
+    _debounceTimer = Timer(const Duration(milliseconds: 1500), () async {
       if (state.username.isNotEmpty) {
         try {
           final List<String> names =
@@ -150,6 +153,29 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         }
       }
     } catch (e) {}
+  }
+
+  Future<void> _hitPasswordChangeEvent(
+    PasswordTextfieldChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    passwordController.text = event.password;
+    emit(
+      state.copyWith(
+        password: event.password,
+      ),
+    );
+  }
+
+  Future<void> _hitSavePasswordEvent(
+    SavepasswordButtonPressed event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        savePassword: event.savePassword,
+      ),
+    );
   }
 
   @override

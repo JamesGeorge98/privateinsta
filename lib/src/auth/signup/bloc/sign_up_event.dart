@@ -19,6 +19,22 @@ class UserNameTextfieldChangeEvent extends SignUpEvent {
   List<Object?> get props => <Object?>[username];
 }
 
+class PasswordTextfieldChangeEvent extends SignUpEvent {
+  PasswordTextfieldChangeEvent({required this.password});
+  final String password;
+
+  @override
+  List<Object?> get props => <Object?>[password];
+}
+
+class SavepasswordButtonPressed extends SignUpEvent {
+  SavepasswordButtonPressed({required this.savePassword});
+  final bool savePassword;
+
+  @override
+  List<Object?> get props => <Object?>[savePassword];
+}
+
 class CheckUserNameAPIHit extends SignUpEvent {
   CheckUserNameAPIHit({
     required this.isLoading,

@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: AppColors.darkFieldColor,
             ),
             checkboxTheme: const CheckboxThemeData(
-              fillColor: MaterialStatePropertyAll<Color?>(AppColors.blue),
+              // fillColor: MaterialStatePropertyAll<Color?>(AppColors.blue),
               checkColor:
                   MaterialStatePropertyAll<Color?>(AppColors.darkFieldColor),
             ),
