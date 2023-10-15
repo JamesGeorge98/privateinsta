@@ -370,27 +370,13 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
       children: <Widget>[
         PITextFormField(
           obscureText: true,
-          hint: 'Password',
-          textEditingController: context.read<SignUpBloc>().passwordController,
-          suffixIcon: state.password.isEmpty
-              ? const SizedBox()
-              : InkWell(
-                  onTap: () {
-                    context.read<SignUpBloc>().passwordController.clear();
-                  },
-                  child: Transform.rotate(
-                    angle: 41.6,
-                    child: const Icon(
-                      Icons.add_circle_outline_sharp,
-                    ),
-                  ),
-                ),
+          hint: 'Phone number',
           onChanged: (String value) {
             context
                 .read<SignUpBloc>()
                 .add(PasswordTextfieldChangeEvent(password: value));
           },
-        ).basicInput(),
+        ).phoneNumberWithCountryCode(context),
         space.sizedHeight(height: 10),
         PIElevatedButton(
           onPressed: state.password.length < 6
