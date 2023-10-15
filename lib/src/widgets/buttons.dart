@@ -83,22 +83,22 @@ class PIElevatedButton extends ElevatedButton {
       onPressed: onPressed,
       autofocus: autoFocus,
       style: ButtonStyle(
-        maximumSize: MaterialStatePropertyAll(
+        maximumSize: MaterialStatePropertyAll<Size>(
           Size(
             MediaQuery.of(context).size.width * 0.9,
             MediaQuery.of(context).size.height * 0.1,
           ),
         ),
-        backgroundColor: MaterialStatePropertyAll(
+        backgroundColor: MaterialStatePropertyAll<Color>(
           Theme.of(context).textTheme.bodyLarge!.color !=
                   const Color(0xdd000000)
               ? AppColors.darkFieldColor
               : AppColors.textFieldColor,
         ),
-        foregroundColor: MaterialStatePropertyAll(
+        foregroundColor: MaterialStatePropertyAll<Color?>(
           Theme.of(context).textTheme.bodyLarge!.color,
         ),
-        shape: MaterialStatePropertyAll(
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         ),
       ),
@@ -111,6 +111,15 @@ class PIElevatedButton extends ElevatedButton {
       onPressed: onPressed,
       autofocus: autoFocus,
       style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith<Color>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return AppColors.blue.withOpacity(0.5);
+            } else {
+              return AppColors.blue;
+            }
+          },
+        ),
         minimumSize: MaterialStatePropertyAll(
           Size(
             MediaQuery.of(context).size.width,

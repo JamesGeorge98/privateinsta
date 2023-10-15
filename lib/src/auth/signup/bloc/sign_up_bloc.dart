@@ -159,7 +159,12 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     PasswordTextfieldChangeEvent event,
     Emitter<SignUpState> emit,
   ) async {
-    passwordController.text = event.password;
+    usernameController.value = TextEditingValue(
+      text: passwordController.text,
+      selection: TextSelection.collapsed(
+        offset: passwordController.selection.baseOffset,
+      ),
+    );
     emit(
       state.copyWith(
         password: event.password,
@@ -181,6 +186,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   @override
   Future<void> close() async {
     usernameController.dispose();
+    passwordController.dispose();
     await super.close();
   }
 }

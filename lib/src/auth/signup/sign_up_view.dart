@@ -22,6 +22,7 @@ class SignUpScreen extends StatelessWidget {
     return Navigator(
       key: nestedNavigatorKey,
       onGenerateRoute: AppRouter().signUpNestedRoutes,
+      initialRoute: CreatePhoneNumberOrEmail.routeName,
     );
   }
 }
@@ -55,7 +56,7 @@ class CreateUserName extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
           child: BlocConsumer<SignUpBloc, SignUpState>(
             listener: (BuildContext context, SignUpState state) {
               if (state.status == SignUpStatus.failure) {
@@ -114,12 +115,9 @@ class CreateUserName extends StatelessWidget {
                               state.status == SignUpStatus.failure
                           ? null
                           : () {
-                              Navigator.push(
+                              Navigator.restorablePushNamed(
                                 context,
-                                PIPageRoute(
-                                  child: const CreatePassword(),
-                                  direction: AxisDirection.left,
-                                ),
+                                CreatePassword.routeName,
                               );
                             },
                       child: const Text('Next'),
@@ -214,6 +212,7 @@ class CreatePassword extends StatelessWidget {
                     ),
                     space.sizedHeight(),
                     PITextFormField(
+                      obscureText: true,
                       hint: 'Password',
                       textEditingController:
                           context.read<SignUpBloc>().passwordController,
@@ -221,17 +220,15 @@ class CreatePassword extends StatelessWidget {
                           ? const SizedBox()
                           : InkWell(
                               onTap: () {
-                                context.read<SignUpBloc>().add(
-                                      PasswordTextfieldChangeEvent(
-                                        password: '',
-                                      ),
-                                    );
+                                context
+                                    .read<SignUpBloc>()
+                                    .passwordController
+                                    .clear();
                               },
                               child: Transform.rotate(
                                 angle: 41.6,
                                 child: const Icon(
                                   Icons.add_circle_outline_sharp,
-                                  color: AppColors.red,
                                 ),
                               ),
                             ),
@@ -272,7 +269,12 @@ class CreatePassword extends StatelessWidget {
                           ? null
                           : () {
                               final FormState? form = formKey.currentState;
-                              if (form != null && form.validate()) {}
+                              if (form != null && form.validate()) {
+                                Navigator.restorablePushNamed(
+                                  context,
+                                  CreatePhoneNumberOrEmail.routeName,
+                                );
+                              }
                             },
                       child: const Text('Next'),
                     ).expanded(context),
@@ -283,6 +285,177 @@ class CreatePassword extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CreatePhoneNumberOrEmail extends StatelessWidget {
+  const CreatePhoneNumberOrEmail({super.key});
+
+  static const SizedBox space = SizedBox();
+
+  static const String routeName = '/createnumberoremail';
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+          child: BlocConsumer<SignUpBloc, SignUpState>(
+            listener: (BuildContext context, SignUpState state) {},
+            builder: (BuildContext context, SignUpState state) {
+              return DefaultTabController(
+                length: 2,
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'Add phone number or email address',
+                        style: PITextStyle().headerTextStyle(),
+                      ),
+                      TabBar(
+                        indicatorColor: Theme.of(context).primaryColorLight,
+                        splashBorderRadius: BorderRadius.circular(0),
+                        splashFactory: NoSplash.splashFactory,
+                        tabs: const <Widget>[
+                          Tab(
+                            child: Text('Phone'),
+                          ),
+                          Tab(
+                            child: Text('Email'),
+                          ),
+                        ],
+                      ),
+                      space.sizedHeight(),
+                      Expanded(
+                        child: TabBarView(
+                          children: <Widget>[
+                            phoneTab(context, state, formKey),
+                            emailTab(context, state, formKey),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget phoneTab(
+    BuildContext context,
+    SignUpState state,
+    GlobalKey<FormState> formKey,
+  ) {
+    return Column(
+      children: <Widget>[
+        PITextFormField(
+          obscureText: true,
+          hint: 'Password',
+          textEditingController: context.read<SignUpBloc>().passwordController,
+          suffixIcon: state.password.isEmpty
+              ? const SizedBox()
+              : InkWell(
+                  onTap: () {
+                    context.read<SignUpBloc>().passwordController.clear();
+                  },
+                  child: Transform.rotate(
+                    angle: 41.6,
+                    child: const Icon(
+                      Icons.add_circle_outline_sharp,
+                    ),
+                  ),
+                ),
+          onChanged: (String value) {
+            context
+                .read<SignUpBloc>()
+                .add(PasswordTextfieldChangeEvent(password: value));
+          },
+        ).basicInput(),
+        space.sizedHeight(height: 10),
+        PIElevatedButton(
+          onPressed: state.password.length < 6
+              ? null
+              : () {
+                  final FormState? form = formKey.currentState;
+                  if (form != null && form.validate()) {
+                    Navigator.restorablePushNamed(
+                      context,
+                      CreatePhoneNumberOrEmail.routeName,
+                    );
+                  }
+                },
+          child: const Text('Next'),
+        ).expanded(context),
+      ],
+    );
+  }
+
+  Widget emailTab(
+    BuildContext context,
+    SignUpState state,
+    GlobalKey<FormState> formKey,
+  ) {
+    return Column(
+      children: <Widget>[
+        PITextFormField(
+          obscureText: true,
+          hint: 'Password',
+          textEditingController: context.read<SignUpBloc>().passwordController,
+          suffixIcon: state.password.isEmpty
+              ? const SizedBox()
+              : InkWell(
+                  onTap: () {
+                    context.read<SignUpBloc>().passwordController.clear();
+                  },
+                  child: Transform.rotate(
+                    angle: 41.6,
+                    child: const Icon(
+                      Icons.add_circle_outline_sharp,
+                    ),
+                  ),
+                ),
+          onChanged: (String value) {
+            context
+                .read<SignUpBloc>()
+                .add(PasswordTextfieldChangeEvent(password: value));
+          },
+        ).basicInput(),
+        space.sizedHeight(height: 10),
+        PIElevatedButton(
+          onPressed: state.password.length < 6
+              ? null
+              : () {
+                  final FormState? form = formKey.currentState;
+                  if (form != null && form.validate()) {
+                    Navigator.restorablePushNamed(
+                      context,
+                      CreatePhoneNumberOrEmail.routeName,
+                    );
+                  }
+                },
+          child: const Text('Next'),
+        ).expanded(context),
+      ],
     );
   }
 }

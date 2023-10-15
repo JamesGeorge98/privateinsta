@@ -162,6 +162,16 @@ class AppRouter {
           child: const CreateUserName(),
           settings: routeSettings,
         );
+      case CreatePassword.routeName:
+        return PIPageRoute(
+          child: const CreatePassword(),
+          settings: routeSettings,
+        );
+      case CreatePhoneNumberOrEmail.routeName:
+        return PIPageRoute(
+          child: const CreatePhoneNumberOrEmail(),
+          settings: routeSettings,
+        );
       default:
         return PIPageRoute(
           child: const CreateUserName(),

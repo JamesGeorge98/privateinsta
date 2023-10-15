@@ -35,6 +35,13 @@ class SavepasswordButtonPressed extends SignUpEvent {
   List<Object?> get props => <Object?>[savePassword];
 }
 
+class TextFieldClearEvent extends SignUpEvent {
+  TextFieldClearEvent();
+
+  @override
+  List<Object?> get props => <Object?>[];
+}
+
 class CheckUserNameAPIHit extends SignUpEvent {
   CheckUserNameAPIHit({
     required this.isLoading,
