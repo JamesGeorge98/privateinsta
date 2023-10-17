@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:privateinsta/core/utils/country_code.dart';
+import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/texts.dart';
 
@@ -55,18 +55,21 @@ class BottomSheets {
         return Column(
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 PITextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text('canecl'),
+                  child: const Text('cancel'),
                 ).basic(),
-                Align(
-                  child: Text(
-                    'Select Country',
-                    style: PITextStyle().bodyTextStyle(),
-                  ),
+                const Spacer(),
+                const Text(
+                  'Select Country',
+                  style: TextStyle(fontSize: 18),
+                ),
+                const Spacer(
+                  flex: 2,
                 ),
               ],
             ),
@@ -76,12 +79,18 @@ class BottomSheets {
                   onTap: () {
                     Navigator.of(context).pop(index);
                   },
-                  title: Text(CountryCode.countryData[index].countryName),
-                  trailing: const Text('12'),
+                  title: Text(
+                    PhoneNumber.countriesPhoneNumberCodes[index].countryName ??
+                        'India',
+                  ),
+                  trailing: Text(
+                    PhoneNumber.countriesPhoneNumberCodes[index].countryCode ??
+                        '+91',
+                  ),
                 ),
                 separatorBuilder: (BuildContext context, int index) =>
                     const Divider(indent: 10),
-                itemCount: CountryCode.countryData.length,
+                itemCount: PhoneNumber.countriesPhoneNumberCodes.length,
               ),
             ),
           ],

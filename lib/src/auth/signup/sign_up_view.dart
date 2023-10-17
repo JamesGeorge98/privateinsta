@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:privateinsta/core/constants/colors.dart';
+import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/core/utils/router.dart';
 import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
+import 'package:privateinsta/src/widgets/bottom_sheets.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/extensions.dart';
 import 'package:privateinsta/src/widgets/page_transition.dart';
@@ -366,30 +368,37 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
     SignUpState state,
     GlobalKey<FormState> formKey,
   ) {
+    int? code = 0;
     return Column(
       children: <Widget>[
         PITextFormField(
           obscureText: true,
           hint: 'Phone number',
+          validator: (String? value) {
+            return null;
+          },
           onChanged: (String value) {
             context
                 .read<SignUpBloc>()
-                .add(PasswordTextfieldChangeEvent(password: value));
+                .add(PhoneNumberFieldChnageEvent(phone: value));
           },
-        ).phoneNumberWithCountryCode(context),
+          onTapCountryCode: () async {
+            code =
+                await BottomSheets(context: context).countryCodeBottomSheets();
+            print(code);
+            if (context.mounted) {
+              context.read<SignUpBloc>().add(
+                    PhoneNumberFieldChnageEvent(countryCode: code.toString()),
+                  );
+            }
+          },
+          selectCountryCode: PhoneNumber.countriesPhoneNumberCodes[code],
+        ).phoneNumberWithCountryCode(
+          context,
+        ),
         space.sizedHeight(height: 10),
         PIElevatedButton(
-          onPressed: state.password.length < 6
-              ? null
-              : () {
-                  final FormState? form = formKey.currentState;
-                  if (form != null && form.validate()) {
-                    Navigator.restorablePushNamed(
-                      context,
-                      CreatePhoneNumberOrEmail.routeName,
-                    );
-                  }
-                },
+          onPressed: state.password.length < 6 ? null : () {},
           child: const Text('Next'),
         ).expanded(context),
       ],

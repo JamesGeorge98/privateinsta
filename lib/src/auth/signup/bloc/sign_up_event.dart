@@ -42,6 +42,15 @@ class TextFieldClearEvent extends SignUpEvent {
   List<Object?> get props => <Object?>[];
 }
 
+class PhoneNumberFieldChnageEvent extends SignUpEvent {
+  PhoneNumberFieldChnageEvent({this.phone, this.countryCode});
+  final String? phone;
+  final String? countryCode;
+
+  @override
+  List<Object?> get props => <Object?>[phone, countryCode];
+}
+
 class CheckUserNameAPIHit extends SignUpEvent {
   CheckUserNameAPIHit({
     required this.isLoading,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/colors.dart';
-import 'package:privateinsta/core/utils/country_code.dart';
+import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/widgets/bottom_sheets.dart';
 
 class PITextFormField {
@@ -13,6 +13,8 @@ class PITextFormField {
     this.onEditingComplete,
     this.validator,
     this.prefix,
+    this.onTapCountryCode,
+    this.selectCountryCode,
   });
   final String? hint;
   final Widget? suffixIcon;
@@ -22,6 +24,8 @@ class PITextFormField {
   void Function()? onEditingComplete;
   Widget? prefix;
   String? Function(String?)? validator;
+  void Function()? onTapCountryCode;
+  PhoneNumber? selectCountryCode;
 
   Widget basicInput() {
     return TextFormField(
@@ -48,12 +52,15 @@ class PITextFormField {
     );
   }
 
-  Widget phoneNumberWithCountryCode(BuildContext context) {
+  Widget phoneNumberWithCountryCode(
+    BuildContext context,
+  ) {
+    selectCountryCode ??= PhoneNumber.india();
     return TextFormField(
       onEditingComplete: onEditingComplete,
       controller: textEditingController,
       validator: validator,
-      obscureText: obscureText,
+      keyboardType: TextInputType.phone,
       onChanged: onChanged,
       decoration: InputDecoration(
         focusColor: AppColors.transparent,
@@ -71,26 +78,28 @@ class PITextFormField {
         suffixIcon: suffixIcon,
         prefixIcon: Container(
           decoration: const BoxDecoration(
-            border: Border(right: BorderSide(color: Colors.red)),
+            border: Border(right: BorderSide(color: Colors.grey)),
           ),
           padding: const EdgeInsets.only(right: 30),
           margin: const EdgeInsets.only(
             right: 30,
             left: 20,
-            top: 5,
-            bottom: 5,
+            top: 7,
+            bottom: 7,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               InkWell(
-                onTap: () async {
-                  final int? a = await BottomSheets(context: context)
-                      .countryCodeBottomSheets();
-                  // print(CountryCode.countryData[a ?? 0].countryName);
-                },
-                child: const Text(
-                  '214',
+                onTap: onTapCountryCode ??
+                    () async {
+                      final int? a = await BottomSheets(context: context)
+                          .countryCodeBottomSheets();
+                      selectCountryCode =
+                          PhoneNumber.countriesPhoneNumberCodes[a ?? 0];
+                    },
+                child: Text(
+                  selectCountryCode!.countryCode!,
                   textAlign: TextAlign.center,
                 ),
               ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/exception.dart';
+import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/auth/auth_repo.dart';
 
 part 'sign_up_event.dart';
@@ -17,12 +18,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<CheckUserNameAPIHit>(_hitChangeTextFieldStatus);
     on<PasswordTextfieldChangeEvent>(_hitPasswordChangeEvent);
     on<SavepasswordButtonPressed>(_hitSavePasswordEvent);
+    on<PhoneNumberFieldChnageEvent>(_hitPhoneNumberChangeEvent);
   }
 
   final AuthenticationRepository authService;
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   Timer? _debounceTimer;
 
@@ -183,10 +186,22 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     );
   }
 
+  Future<void> _hitPhoneNumberChangeEvent(
+    PhoneNumberFieldChnageEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        phoneNumber: PhoneNumber(phoneNumber: event.phone),
+      ),
+    );
+  }
+
   @override
   Future<void> close() async {
     usernameController.dispose();
     passwordController.dispose();
+    phoneController.dispose();
     await super.close();
   }
 }
