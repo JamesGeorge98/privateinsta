@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/phone_number.dart';
@@ -76,7 +78,7 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
                       Expanded(
                         child: TabBarView(
                           children: <Widget>[
-                            phoneTab(context, state, formKey),
+                            phoneTab(context, state),
                             emailTab(context, state),
                           ],
                         ),
@@ -104,7 +106,6 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
   Widget phoneTab(
     BuildContext context,
     SignUpState state,
-    GlobalKey<FormState> formKey,
   ) {
     return Column(
       children: <Widget>[
@@ -154,6 +155,9 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
             }
             return null;
           },
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly,
+          ],
           textEditingController: context.read<SignUpBloc>().emailController,
           suffixIcon: context.read<SignUpBloc>().emailController.text.isEmpty
               ? const SizedBox()
@@ -181,3 +185,4 @@ class CreatePhoneNumberOrEmail extends StatelessWidget {
     );
   }
 }
+

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/widgets/bottom_sheets.dart';
@@ -16,6 +17,7 @@ class PITextFormField {
     this.prefix,
     this.onTapCountryCode,
     this.selectCountryCode,
+    this.inputFormatters
   });
   final String? hint;
   final Widget? suffixIcon;
@@ -27,6 +29,7 @@ class PITextFormField {
   String? Function(String?)? validator;
   void Function()? onTapCountryCode;
   PhoneNumber? selectCountryCode;
+  List<TextInputFormatter>? inputFormatters;
 
   Widget basicInput() {
     return TextFormField(
@@ -35,6 +38,7 @@ class PITextFormField {
       validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         focusColor: AppColors.transparent,
         hintStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
@@ -103,7 +107,10 @@ class _PIPhoneNumberTextFieldState extends State<PIPhoneNumberTextField> {
             }
             return null;
           },
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.phone,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
       onChanged: (String value) async {
         phoneNumber?.phoneNumber = value;
         widget.onChanged?.call(phoneNumber!);

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/phone_number.dart';
@@ -102,6 +103,30 @@ class BottomSheets {
           ],
         );
       },
+    );
+  }
+
+  Future<void> takeaPhotoBottomSheet() {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        actions: <Widget>[
+          CupertinoActionSheetAction(
+            onPressed: () {},
+            child: const Text('Take a Phone'),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () {},
+            child: const Text('Pick Gallery'),
+          ),
+        ],
+        cancelButton: CupertinoActionSheetAction(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('cancel'),
+        ),
+      ),
     );
   }
 }

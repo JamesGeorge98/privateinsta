@@ -5,9 +5,11 @@ import 'package:privateinsta/src/auth/sigin/bloc/sigin_bloc.dart';
 import 'package:privateinsta/src/auth/sigin/signin_view.dart';
 import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
 import 'package:privateinsta/src/auth/signup/sign_up_view.dart';
+import 'package:privateinsta/src/auth/signup/views/comfirmation_otp.dart';
 import 'package:privateinsta/src/auth/signup/views/create_email_number.dart';
 import 'package:privateinsta/src/auth/signup/views/create_password.dart';
 import 'package:privateinsta/src/auth/signup/views/create_username.dart';
+import 'package:privateinsta/src/auth/signup/views/sign_up_complete.dart';
 import 'package:privateinsta/src/main_screen/discover/discover_view.dart';
 import 'package:privateinsta/src/main_screen/home/home_view.dart';
 import 'package:privateinsta/src/main_screen/main_screen.dart';
@@ -165,16 +167,31 @@ class AppRouter {
           child: const CreateUserName(),
           settings: routeSettings,
         );
+
       case CreatePassword.routeName:
         return PIPageRoute(
           child: const CreatePassword(),
           settings: routeSettings,
         );
+
       case CreatePhoneNumberOrEmail.routeName:
         return PIPageRoute(
           child: const CreatePhoneNumberOrEmail(),
           settings: routeSettings,
         );
+
+      case OTPConfirmView.routeName:
+        return PIPageRoute(
+          child: const OTPConfirmView(),
+          settings: routeSettings,
+        );
+
+      case CompleteSignUp.routeName:
+        return PIPageRoute(
+          child: const CompleteSignUp(),
+          settings: routeSettings,
+        );
+
       default:
         return PIPageRoute(
           child: const CreateUserName(),

@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MyIcons.ttf
 ///
-/// 
+///
 /// * Linecons, Copyright (C) 2013 by Designmodo
 ///         Author:    Designmodo for Smashing Magazine
 ///         License:   CC BY ()
@@ -26,6 +26,7 @@
 ///         Homepage:  https://design.google.com/icons/
 ///
 library;
+
 import 'package:flutter/widgets.dart';
 
 class MyIcons {
@@ -36,7 +37,8 @@ class MyIcons {
 
   static const IconData camera = IconData(0xe800, fontFamily: _kFontFam);
   static const IconData home = IconData(0xe801, fontFamily: _kFontFam);
-  static const IconData invisiblityicon = IconData(0xe802, fontFamily: _kFontFam);
+  static const IconData invisiblityicon =
+      IconData(0xe802, fontFamily: _kFontFam);
   static const IconData profile = IconData(0xe803, fontFamily: _kFontFam);
   static const IconData reels = IconData(0xe804, fontFamily: _kFontFam);
   static const IconData post = IconData(0xe805, fontFamily: _kFontFam);
@@ -55,4 +57,6 @@ class MyIcons {
   static const IconData videocam = IconData(0xe812, fontFamily: _kFontFam);
   static const IconData homeFilled = IconData(0xe813, fontFamily: _kFontFam);
   static const IconData grid = IconData(0xe98b, fontFamily: _kFontFam);
+  static const IconData icons8check =
+      IconData(0xe814, fontFamily: _kFontFam);
 }
