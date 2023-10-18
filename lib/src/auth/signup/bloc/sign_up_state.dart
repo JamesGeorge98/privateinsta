@@ -11,6 +11,7 @@ class SignUpState extends Equatable {
     this.expection,
     this.password = '',
     this.phoneNumber,
+    this.email,
     this.savePassword = true,
   });
 
@@ -22,6 +23,7 @@ class SignUpState extends Equatable {
   final String password;
   final bool savePassword;
   final PhoneNumber? phoneNumber;
+  final String? email;
 
   SignUpState copyWith({
     String? username,
@@ -32,16 +34,19 @@ class SignUpState extends Equatable {
     List<String>? availableNames,
     bool? savePassword,
     PhoneNumber? phoneNumber,
-  }) {
+    String? email,
+    }) {
     return SignUpState(
-        savePassword: savePassword ?? this.savePassword,
-        password: password ?? this.password,
-        username: username ?? this.username,
-        suffixIcon: suffixIcon ?? this.suffixIcon,
-        status: status ?? this.status,
-        expection: expection ?? this.expection,
-        availableNames: availableNames ?? this.availableNames,
-        phoneNumber: phoneNumber ?? this.phoneNumber);
+      email: email ?? this.email,
+      savePassword: savePassword ?? this.savePassword,
+      password: password ?? this.password,
+      username: username ?? this.username,
+      suffixIcon: suffixIcon ?? this.suffixIcon,
+      status: status ?? this.status,
+      expection: expection ?? this.expection,
+      availableNames: availableNames ?? this.availableNames,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+    );
   }
 
   @override
@@ -53,5 +58,6 @@ class SignUpState extends Equatable {
         password,
         savePassword,
         phoneNumber,
+        email,
       ];
 }

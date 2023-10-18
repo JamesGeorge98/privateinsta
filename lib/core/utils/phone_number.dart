@@ -2,42 +2,50 @@ class PhoneNumber {
   PhoneNumber({
     this.countryName,
     this.countryCode,
-    this.countryDigitLength,
+    this.countryDigitMinLength,
+    this.countryDigitMaxLength,
+    this.countryDialCode,
     this.phoneNumber,
   });
 
   factory PhoneNumber.india() {
     return countriesPhoneNumberCodes
-        .where((PhoneNumber element) => element.countryCode == '+91')
+        .where((PhoneNumber element) => element.countryDialCode == '+91')
         .toList()
         .first;
   }
 
-  final String? countryName;
-  final String? countryCode;
-  final String? countryDigitLength;
-  final String? phoneNumber;
+  String? countryName;
+  String? countryCode;
+  String? countryDialCode;
+  int? countryDigitMinLength;
+  int? countryDigitMaxLength;
+  String? phoneNumber;
 
   static List<PhoneNumber> countriesPhoneNumberCodes = <PhoneNumber>[
     PhoneNumber(
       countryName: 'India',
-      countryCode: '+91',
-      countryDigitLength: '10',
+      countryCode: 'IN',
+      countryDigitMinLength: 10,
+      countryDialCode: '+91',
     ),
     PhoneNumber(
       countryName: 'United States',
-      countryCode: '+355',
-      countryDigitLength: '8',
+      countryCode: 'US',
+      countryDigitMinLength: 8,
+      countryDialCode: '+355',
     ),
     PhoneNumber(
       countryName: 'Japan',
-      countryCode: '+111',
-      countryDigitLength: '7',
+      countryCode: 'JP',
+      countryDigitMinLength: 7,
+      countryDialCode: '+111',
     ),
     PhoneNumber(
       countryName: 'Sri landka',
-      countryCode: '+11',
-      countryDigitLength: '12',
+      countryCode: 'SL',
+      countryDigitMinLength: 12,
+      countryDialCode: '+11',
     ),
   ];
 }

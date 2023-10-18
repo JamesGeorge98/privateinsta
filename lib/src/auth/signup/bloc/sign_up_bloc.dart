@@ -19,6 +19,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<PasswordTextfieldChangeEvent>(_hitPasswordChangeEvent);
     on<SavepasswordButtonPressed>(_hitSavePasswordEvent);
     on<PhoneNumberFieldChnageEvent>(_hitPhoneNumberChangeEvent);
+    on<EmailChangeEvent>(_hitEmailChangeEvent);
   }
 
   final AuthenticationRepository authService;
@@ -26,6 +27,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   Timer? _debounceTimer;
 
@@ -115,6 +117,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
                 angle: 41.6,
                 child: const Icon(
                   Icons.add_circle_outline_sharp,
+                  color: AppColors.grey,
+                  size: 16,
                 ),
               ),
             ),
@@ -147,7 +151,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
                         angle: 41.6,
                         child: const Icon(
                           Icons.add_circle_outline_sharp,
-                          color: AppColors.red,
+                          color: AppColors.grey,
+                          size: 16,
                         ),
                       ),
                     ),
@@ -162,7 +167,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     PasswordTextfieldChangeEvent event,
     Emitter<SignUpState> emit,
   ) async {
-    usernameController.value = TextEditingValue(
+    passwordController.value = TextEditingValue(
       text: passwordController.text,
       selection: TextSelection.collapsed(
         offset: passwordController.selection.baseOffset,
@@ -190,10 +195,32 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     PhoneNumberFieldChnageEvent event,
     Emitter<SignUpState> emit,
   ) async {
+    phoneController.value = TextEditingValue(
+      text: phoneController.text,
+      selection: TextSelection.collapsed(
+        offset: phoneController.selection.baseOffset,
+      ),
+    );
+    event.phoneNumber?.phoneNumber = phoneController.text;
     emit(
       state.copyWith(
-        phoneNumber: PhoneNumber(phoneNumber: event.phone),
+        phoneNumber: event.phoneNumber,
       ),
+    );
+  }
+
+  Future<void> _hitEmailChangeEvent(
+    EmailChangeEvent event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emailController.value = TextEditingValue(
+      text: emailController.text,
+      selection: TextSelection.collapsed(
+        offset: emailController.selection.baseOffset,
+      ),
+    );
+    state.copyWith(
+      email: event.email,
     );
   }
 
@@ -202,6 +229,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     usernameController.dispose();
     passwordController.dispose();
     phoneController.dispose();
+    emailController.dispose();
     await super.close();
   }
 }

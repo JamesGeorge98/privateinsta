@@ -43,12 +43,19 @@ class TextFieldClearEvent extends SignUpEvent {
 }
 
 class PhoneNumberFieldChnageEvent extends SignUpEvent {
-  PhoneNumberFieldChnageEvent({this.phone, this.countryCode});
-  final String? phone;
-  final String? countryCode;
+  PhoneNumberFieldChnageEvent({this.phoneNumber});
+  final PhoneNumber? phoneNumber;
 
   @override
-  List<Object?> get props => <Object?>[phone, countryCode];
+  List<Object?> get props => <Object?>[phoneNumber];
+}
+
+class EmailChangeEvent extends SignUpEvent {
+  EmailChangeEvent({this.email});
+final String? email;
+
+  @override
+  List<Object?> get props => <Object?>[email];
 }
 
 class CheckUserNameAPIHit extends SignUpEvent {

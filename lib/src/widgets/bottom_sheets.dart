@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
 import 'package:privateinsta/src/widgets/texts.dart';
@@ -46,11 +47,12 @@ class BottomSheets {
     );
   }
 
-  Future<int?> countryCodeBottomSheets() {
-    return showModalBottomSheet<int>(
+  Future<PhoneNumber?> countryCodeBottomSheets() {
+    return showModalBottomSheet<PhoneNumber>(
       useSafeArea: true,
       isScrollControlled: true,
       context: context,
+      backgroundColor: AppColors.black,
       builder: (BuildContext context) {
         return Column(
           children: <Widget>[
@@ -77,7 +79,8 @@ class BottomSheets {
               child: ListView.separated(
                 itemBuilder: (BuildContext context, int index) => ListTile(
                   onTap: () {
-                    Navigator.of(context).pop(index);
+                    Navigator.of(context)
+                        .pop(PhoneNumber.countriesPhoneNumberCodes[index]);
                   },
                   title: Text(
                     PhoneNumber.countriesPhoneNumberCodes[index].countryName ??
@@ -89,7 +92,10 @@ class BottomSheets {
                   ),
                 ),
                 separatorBuilder: (BuildContext context, int index) =>
-                    const Divider(indent: 10),
+                    const Divider(
+                  indent: 10,
+                  color: AppColors.grey,
+                ),
                 itemCount: PhoneNumber.countriesPhoneNumberCodes.length,
               ),
             ),
