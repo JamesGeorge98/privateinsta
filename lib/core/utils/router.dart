@@ -5,6 +5,7 @@ import 'package:privateinsta/src/auth/sigin/bloc/sigin_bloc.dart';
 import 'package:privateinsta/src/auth/sigin/signin_view.dart';
 import 'package:privateinsta/src/auth/signup/bloc/sign_up_bloc.dart';
 import 'package:privateinsta/src/auth/signup/sign_up_view.dart';
+import 'package:privateinsta/src/auth/signup/views/add_profile_image.dart';
 import 'package:privateinsta/src/auth/signup/views/comfirmation_otp.dart';
 import 'package:privateinsta/src/auth/signup/views/create_email_number.dart';
 import 'package:privateinsta/src/auth/signup/views/create_password.dart';
@@ -191,6 +192,13 @@ class AppRouter {
           child: const CompleteSignUp(),
           settings: routeSettings,
         );
+
+       case AddProfilePhoto.routeName:
+        return PIPageRoute(
+          child: const AddProfilePhoto(),
+          settings: routeSettings,
+        );
+
 
       default:
         return PIPageRoute(

@@ -33,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       floatHeaderSlivers: true,
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrollable) => <Widget>[
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrollable) =>
+          <Widget>[
         SliverAppBar(
           floating: true,
           title: Text(
@@ -47,22 +48,26 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 0,
           actions: <Widget>[
             PITextButton(
-                onPressed: () {
-                  Navigator.restorablePushNamed(
-                      context, NotificationScreen.routeName,);
-                },
-                child: const Icon(
-                  Icons.favorite_border_rounded,
-                  size: 30,
-                ),).iconButton(context),
+              onPressed: () {
+                Navigator.restorablePushNamed(
+                  context,
+                  NotificationScreen.routeName,
+                );
+              },
+              child: const Icon(
+                Icons.favorite_border_rounded,
+                size: 30,
+              ),
+            ).iconButton(context),
             PITextButton(
-                onPressed: () {
-                  MainScreen.changePage(context: context);
-                },
-                child: const Icon(
-                  AppIcons.messenger,
-                  size: 25,
-                ),).iconButton(context),
+              onPressed: () {
+                MainScreen.changePage(context: context);
+              },
+              child: const Icon(
+                AppIcons.messenger,
+                size: 25,
+              ),
+            ).iconButton(context),
           ],
         ),
       ],
@@ -70,31 +75,35 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.only(),
         children: <Widget>[
           Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: LimitedBox(
-                maxHeight: MediaQuery.of(context).size.height * .10,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) =>
-                        customWidget.displayPictureView(
-                            index: index,
-                            isStroy: index == 0 ? false : true,),
-                    itemCount: 10,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox().sizedWidth(width: 5),),
-              ),),
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: LimitedBox(
+              maxHeight: MediaQuery.of(context).size.height * .10,
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) =>
+                    customWidget.displayPictureView(
+                  index: index,
+                  isStroy: index == 0 ? false : true,
+                ),
+                itemCount: 10,
+                separatorBuilder: (BuildContext context, int index) =>
+                    const SizedBox().sizedWidth(width: 5),
+              ),
+            ),
+          ),
           ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox().sizedHeight(),
-              itemCount: 5,
-              itemBuilder: (BuildContext context, int index) {
-                return index % 2 == 0
-                    ? customWidget.instaPostFeedView()
-                    : customWidget.instaReelsFeedView();
-              },),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox().sizedHeight(),
+            itemCount: 5,
+            itemBuilder: (BuildContext context, int index) {
+              return index.isEven
+                  ? customWidget.instaPostFeedView()
+                  : customWidget.instaReelsFeedView();
+            },
+          ),
         ],
       ),
     );

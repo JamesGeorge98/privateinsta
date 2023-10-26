@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:privateinsta/core/utils/router.dart';
+import 'package:privateinsta/src/auth/signup/views/add_profile_image.dart';
 import 'package:privateinsta/src/auth/signup/views/comfirmation_otp.dart';
 import 'package:privateinsta/src/auth/signup/views/sign_up_complete.dart';
 
@@ -15,7 +16,7 @@ class SignUpScreen extends StatelessWidget {
     return Navigator(
       key: nestedNavigatorKey,
       onGenerateRoute: AppRouter().signUpNestedRoutes,
-      initialRoute: CompleteSignUp.routeName,
+      initialRoute: AddProfilePhoto.routeName,
     );
   }
 }
