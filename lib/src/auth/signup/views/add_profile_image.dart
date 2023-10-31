@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,35 +45,35 @@ class AddProfilePhoto extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     const Spacer(),
-                    ShaderMask(
-                      blendMode: BlendMode.srcIn,
-                      shaderCallback: (Rect bounds) => const LinearGradient(
-                        colors: <Color>[
-                          AppColors.instaSandle,
-                          AppColors.instaOrange,
-                          AppColors.instaPink,
-                          AppColors.instaPurple,
-                        ],
-                      ).createShader(bounds),
-                      child: const Stack(
-                        children: <Widget>[
-                          Icon(
-                            AppIcons.profile,
-                            size: 100,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              child: Icon(
-                                Icons.add_circle_outline_outlined,
-                                size: 40,
-                              ),
+                    // ShaderMask(
+                    //   blendMode: BlendMode.srcIn,
+                    //   shaderCallback: (Rect bounds) => const LinearGradient(
+                    //     colors: <Color>[
+                    //       AppColors.instaSandle,
+                    //       AppColors.instaOrange,
+                    //       AppColors.instaPink,
+                    //       AppColors.instaPurple,
+                    //     ],
+                    //   ).createShader(bounds),
+                    //   child:
+                    // ),
+                    const Stack(
+                      children: <Widget>[
+                        Icon(
+                          AppIcons.profile,
+                          size: 100,
+                        ),
+                        Positioned(
+                          bottom: -2,
+                          right: -2,
+                          child: CircleAvatar(
+                            child: Icon(
+                              Icons.add_circle_outline_outlined,
+                              size: 40,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     space.sizedHeight(),
                     Text(
@@ -80,8 +82,10 @@ class AddProfilePhoto extends StatelessWidget {
                     ),
                     space.sizedHeight(),
                     PIElevatedButton(
-                      onPressed: () {
-                        BottomSheets(context: context).takeaPhotoBottomSheet();
+                      onPressed: () async {
+                        final File? image = await BottomSheets(context: context)
+                            .chooseImageBottomSheet();
+                        print(image?.uri ?? 'URI');
                       },
                       child: const Text('Complete Sign-up'),
                     ).expanded(context),

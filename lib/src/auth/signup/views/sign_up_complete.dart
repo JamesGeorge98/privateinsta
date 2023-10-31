@@ -65,7 +65,7 @@ class CompleteSignUp extends StatelessWidget {
                     space.sizedHeight(),
                     PIElevatedButton(
                       onPressed: () {
-                        BottomSheets(context: context).takeaPhotoBottomSheet();
+                        BottomSheets(context: context).chooseImageBottomSheet();
                       },
                       child: const Text('Complete Sign-up'),
                     ).expanded(context),

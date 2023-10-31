@@ -1,9 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:privateinsta/core/constants/colors.dart';
 import 'package:privateinsta/core/utils/phone_number.dart';
 import 'package:privateinsta/src/widgets/buttons.dart';
-import 'package:privateinsta/src/widgets/texts.dart';
 
 class BottomSheets {
   BottomSheets({required this.context, this.child});
@@ -106,18 +110,43 @@ class BottomSheets {
     );
   }
 
-  Future<void> takeaPhotoBottomSheet() {
+  Future<File?> chooseImageBottomSheet() {
     return showCupertinoModalPopup(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
         actions: <Widget>[
           CupertinoActionSheetAction(
-            onPressed: () {},
-            child: const Text('Take a Phone'),
+            onPressed: () async {
+              try {
+                final XFile? image =
+                    await ImagePicker().pickImage(source: ImageSource.camera);
+
+                if (context.mounted && image != null) {
+                  final File imageTemp = File(image.path);
+                  Navigator.pop(context, imageTemp);
+                }
+              } on PlatformException catch (e) {
+                log('Failed to pick image: $e');
+                return;
+              }
+            },
+            child: const Text('take a photo'),
           ),
           CupertinoActionSheetAction(
-            onPressed: () {},
-            child: const Text('Pick Gallery'),
+            onPressed: () async {
+              try {
+                final XFile? image =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (context.mounted && image != null) {
+                  final File imageTemp = File(image.path);
+                  Navigator.pop(context, imageTemp);
+                }
+              } on PlatformException catch (e) {
+                log('Failed to pick image: $e');
+                return;
+              }
+            },
+            child: const Text('pick gallery'),
           ),
         ],
         cancelButton: CupertinoActionSheetAction(
