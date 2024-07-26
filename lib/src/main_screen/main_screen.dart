@@ -15,11 +15,13 @@ class MainScreen extends StatefulWidget {
   static void changePage({required BuildContext context, bool index = true}) {
     context
         .findAncestorStateOfType<_MainScreenState>()!
-        .changePageFromOutSide(index);
+        .changePageFromOutSide(nextPage: index);
   }
 
-  static void setIshome(
-      {required BuildContext context, bool swipable = false,}) {
+  static void setIshome({
+    required BuildContext context,
+    bool swipable = false,
+  }) {
     context.findAncestorStateOfType<_MainScreenState>()!.setHomePage(swipable);
   }
 
@@ -32,17 +34,20 @@ class _MainScreenState extends State<MainScreen> {
   late final List<Widget> reels;
   bool swipable = true;
 
-  changePageFromOutSide(bool nextPage) {
+  void changePageFromOutSide({required bool nextPage}) {
     nextPage
         ? _controller.nextPage(
-            duration: const Duration(milliseconds: 100), curve: Curves.bounceIn,)
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.bounceIn,
+          )
         : _controller.previousPage(
             duration: const Duration(milliseconds: 100),
-            curve: Curves.bounceIn,);
+            curve: Curves.bounceIn,
+          );
     setState(() {});
   }
 
-  setHomePage(bool value) {
+  void setHomePage(bool value) {
     swipable = value;
     setState(() {});
   }
@@ -94,7 +99,7 @@ class BottomTabScreens extends StatefulWidget {
 class _BottomTabScreensState extends State<BottomTabScreens> {
   int _selectedIndex = 0;
 
-  changeIndexFromOutSide(int index) {
+  void changeIndexFromOutSide(int index) {
     _selectedIndex = index;
     setState(() {});
   }
